@@ -51,7 +51,8 @@ target=np.array([0,height*(.8 if mode=='top' else .43 if product else .35),0]);e
 api('glUniformMatrix4fv',None,[I,I,U,C.POINTER(F)])(loc('matrix'),1,0,matrix(eye,target).ctypes.data_as(C.POINTER(F)));api('glUniform3fv',None,[I,I,C.POINTER(F)])(loc('eye'),1,(F*3)(*eye));api('glUniform1i',None,[I,I])(loc('image'),0)
 api('glEnable',None,[U])(0x0B71);api('glViewport',None,[I,I,I,I])(0,0,w,h);api('glClearColor',None,[F,F,F,F])(0,0,0,0);api('glClear',None,[U])(0x4000|0x0100)
 api('glBlendFuncSeparate',None,[U,U,U,U])(0x0302,0x0303,1,0x0303)
-for file in ([path] if product else [next(models.glob('cafe-table.*.glb')),path]):
+table=Path(sys.argv[4]) if len(sys.argv)>4 else next(models.glob('cafe-table.*.glb'))
+for file in ([path] if product else [table,path]):
     g,b=read_glb(file)
     for mesh in g['meshes']:
         for prim in mesh['primitives']:

@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import vm from 'node:vm';
 import {readFileSync} from 'node:fs';
-import {MODELS,TABLE_SRC,PARENT_ORIGINS} from '../public/assets/models.js';
+import {MODELS,TABLE_SRC,TABLES,previewFor,PARENT_ORIGINS} from '../public/assets/models.js';
 import {cameraFor,eventMatches,canRotate} from '../public/assets/studio-core.js';
 const script=readFileSync(new URL('../public/assets/studio.js',import.meta.url),'utf8').replace(/^import.*;\n/gm,'');
 const turn=()=>new Promise(r=>setImmediate(r));
@@ -31,13 +31,15 @@ async function fixture({reduce=false,embed=false,passive=false,holdRenderer=fals
   const get=id=>{if(!nodes.has(id))nodes.set(id,new Node(id));return nodes.get(id);};
   const modelButtons=Object.keys(MODELS).map(id=>{const n=get('choice-'+id);n.dataset.id=id;return n;});
   const lights=['golden','evening'].map(id=>{const n=get('light-'+id);n.dataset.light=id;return n;});
-  const document={hidden:false,referrer:embed?'https://mennoo.sbs/stands.php':'',documentElement:get('html'),body:{scrollHeight:9999},querySelector:s=>get(s==='.studio'?'studio':s.slice(1)),querySelectorAll:s=>s==='[data-id]'?modelButtons:s==='[data-camera-control]'?['auto-btn','reset-btn','view-btn','top-btn'].map(get):lights,addEventListener:(k,f)=>documentEvents[k]=f,fonts:{ready:Promise.resolve()}};
+  const finishes=['walnut','stone'].map(id=>{const n=get('table-'+id);n.dataset.table=id;return n;});
+  const document={hidden:false,referrer:embed?'https://mennoo.sbs/stands.php':'',documentElement:get('html'),body:{scrollHeight:9999},querySelector:s=>get(s==='.studio'?'studio':s.slice(1)),querySelectorAll:s=>s==='[data-table]'?finishes:s==='[data-id]'?modelButtons:s==='[data-camera-control]'?['auto-btn','reset-btn','view-btn','top-btn'].map(get):lights,addEventListener:(k,f)=>documentEvents[k]=f,fonts:{ready:Promise.resolve()}};
   get('studio').height=1280;
   const pref={matches:reduce,addEventListener:(k,f)=>pref.listener=f};
   const parent={postMessage:(data,origin)=>sent.push({data,origin})};
   const location={pathname:'/',href:'https://stands.mennoo.sbs/'+(embed?'?embed=1':''),reload(){this.reloaded=true;}};
   const history={replaceState(a,b,url){location.href=String(url);}};
   const context={ensureRenderer:()=>{rendererCalls++;return rendererTask;},MODELS,TABLE_SRC,PARENT_ORIGINS,cameraFor,eventMatches,canRotate,document,location,history,parent,URL,console,matchMedia:()=>pref,customElements:{whenDefined:()=>Promise.resolve()},setTimeout:(f,ms)=>{const id=++sequence;timers.set(id,{f,ms});return id;},clearTimeout:id=>timers.delete(id),requestAnimationFrame:f=>{const id=++sequence;raf.set(id,f);return id;},addEventListener:(k,f)=>globalEvents[k]=f,open(){},ResizeObserver:class{constructor(f){this.f=f;}observe(){}},IntersectionObserver:class{constructor(f){this.f=f;observers.push(this);}observe(){}}};context.window=context;
+  Object.assign(context,{TABLES,previewFor,createShowcase:()=>({manual(){},refresh(){},visibility(){}})});
   vm.runInNewContext(script,context);await turn();if(!passive){get('explore-btn').fire('click');await turn();}
   function flush(){const batch=[...raf.values()];raf.clear();batch.forEach(f=>f());}
   flush();
@@ -120,4 +122,21 @@ test('a device without WebGL keeps a preview, disables 3D controls and explains 
  assert.equal(f.get('viewer').getAttribute('src'),null);
  assert.equal(f.get('auto-btn').disabled,true);
  f.get('lock-btn').fire('click');assert.equal(f.get('explore-gate').hidden,false);f.close();
+});
+
+test('table material selection updates both responsive previews without activating graphics',async()=>{
+ const f=await fixture({passive:true});f.get('table-stone').fire('click');
+ assert.equal(f.get('poster-img').src,TABLES.stone.posters.boho.poster);
+ assert.equal(f.get('poster-mobile').srcset,TABLES.stone.posters.boho.posterMobile);
+ assert.equal(f.rendererCalls,0);
+ f.get('choice-mini-polygon').fire('click');
+ assert.equal(f.get('poster-img').src,TABLES.stone.posters['mini-polygon'].poster);
+ f.get('table-walnut').fire('click');assert.equal(f.get('poster-img').src,MODELS['mini-polygon'].poster);f.close();
+});
+test('changing the 3D tabletop preserves the loaded stand and ignores stale table failures',async()=>{
+ const f=await fixture();f.load();const stand=f.get('viewer').getAttribute('src');
+ f.get('table-stone').fire('click');assert.equal(f.get('cafe-table').getAttribute('src'),TABLES.stone.src);
+ assert.equal(f.get('viewer').getAttribute('src'),stand);assert.equal(f.get('auto-btn').disabled,false);
+ f.get('cafe-table').fire('error',{url:TABLE_SRC});assert.equal(f.get('table-status').hidden,true);
+ f.get('cafe-table').fire('error',{url:TABLES.stone.src});assert.equal(f.get('table-status').hidden,false);f.close();
 });

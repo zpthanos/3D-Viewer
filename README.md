@@ -86,3 +86,13 @@ The optional offline tools use Python 3, NumPy and Pillow; native preview render
 After Pages reports a successful deployment, check all four direct model URLs, the activation/lock controls, auto rotation, QR close-up and return links. On a phone, check scrolling before activation, drag/pinch after activation, orientation changes and returning from another tab. Test embedding on the main site's `/stands` page as well.
 
 Automated tests cover interaction logic with test doubles. They are not a browser rendering, mobile device or FPS certification. Live browser verification remains a deployment acceptance step.
+
+## Presentation and café sound
+
+The materials desk switches between the real 3D walnut table and a new honed limestone finish. Each finish has matching desktop/mobile previews for all four stands. Geometry, scale and the supplied QR artwork are unchanged. `tools/build_stone_table.py` creates the original procedural stone texture offline; no texture service or extra server software is used.
+
+**Παρουσίαση** opens a full-window, four-chapter tour: the table, the stand's detail, the recessed QR, then a scannable real demo QR with a direct menu link. The final frame waits for the salesperson. Previous/next, chapter selection, pause, replay, Escape and a visible close button remain available. Touching the model pauses the tour. Reduced motion starts with manual chapter navigation. Hidden tabs and offscreen viewers pause the timeline; loading time does not consume chapters. On devices without WebGL the tour explicitly uses the rendered previews.
+
+Music starts only after the music or presentation button is pressed. `public/assets/cafe-sound.js` synthesizes an original 72 BPM lounge arrangement using sine partials, bass and seeded brush noise: no recordings, third-party samples, streaming account, MP3 download or audio library. A soft limiter, quiet default level, volume control and mute are included. Audio scheduling pauses when the tab/viewer is hidden and stops on navigation. Explicit mute is remembered for subsequent presentations in the same page session. The original score and audio module are dedicated under CC0-1.0; see `AUDIO-LICENSE.md`. This does not change the ownership/license of the logo, QR, models or other site assets.
+
+No fullscreen, microphone, camera or wake-lock permission is needed. In an embedded viewer the presentation fills the iframe; use the standalone Pages address for an entire browser-window presentation. The host iframe must allow audio playback if it sets a restrictive autoplay Permissions Policy.
