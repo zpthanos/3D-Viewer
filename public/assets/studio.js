@@ -1,6 +1,6 @@
-import {MODELS,TABLE_SRC,PARENT_ORIGINS} from './models.js?v=cafe-20261012b';
-import {cameraFor,eventMatches,canRotate} from './studio-core.js?v=cafe-20261012b';
-import {ensureRenderer} from './renderer.js?v=cafe-20261012b';
+import {MODELS,TABLE_SRC,PARENT_ORIGINS} from './models.js?v=cafe-20261012-textures';
+import {cameraFor,eventMatches,canRotate} from './studio-core.js?v=cafe-20261012-textures';
+import {ensureRenderer} from './renderer.js?v=cafe-20261012-textures';
 const $=s=>document.querySelector(s);
 const viewer=$('#viewer'),scene=$('#scene'),auto=$('#auto-btn'),gate=$('#explore-gate');
 const loading=$('#model-loading'),error=$('#model-error'),progress=$('#progress');
@@ -63,7 +63,7 @@ function select(id,update=true){
   const previous=active;active=id;ready=false;expected='';clearTimeout(timer);wanted=false;
   const m=MODELS[id];$('#model-name').textContent=m.name;$('#model-description').textContent=m.description;$('#model-count').textContent=`0${keys.indexOf(id)+1} / 04`;
   $('#model-height').textContent=`${Math.round(m.height*1000)} mm`;
-  $('#poster-img').src=m.poster;viewer.setAttribute('poster',m.poster);viewer.setAttribute('alt',`${m.name}, μαύρο PLA, εσοχή QR 41 επί 41 επί 3 χιλιοστά`);
+  $('#poster-img').src=m.poster;$('#poster-mobile').srcset=m.posterMobile;viewer.setAttribute('poster',m.poster);viewer.setAttribute('alt',`${m.name}, μαύρο PLA, εσοχή QR 41 επί 41 επί 3 χιλιοστά`);
   for(const node of document.querySelectorAll('[data-id]')){const yes=node.dataset.id===id;node.classList.toggle('active',yes);node.setAttribute('aria-pressed',String(yes));}
   viewer.showPoster?.();error.hidden=true;loading.hidden=true;controls();
   if(engaged){if(defined)loadModel();else{engaged=false;engage(false);}}
@@ -84,8 +84,8 @@ async function engage(focus=true){
     await ensureRenderer();defined=true;
     if(current!==activation||!engaged)return;
     clearTimeout(timer);loadTable(tableFailed);loadModel();
-  }catch{
-    if(current===activation&&engaged)failed('Η προβολή 3D δεν ήταν διαθέσιμη. Μπορείτε να δοκιμάσετε ξανά.');
+  }catch(reason){
+    if(current===activation&&engaged)failed(reason?.code==='WEBGL_UNAVAILABLE'?'Η συσκευή δεν μπορεί να εμφανίσει 3D αυτή τη στιγμή. Μπορείτε να δείτε όλα τα σχέδια στις προεπισκοπήσεις.':'Η προβολή 3D δεν ήταν διαθέσιμη. Μπορείτε να δοκιμάσετε ξανά.');
   }
 }
 function lock(){activation++;engaged=false;wanted=false;clearTimeout(timer);loading.hidden=true;error.hidden=true;controls();if(defined)applyView('wide');$('#explore-btn').focus({preventScroll:true});}

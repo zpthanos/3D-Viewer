@@ -9,10 +9,11 @@
   <meta name="robots" content="noindex,nofollow">
   <title>MENNOO 3D Stand Studio | QR Stands 360°</title>
   <link rel="preload" as="font" href="/assets/fonts/roboto-400.woff" type="font/woff" crossorigin>
-  <link rel="preload" as="image" href="/media/cafe.webp" fetchpriority="high">
-  <link rel="stylesheet" href="/assets/studio.css?v=cafe-20261012b">
+  <link rel="preload" as="image" href="/media/poster-boho.6fd7d401f6e5.webp" media="(min-width:601px)" fetchpriority="high">
+  <link rel="preload" as="image" href="/media/poster-boho-mobile.fac93931e3db.webp" media="(max-width:600px)" fetchpriority="high">
+  <link rel="stylesheet" href="/assets/studio.css?v=cafe-20261012-textures">
   <!-- The 3D renderer is imported only after the visitor activates the viewer. -->
-  <script type="module" src="/assets/studio.js?v=cafe-20261012b"></script>
+  <script type="module" src="/assets/studio.js?v=cafe-20261012-textures"></script>
 </head>
 <body>
   <a class="skip-link" href="#studio">Μετάβαση στην προβολή των stands</a>
@@ -46,7 +47,7 @@
             <div class="scene-label"><span class="round-indicator"></span> ΣΤΟ ΚΑΦΕ <span class="scene-label-divider">/</span> ΖΩΝΤΑΝΟ 3D</div>
             <model-viewer
               id="viewer"
-              poster="/media/poster-boho.webp?v=cafe-20261011"
+              poster="/media/poster-boho.6fd7d401f6e5.webp"
               alt="MENNOO BOHO, 3D QR stand σε μαύρο PLA με λευκό QR αυτοκόλλητο, πάνω σε τρισδιάστατο τραπέζι café"
               tabindex="-1"
               touch-action="pan-y"
@@ -71,7 +72,7 @@
               reveal="manual"
               aria-describedby="scene-help">
               <extra-model id="cafe-table"></extra-model>
-              <div class="poster-fallback" slot="poster"><img id="poster-img" src="/media/poster-boho.webp?v=cafe-20261011" alt=""></div>
+              <picture class="poster-fallback" slot="poster"><source id="poster-mobile" media="(max-width:600px)" srcset="/media/poster-boho-mobile.fac93931e3db.webp"><img id="poster-img" src="/media/poster-boho.6fd7d401f6e5.webp" alt="" width="1200" height="1200" fetchpriority="high"></picture>
             </model-viewer>
             <div id="explore-gate" class="explore-gate">
               <div class="gate-copy"><span>ΤΟ ΤΡΑΠΕΖΙ ΣΑΣ ΠΕΡΙΜΕΝΕΙ</span><button type="button" id="explore-btn"><span aria-hidden="true">↗</span> Εξερευνήστε σε 3D</button><p>Αγγίξτε για ενεργοποίηση. Μετά, σύρετε για περιστροφή.</p></div>
@@ -101,10 +102,10 @@
             <div class="divider"></div>
             <div class="panel-title"><span>ΕΠΙΛΟΓΗ ΣΧΕΔΙΟΥ</span><span>04 DESIGNS</span></div>
             <div class="models" id="models" role="group" aria-label="Επιλογή σχεδίου stand">
-              <button type="button" class="model-choice active" data-id="boho" aria-pressed="true"><span class="model-index">01</span><img src="/media/object-boho.webp?v=cafe-20261011" alt="" width="62" height="48"><span class="model-copy"><strong>BOHO</strong><small>Ανάγλυφη υφή</small></span><span class="arrow">↗</span></button>
-              <button type="button" class="model-choice" data-id="mini-polygon" aria-pressed="false"><span class="model-index">02</span><img src="/media/object-mini-polygon.webp?v=cafe-20261011" alt="" width="62" height="48" loading="lazy"><span class="model-copy"><strong>MINI POLYGON</strong><small>Γεωμετρική φόρμα</small></span><span class="arrow">↗</span></button>
-              <button type="button" class="model-choice" data-id="mini-votsalo" aria-pressed="false"><span class="model-index">03</span><img src="/media/object-mini-votsalo.webp?v=cafe-20261011" alt="" width="62" height="48" loading="lazy"><span class="model-copy"><strong>MINI ΒΟΤΣΑΛΟ</strong><small>Οργανικές γραμμές</small></span><span class="arrow">↗</span></button>
-              <button type="button" class="model-choice" data-id="chonaki" aria-pressed="false"><span class="model-index">04</span><img src="/media/object-chonaki.webp?v=cafe-20261011" alt="" width="62" height="48" loading="lazy"><span class="model-copy"><strong>ΧΩΝΑΚΙ</strong><small>Εκφραστική σιλουέτα</small></span><span class="arrow">↗</span></button>
+              <button type="button" class="model-choice active" data-id="boho" aria-pressed="true"><span class="model-index">01</span><img src="/media/object-boho.1da4eeef2e3e.webp" alt="" width="62" height="48"><span class="model-copy"><strong>BOHO</strong><small>Ανάγλυφη υφή</small></span><span class="arrow">↗</span></button>
+              <button type="button" class="model-choice" data-id="mini-polygon" aria-pressed="false"><span class="model-index">02</span><img src="/media/object-mini-polygon.4778be5f069a.webp" alt="" width="62" height="48" loading="lazy"><span class="model-copy"><strong>MINI POLYGON</strong><small>Γεωμετρική φόρμα</small></span><span class="arrow">↗</span></button>
+              <button type="button" class="model-choice" data-id="mini-votsalo" aria-pressed="false"><span class="model-index">03</span><img src="/media/object-mini-votsalo.25e216bc6f08.webp" alt="" width="62" height="48" loading="lazy"><span class="model-copy"><strong>MINI ΒΟΤΣΑΛΟ</strong><small>Οργανικές γραμμές</small></span><span class="arrow">↗</span></button>
+              <button type="button" class="model-choice" data-id="chonaki" aria-pressed="false"><span class="model-index">04</span><img src="/media/object-chonaki.060c6d24baaf.webp" alt="" width="62" height="48" loading="lazy"><span class="model-copy"><strong>ΧΩΝΑΚΙ</strong><small>Εκφραστική σιλουέτα</small></span><span class="arrow">↗</span></button>
             </div>
             <div class="divider"></div>
             <div class="panel-title"><span>ΦΩΤΙΣΜΟΣ CAFÉ</span><span>SCENE</span></div>
