@@ -68,3 +68,6 @@ export const TABLES=Object.freeze({
   }
 });
 export function previewFor(id,table='walnut'){return TABLES[table]?.posters?.[id]||MODELS[id];}
+
+// Preview-only same-origin QA host.
+PARENT_ORIGINS.push(location.origin);

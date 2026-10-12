@@ -1,7 +1,7 @@
-import {MODELS,TABLE_SRC,TABLES,previewFor,PARENT_ORIGINS} from './models.js?v=showcase-20261012b';
-import {cameraFor,eventMatches,canRotate} from './studio-core.js?v=showcase-20261012b';
-import {ensureRenderer} from './renderer.js?v=showcase-20261012b';
-import {createShowcase} from './showcase.js?v=showcase-20261012b';
+import {MODELS,TABLE_SRC,TABLES,previewFor,PARENT_ORIGINS} from './models.js?v=framing-20261012c';
+import {cameraFor,eventMatches,canRotate} from './studio-core.js?v=framing-20261012c';
+import {ensureRenderer} from './renderer.js?v=framing-20261012c';
+import {createShowcase} from './showcase.js?v=framing-20261012c';
 const $=s=>document.querySelector(s);
 const viewer=$('#viewer'),scene=$('#scene'),auto=$('#auto-btn'),gate=$('#explore-gate');
 const loading=$('#model-loading'),error=$('#model-error'),progress=$('#progress');
@@ -38,6 +38,8 @@ function controls(){
 function applyView(next,snap=false){
   view=next;const box=scene.getBoundingClientRect();
   const c=cameraFor(MODELS[active].height,next,box.width/Math.max(box.height,1));
+  // Reset lens zoom too: otherwise a previous pinch carries into the wide finale.
+  viewer.setAttribute('field-of-view',c.fov);
   viewer.setAttribute('camera-orbit',c.orbit);viewer.setAttribute('camera-target',c.target);
   $('#view-btn').setAttribute('aria-pressed',String(next==='close'));$('#top-btn').setAttribute('aria-pressed',String(next==='top'));
   if(snap||reduced.matches)viewer.jumpCameraToGoal?.();

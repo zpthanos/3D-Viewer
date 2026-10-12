@@ -52,6 +52,9 @@ input:focus-visible{outline:3px solid var(--pink);outline-offset:4px}
 
 html.is-presenting,html.is-presenting body{overflow:hidden}
 .is-presenting .studio{position:fixed;inset:0;padding:0!important;z-index:100;background:#08022f;color:var(--paper);height:100dvh;overflow:hidden}
+/* An iframe's vh is its own content height, not the visitor's screen.
+   Width-based sizing breaks the host/child height feedback loop. */
+html.embed.is-presenting .studio{position:relative;inset:auto;height:clamp(520px,56vw,680px)}
 .is-presenting .studio-grid{display:block;border:0;height:100%}
 .is-presenting .scene{height:100%;min-height:0}
 .is-presenting .controls,.is-presenting .studio-head,.is-presenting .presentation-note,.is-presenting .table-finishes,.is-presenting .floating-toolbox,.is-presenting .scene-label,.is-presenting .orbit-indicator,.is-presenting .scene-instruction,.is-presenting .lock-btn,.is-presenting .explore-gate,.is-presenting .model-error{display:none!important}
@@ -88,10 +91,26 @@ html.is-presenting,html.is-presenting body{overflow:hidden}
 .presentation-finale>span{font-size:9px;line-height:1.7;letter-spacing:.09em;text-align:center;color:#fff7e7;background:#08022fda;padding:8px 10px}
 .presentation-finale>a{min-height:48px;padding:13px 18px;background:#ef2469;color:#fff;display:flex;align-items:center;justify-content:space-between;font-size:13px;gap:10px}
 .is-presenting .poster-fallback img{transition:transform 1.6s ease;transform-origin:50% 43%}
-.is-presenting [data-preview=true][data-chapter="1"] .poster-fallback img{transform:scale(1.15)}
-.is-presenting [data-preview=true][data-chapter="2"] .poster-fallback img{transform:scale(1.22)}
+.is-presenting [data-preview=true][data-chapter="1"] .poster-fallback img{transform:scale(1.04)}
+.is-presenting [data-preview=true][data-chapter="2"] .poster-fallback img{transform:scale(1.08)}
 @media(max-width:1150px){.bar-label{display:none}.experience-bar{gap:10px}.table-finishes{gap:3px}.present-button{padding:12px 16px}.presentation-bottom{gap:30px}.presentation-brand>span{display:none}}
 @media(max-width:750px){.table-finishes{width:100%;margin-bottom:2px}.experience-bar{justify-content:space-between}.sound-controls{margin-right:auto}.presentation-note{max-width:440px}.presentation-copy{width:calc(100% - 48px);max-width:500px;bottom:148px}.presentation-copy h2{font-size:32px;max-width:430px}.presentation-copy>p:last-of-type{font-size:12px;max-width:330px}.chapter-label{font-size:9px;margin-bottom:12px}.presentation-brand{left:22px;top:19px}.presentation-brand img{width:85px}.is-presenting .experience-bar{right:18px;top:20px;gap:8px}.is-presenting .sound-controls{margin-right:0}.is-presenting .present-button{padding:10px 12px;font-size:12px}.is-presenting .sound-controls button{padding:10px;min-width:44px}.is-presenting #music-label{display:none}.is-presenting .volume-control{display:none}.presentation-bottom{left:24px;right:24px;bottom:max(20px,env(safe-area-inset-bottom));flex-wrap:wrap;gap:10px}.chapter-track{flex-basis:100%;gap:13px}.chapter-track button{min-height:44px;gap:7px;padding-bottom:12px}.presentation-navigation{width:100%;justify-content:space-between}.presentation-navigation button{min-height:44px}.presentation-finale{right:auto;left:50%;top:43%;width:min(210px,28dvh);transform:translate(-50%,-50%);gap:10px}.presentation-finale>a{font-size:12px;min-height:44px;padding:10px 12px}.presentation-finale>span{font-size:8px}.scan-art{padding:8px}.scene[data-chapter="3"] .presentation-copy{bottom:138px}.scene[data-chapter="3"] .presentation-copy h2{font-size:28px;margin:0}.scene[data-chapter="3"] #chapter-copy,.scene[data-chapter="3"] .preview-label{display:none}.scene[data-chapter="3"] .chapter-label{margin-bottom:8px}}
 @media(max-width:380px){.table-finishes button{font-size:11px;padding:8px 10px}.present-button{font-size:12px}.volume-control input{width:48px}.presentation-copy h2{font-size:27px}}
 @media(max-height:600px){.is-presenting .presentation-copy{bottom:115px}.presentation-copy h2{font-size:27px;margin-bottom:10px}.presentation-copy>p:last-of-type{font-size:11px}.presentation-finale{width:min(180px,28vh);gap:6px}.presentation-finale>span{display:none}.presentation-bottom{bottom:12px}.chapter-label{margin-bottom:10px}.presentation-brand>span{display:none}.preview-label{font-size:9px;margin-top:6px}}
 @media(prefers-reduced-motion:reduce){.cafe-dust,.scan-line{display:none}.is-presenting .poster-fallback img{transform:none!important}}
+
+/* Bounded presentation composition: keep the object, caption and QR separate. */
+.embed.is-presenting .presentation-copy{bottom:112px}
+.embed.is-presenting .presentation-copy h2{font-size:clamp(28px,3.2vw,42px)}
+.embed.is-presenting .presentation-finale{right:7%;top:44%;width:clamp(170px,20vw,220px)}
+@media(max-width:750px){
+  html.embed.is-presenting .studio{height:clamp(560px,145vw,640px)}
+  .embed.is-presenting .presentation-copy{bottom:148px}
+  .presentation-finale,.embed.is-presenting .presentation-finale{left:50%;right:auto;top:40%;width:min(170px,38vw)}
+  .embed.is-presenting .scene[data-chapter="3"] .presentation-copy{bottom:138px}
+  .embed.is-presenting .scene[data-chapter="3"] .presentation-copy h2{font-size:26px}
+}
+@media(max-height:540px) and (min-width:540px){
+  html:not(.embed).is-presenting .presentation-copy{width:45%;bottom:105px}
+  html:not(.embed).is-presenting .presentation-finale{left:auto;right:7%;top:44%;width:130px;transform:translateY(-50%)}
+}

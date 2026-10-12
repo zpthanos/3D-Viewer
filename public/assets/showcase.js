@@ -1,5 +1,5 @@
-import { CafeSound } from './cafe-sound.js?v=showcase-20261012b';
-import { CHAPTERS, PresentationClock } from './presentation-core.js?v=showcase-20261012b';
+import { CafeSound } from './cafe-sound.js?v=framing-20261012c';
+import { CHAPTERS, PresentationClock } from './presentation-core.js?v=framing-20261012c';
 
 export function createShowcase({ activate, camera, reset, getState, notifyHeight }) {
   const $ = selector => document.querySelector(selector);
