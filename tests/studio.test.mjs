@@ -100,3 +100,24 @@ test('keyboard focus follows activation, and Escape restores focus to the gate',
  const f=await fixture();assert.equal(f.document.activeElement,f.get('lock-btn'));f.load();assert.equal(f.document.activeElement,f.get('viewer'));let prevented=false;
  f.get('scene').fire('keydown',{}, {key:'Escape',preventDefault(){prevented=true;}});assert.equal(prevented,true);assert.equal(f.get('viewer').hasAttribute('camera-controls'),false);assert.equal(f.document.activeElement,f.get('explore-btn'));f.close();
 });
+test('each design selects matching mobile and desktop preview assets without starting WebGL',async()=>{
+ const f=await fixture({passive:true});
+ for(const id of Object.keys(MODELS)){
+  f.get('choice-'+id).fire('click');
+  assert.equal(f.get('poster-img').src,MODELS[id].poster);
+  assert.equal(f.get('poster-mobile').srcset,MODELS[id].posterMobile);
+  assert.match(MODELS[id].poster,/\.[a-f0-9]{12}\.webp$/);
+  assert.match(MODELS[id].posterMobile,/-mobile\.[a-f0-9]{12}\.webp$/);
+ }
+ assert.equal(f.rendererCalls,0);f.close();
+});
+test('a device without WebGL keeps a preview, disables 3D controls and explains the limitation',async()=>{
+ const f=await fixture({holdRenderer:true});
+ f.rejectRenderer(Object.assign(new Error('Unavailable'),{code:'WEBGL_UNAVAILABLE'}));await turn();
+ assert.equal(f.get('model-error').hidden,false);
+ assert.match(f.get('error-message').textContent,/προεπισκοπήσεις/);
+ assert.equal(f.get('viewer').posterShown,true);
+ assert.equal(f.get('viewer').getAttribute('src'),null);
+ assert.equal(f.get('auto-btn').disabled,true);
+ f.get('lock-btn').fire('click');assert.equal(f.get('explore-gate').hidden,false);f.close();
+});

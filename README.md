@@ -41,7 +41,8 @@ Embedding is allowed from `https://mennoo.cfd`, `https://www.mennoo.cfd`, `https
 
 - `public/`: complete deployable viewer, models, images, fonts and Cloudflare rules.
 - `src/studio.scss`: editable stylesheet source; the ready-to-serve CSS is committed at `public/assets/studio.css`.
-- `tests/studio.test.mjs`: viewer behavior tests using Node's built-in test runner and DOM test doubles.
+- `tests/`: viewer behavior, rendering capability and deployment-policy regression tests.
+- `tools/`: optional offline GLB surface refinement and native OpenGL preview rendering; never run on the hosting server.
 - `ASSET-SHA256SUMS.txt`: integrity hashes for every deployable file.
 
 No original 3MF printing files, PHP backend credentials or private configuration are included. GLB files are public browser assets. The main PHP application is supplied separately in the full source package.
@@ -59,7 +60,7 @@ Open `http://localhost:8080/`. The simple local server does not interpret Cloudf
 With Node.js 20 or later installed, run the tests without installing packages:
 
 ```sh
-node --test tests/studio.test.mjs
+node --test tests/*.test.mjs
 ```
 
 SCSS editing is optional; deployment already includes compiled CSS. If you have Sass locally, compile `src/studio.scss` into `public/assets/studio.css` after changing the source.
@@ -71,6 +72,14 @@ The initial view is a lightweight poster. A deliberate tap on **Εξερευνή
 Automatic rotation starts and pauses with **Αυτόματα**. Manual interaction stops it; hidden tabs, offscreen viewers and reduced-motion preferences pause it. Camera controls include wide reset, close-up and top view. Loading errors preserve a poster and offer retry controls.
 
 The table, cup, saucer and linen are 3D geometry. The distant café is a photographic backdrop. QR recess dimensions and model geometry were checked offline; apparent print texture and lighting are illustrative.
+
+## Texture and preview correction — 12 October 2026
+
+Embedded GLB images are loaded through `fetch(blob:...)` by the renderer. The Pages CSP now permits those blob fetches and the SDK's WebAssembly module, while JavaScript `eval`, inline scripts and arbitrary external origins remain blocked.
+
+Flat crown and recess surfaces have independent normals and planar UV coordinates. The supplied QR image bytes and the 41 × 41 × 3 mm recess are preserved. Preview images are rendered from these GLBs, with separate mobile framing and content-hashed filenames so a cached older stand cannot replace the new preview. WebGL is checked on activation; unsupported devices retain the poster with a clear explanation.
+
+The optional offline tools use Python 3, NumPy and Pillow; native preview rendering additionally needs EGL/OpenGL ES. These dependencies are not needed for Cloudflare deployment. Run `python tools/check_models.py` to validate asset geometry and QR integrity locally. The browser texture diagnostic in `tests/` can be temporarily copied to `public/` on a preview branch to test the actual response policy without requiring a GPU; it is not deployed in production.
 
 ## Deployment acceptance check
 

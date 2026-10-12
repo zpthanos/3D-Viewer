@@ -3,29 +3,37 @@ export const MODELS=Object.freeze({
     "name": "BOHO",
     "description": "Ανάγλυφες καμπύλες και ιδιαίτερη υφή. Ένα μικρό αντικείμενο με ξεχωριστή παρουσία.",
     "height": 0.065,
-    "src": "/models/boho.5eea5a968ec1.glb",
-    "poster": "/media/poster-boho.webp?v=cafe-20261011"
+    "src": "/models/boho.1a0729fb17f2.glb",
+    "poster": "/media/poster-boho.6fd7d401f6e5.webp",
+    "posterMobile": "/media/poster-boho-mobile.fac93931e3db.webp",
+    "thumbnail": "/media/object-boho.1da4eeef2e3e.webp"
   },
   "mini-polygon": {
     "name": "MINI POLYGON",
     "description": "Καθαρές γεωμετρικές έδρες και χαμηλή σιλουέτα. Διακριτικό, με χαρακτήρα.",
     "height": 0.025,
-    "src": "/models/mini-polygon.4bf47fd36a6f.glb",
-    "poster": "/media/poster-mini-polygon.webp?v=cafe-20261011"
+    "src": "/models/mini-polygon.7998287b48ef.glb",
+    "poster": "/media/poster-mini-polygon.74d262493edd.webp",
+    "posterMobile": "/media/poster-mini-polygon-mobile.9e45e2e7d4db.webp",
+    "thumbnail": "/media/object-mini-polygon.4778be5f069a.webp"
   },
   "mini-votsalo": {
     "name": "MINI ΒΟΤΣΑΛΟ",
     "description": "Ομαλή, οργανική φόρμα εμπνευσμένη από το βότσαλο. Φυσική παρουσία στο τραπέζι.",
     "height": 0.025,
-    "src": "/models/mini-votsalo.3c160b81028d.glb",
-    "poster": "/media/poster-mini-votsalo.webp?v=cafe-20261011"
+    "src": "/models/mini-votsalo.2864e1350793.glb",
+    "poster": "/media/poster-mini-votsalo.ec64c4b769a4.webp",
+    "posterMobile": "/media/poster-mini-votsalo-mobile.42553ca51ccb.webp",
+    "thumbnail": "/media/object-mini-votsalo.25e216bc6f08.webp"
   },
   "chonaki": {
     "name": "ΧΩΝΑΚΙ",
     "description": "Κωνική γραμμή με ανάγλυφες λεπτομέρειες. Μια εκφραστική πινελιά στον χώρο σας.",
     "height": 0.065,
-    "src": "/models/chonaki.90f4fecdbbc3.glb",
-    "poster": "/media/poster-chonaki.webp?v=cafe-20261011"
+    "src": "/models/chonaki.8cacad8153dd.glb",
+    "poster": "/media/poster-chonaki.9b6f93a48524.webp",
+    "posterMobile": "/media/poster-chonaki-mobile.c7bf56a51b32.webp",
+    "thumbnail": "/media/object-chonaki.060c6d24baaf.webp"
   }
 });
 export const TABLE_SRC="/models/cafe-table.2cbd4485102b.glb";

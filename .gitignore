@@ -7,3 +7,5 @@ node_modules/
 *.3mf
 *.stl
 .wrangler/
+__pycache__/
+*.pyc
