@@ -1,0 +1,12 @@
+{
+  "name": "mennoo-3d-viewer",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/studio.test.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
