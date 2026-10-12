@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync,existsSync} from 'node:fs';
 import {supportsWebGL} from '../public/assets/renderer.js';
-import {MODELS,TABLE_SRC} from '../public/assets/models.js';
+import {MODELS,TABLE_SRC,TABLES} from '../public/assets/models.js';
 
 test('graphics capability probe handles absent, denied and lost WebGL contexts',()=>{
  for(const document of [
@@ -26,6 +26,6 @@ test('deployment CSP permits embedded GLB texture fetches and SDK WebAssembly',(
  assert.deepEqual(directives['object-src'],["'none'"]);
 });
 test('all active models and responsive previews exist in the deploy directory',()=>{
- const paths=[TABLE_SRC,...Object.values(MODELS).flatMap(m=>[m.src,m.poster,m.posterMobile])];
+ const paths=[TABLE_SRC,...Object.values(MODELS).flatMap(m=>[m.src,m.poster,m.posterMobile]),TABLES.stone.src,...Object.values(TABLES.stone.posters).flatMap(m=>[m.poster,m.posterMobile])];
  for(const path of paths)assert.ok(existsSync(new URL('../public'+path,import.meta.url)),path);
 });

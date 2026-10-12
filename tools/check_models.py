@@ -44,7 +44,7 @@ for path in sorted((root / 'models').glob('*.glb')):
                 c = v[f].mean(axis=1)
                 inside = (abs(c[:, 0]) < .020499) & (abs(c[:, 2]) < .020499) & (c[:, 1] > height - .002999)
                 assert not inside.any(), 'Geometry covers the QR recess'
-    if not path.name.startswith('cafe-table.'):
+    if not path.name.startswith(('cafe-table.', 'cafe-stone.')):
         assert crown_checked
     print('PASS', path.name)
 for m in models.values():

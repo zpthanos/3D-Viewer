@@ -38,3 +38,33 @@ export const MODELS=Object.freeze({
 });
 export const TABLE_SRC="/models/cafe-table.2cbd4485102b.glb";
 export const PARENT_ORIGINS=['https://mennoo.cfd','https://www.mennoo.cfd','https://mennoo.sbs','https://www.mennoo.sbs'];
+
+export const TABLES=Object.freeze({
+  "walnut": {
+    "name": "Καρυδιά",
+    "src": "/models/cafe-table.2cbd4485102b.glb"
+  },
+  "stone": {
+    "name": "Ανοιχτή πέτρα",
+    "src": "/models/cafe-stone.c7cca1c1341a.glb",
+    "posters": {
+      "boho": {
+        "poster": "/media/poster-boho-stone-wide.834538090471.webp",
+        "posterMobile": "/media/poster-boho-stone-mobile.9ec9ae261584.webp"
+      },
+      "mini-polygon": {
+        "poster": "/media/poster-mini-polygon-stone-wide.3d31cdca80d4.webp",
+        "posterMobile": "/media/poster-mini-polygon-stone-mobile.49d7f5308767.webp"
+      },
+      "mini-votsalo": {
+        "poster": "/media/poster-mini-votsalo-stone-wide.361ca1244bd0.webp",
+        "posterMobile": "/media/poster-mini-votsalo-stone-mobile.45655bac9b62.webp"
+      },
+      "chonaki": {
+        "poster": "/media/poster-chonaki-stone-wide.03917b5e6fd5.webp",
+        "posterMobile": "/media/poster-chonaki-stone-mobile.709bda00dd87.webp"
+      }
+    }
+  }
+});
+export function previewFor(id,table='walnut'){return TABLES[table]?.posters?.[id]||MODELS[id];}

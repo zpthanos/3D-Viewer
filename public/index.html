@@ -11,9 +11,9 @@
   <link rel="preload" as="font" href="/assets/fonts/roboto-400.woff" type="font/woff" crossorigin>
   <link rel="preload" as="image" href="/media/poster-boho.6fd7d401f6e5.webp" media="(min-width:601px)" fetchpriority="high">
   <link rel="preload" as="image" href="/media/poster-boho-mobile.fac93931e3db.webp" media="(max-width:600px)" fetchpriority="high">
-  <link rel="stylesheet" href="/assets/studio.css?v=cafe-20261012-textures">
+  <link rel="stylesheet" href="/assets/studio.css?v=showcase-20261012">
   <!-- The 3D renderer is imported only after the visitor activates the viewer. -->
-  <script type="module" src="/assets/studio.js?v=cafe-20261012-textures"></script>
+  <script type="module" src="/assets/studio.js?v=showcase-20261012"></script>
 </head>
 <body>
   <a class="skip-link" href="#studio">Μετάβαση στην προβολή των stands</a>
@@ -38,12 +38,29 @@
           <span><span class="status-pulse"></span> ΤΟ STAND ΣΤΟΝ ΧΩΡΟ ΤΟΥ</span>
           <span>ΠΑΤΗΣΤΕ · ΠΕΡΙΣΤΡΕΨΤΕ · ΑΝΑΚΑΛΥΨΤΕ</span>
         </div>
+        <div class="experience-bar">
+          <div class="table-finishes" role="group" aria-label="Επιφάνεια τραπεζιού">
+            <span class="bar-label">ΣΤΟ ΔΙΚΟ ΣΑΣ ΥΦΟΣ</span>
+            <button type="button" data-table="walnut" aria-pressed="true"><span class="finish-swatch walnut" aria-hidden="true"></span>Καρυδιά</button>
+            <button type="button" data-table="stone" aria-pressed="false"><span class="finish-swatch stone" aria-hidden="true"></span>Ανοιχτή πέτρα</button>
+          </div>
+          <div class="sound-controls">
+            <button type="button" id="music-btn" aria-pressed="false" aria-label="Ενεργοποίηση μουσικής">
+              <span class="sound-bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span id="music-label">Μουσική</span>
+            </button>
+            <label class="volume-control" id="volume-control" hidden><span class="sr-only">Ένταση μουσικής</span><input id="music-volume" type="range" min="0" max="100" value="32" aria-label="Ένταση μουσικής"></label>
+          </div>
+          <button type="button" id="present-btn" class="present-button" aria-describedby="presentation-note"><span aria-hidden="true">▷</span> Παρουσίαση</button>
+        </div>
+        <p id="presentation-note" class="presentation-note">Μια μικρή περιήγηση με μουσική. Παύση, επόμενο πλάνο ή σίγαση, όποτε θέλετε.</p>
+        <p id="sound-status" class="sr-only" role="status"></p>
         <div class="studio-grid">
           <div class="scene" id="scene" data-light="golden">
             <div class="cafe-bg" aria-hidden="true"></div>
             <div class="scene-vignette" aria-hidden="true"></div>
             <div class="scene-glow" aria-hidden="true"></div>
             <div class="scene-glint" aria-hidden="true"></div>
+            <div class="cafe-dust" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
             <div class="scene-label"><span class="round-indicator"></span> ΣΤΟ ΚΑΦΕ <span class="scene-label-divider">/</span> ΖΩΝΤΑΝΟ 3D</div>
             <model-viewer
               id="viewer"
@@ -92,6 +109,33 @@
               <button type="button" id="top-btn" data-camera-control aria-pressed="false" aria-label="Επάνω όψη του QR" disabled>▣ <span>Επάνω όψη</span></button>
             </div>
             <div class="orbit-indicator"><span>REALTIME</span><strong>360<small>°</small></strong></div>
+            <div class="presentation-hud" id="presentation-hud" hidden>
+              <div class="presentation-brand"><img src="/media/mennoo-logo.png" alt="MENNOO" width="100" height="48"><span>ΜΙΑ ΘΕΣΗ ΣΤΟ ΤΡΑΠΕΖΙ ΣΑΣ</span></div>
+              <div class="presentation-copy" aria-live="polite" aria-atomic="true">
+                <p class="chapter-label" id="chapter-label"></p>
+                <h2 id="chapter-title"></h2>
+                <p id="chapter-copy"></p>
+                <span id="presentation-preview" class="preview-label" hidden>Προβολή εικόνων · Το 3D δεν είναι διαθέσιμο σε αυτή τη συσκευή.</span>
+              </div>
+              <div class="presentation-finale" id="presentation-finale" hidden>
+                <div class="scan-art"><img src="/media/qr-mennoo.png" alt="Σκανάρετε το QR για να ανοίξετε τον πραγματικό δοκιμαστικό κατάλογο MENNOO" width="1015" height="1015" loading="lazy"><span class="scan-line" aria-hidden="true"></span></div>
+                <span>Ο ΠΡΑΓΜΑΤΙΚΟΣ ΔΟΚΙΜΑΣΤΙΚΟΣ ΚΑΤΑΛΟΓΟΣ</span>
+                <a href="https://mennoo.app/b/167026e5" target="_blank" rel="noopener noreferrer">Ανοίξτε το μενού <span aria-hidden="true">↗</span></a>
+              </div>
+              <div class="presentation-bottom">
+                <div class="chapter-track" role="group" aria-label="Πλάνα παρουσίασης">
+                  <button type="button" data-chapter="0" aria-label="Πλάνο 1: Η πρώτη εντύπωση" aria-current="step"><span>01</span><i></i></button>
+                  <button type="button" data-chapter="1" aria-label="Πλάνο 2: Η λεπτομέρεια"><span>02</span><i></i></button>
+                  <button type="button" data-chapter="2" aria-label="Πλάνο 3: Το σκανάρισμα"><span>03</span><i></i></button>
+                  <button type="button" data-chapter="3" aria-label="Πλάνο 4: Η εμπειρία"><span>04</span><i></i></button>
+                </div>
+                <div class="presentation-navigation" role="group" aria-label="Χειρισμός παρουσίασης">
+                  <button type="button" id="chapter-prev" aria-label="Προηγούμενο πλάνο">←</button>
+                  <button type="button" id="presentation-pause">Παύση</button>
+                  <button type="button" id="chapter-next" aria-label="Επόμενο πλάνο">→</button>
+                </div>
+              </div>
+            </div>
           </div>
           <aside class="controls" aria-label="Σχέδια και πληροφορίες προϊόντος">
             <div class="panel-meta"><span>MENNOO / OBJECTS</span><span id="model-count">01 / 04</span></div>

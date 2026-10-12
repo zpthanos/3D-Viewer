@@ -1,6 +1,7 @@
-import {MODELS,TABLE_SRC,PARENT_ORIGINS} from './models.js?v=cafe-20261012-textures';
-import {cameraFor,eventMatches,canRotate} from './studio-core.js?v=cafe-20261012-textures';
-import {ensureRenderer} from './renderer.js?v=cafe-20261012-textures';
+import {MODELS,TABLE_SRC,TABLES,previewFor,PARENT_ORIGINS} from './models.js?v=showcase-20261012';
+import {cameraFor,eventMatches,canRotate} from './studio-core.js?v=showcase-20261012';
+import {ensureRenderer} from './renderer.js?v=showcase-20261012';
+import {createShowcase} from './showcase.js?v=showcase-20261012';
 const $=s=>document.querySelector(s);
 const viewer=$('#viewer'),scene=$('#scene'),auto=$('#auto-btn'),gate=$('#explore-gate');
 const loading=$('#model-loading'),error=$('#model-error'),progress=$('#progress');
@@ -10,6 +11,7 @@ let active=Object.hasOwn(MODELS,query.get('design'))?query.get('design'):Object.
 const reduced=matchMedia('(prefers-reduced-motion: reduce)');
 let defined=false,ready=false,engaged=false,wanted=false,inView=true,parentVisible=true,view='wide',expected='',ticket=0,timer=0,activation=0,loadFailed=false,tableFailed=false,tableTicket=0;
 let parentOrigin='',heightRAF=0,lastHeight=0,lastSize='';
+let tableStyle='walnut',tableExpected='',showcase=null;
 if(embed)document.documentElement.classList.add('embed');
 try{const origin=new URL(document.referrer).origin;if(PARENT_ORIGINS.includes(origin))parentOrigin=origin;}catch{}
 function post(data){if(embed&&parentOrigin&&parent!==window)parent.postMessage(data,parentOrigin);}
@@ -43,14 +45,27 @@ function applyView(next,snap=false){
 function failed(message){
   clearTimeout(timer);ready=false;wanted=false;loadFailed=true;loading.hidden=true;
   error.hidden=!engaged;$('#error-message').textContent=message;viewer.showPoster?.();controls();notifyHeight();
+  showcase?.refresh();
   if(engaged&&document.activeElement===$('#lock-btn'))$('#retry-btn').focus({preventScroll:true});
 }
 function loadTable(force=false){
   const table=$('#cafe-table');
-  if(table.getAttribute('src')&&!force)return;
+  const source=TABLES[tableStyle].src;
+  if(table.getAttribute('src')===source&&!force)return;
   tableFailed=false;$('#table-status').hidden=true;
-  table.setAttribute('src',TABLE_SRC+(force?`?retry=${++tableTicket}`:''));
+  tableExpected=source+(force?`?retry=${++tableTicket}`:'');
+  table.setAttribute('src',tableExpected);
 }
+function updatePoster(){
+  const m=previewFor(active,tableStyle);
+  $('#poster-img').src=m.poster;$('#poster-mobile').srcset=m.posterMobile;viewer.setAttribute('poster',m.poster);
+}
+for(const button of document.querySelectorAll('[data-table]'))button.addEventListener('click',()=>{
+  if(!Object.hasOwn(TABLES,button.dataset.table)||button.dataset.table===tableStyle)return;
+  tableStyle=button.dataset.table;scene.dataset.table=tableStyle;updatePoster();
+  for(const other of document.querySelectorAll('[data-table]'))other.setAttribute('aria-pressed',String(other===button));
+  if(defined&&engaged)loadTable();
+});
 function loadModel(force=loadFailed){
   if(!defined||!engaged)return;
   ticket++;const current=ticket;ready=false;loadFailed=false;controls();error.hidden=true;loading.hidden=false;progress.textContent='';
@@ -63,7 +78,7 @@ function select(id,update=true){
   const previous=active;active=id;ready=false;expected='';clearTimeout(timer);wanted=false;
   const m=MODELS[id];$('#model-name').textContent=m.name;$('#model-description').textContent=m.description;$('#model-count').textContent=`0${keys.indexOf(id)+1} / 04`;
   $('#model-height').textContent=`${Math.round(m.height*1000)} mm`;
-  $('#poster-img').src=m.poster;$('#poster-mobile').srcset=m.posterMobile;viewer.setAttribute('poster',m.poster);viewer.setAttribute('alt',`${m.name}, μαύρο PLA, εσοχή QR 41 επί 41 επί 3 χιλιοστά`);
+  updatePoster();viewer.setAttribute('alt',`${m.name}, μαύρο PLA, εσοχή QR 41 επί 41 επί 3 χιλιοστά`);
   for(const node of document.querySelectorAll('[data-id]')){const yes=node.dataset.id===id;node.classList.toggle('active',yes);node.setAttribute('aria-pressed',String(yes));}
   viewer.showPoster?.();error.hidden=true;loading.hidden=true;controls();
   if(engaged){if(defined)loadModel();else{engaged=false;engage(false);}}
@@ -104,7 +119,7 @@ $('#top-btn').addEventListener('click',()=>{if(ready&&engaged){wanted=false;rota
 $('#reset-btn').addEventListener('click',()=>{if(ready&&engaged){wanted=false;rotate();applyView('wide');}});
 // Only real interaction with the canvas stops the tour. SDK camera-change events
 // also fire during programmatic motion and must never immediately cancel autoplay.
-function manual(){if(wanted){wanted=false;rotate();}}
+function manual(){if(wanted){wanted=false;rotate();}showcase?.manual();}
 viewer.addEventListener('pointerdown',manual,{passive:true});viewer.addEventListener('wheel',manual,{passive:true});
 viewer.addEventListener('keydown',event=>{if(['ArrowLeft','ArrowRight','ArrowUp','ArrowDown','PageUp','PageDown'].includes(event.key))manual();});
 viewer.addEventListener('progress',event=>{if(expected&&!ready&&eventMatches(event,expected,location.href)&&Number.isFinite(event.detail?.totalProgress))progress.textContent=`${Math.round(Math.max(0,Math.min(1,event.detail.totalProgress))*100)}%`;});
@@ -112,15 +127,16 @@ viewer.addEventListener('load',event=>{
   if(event.target!==viewer||!expected||!eventMatches(event,expected,location.href)||viewer.loaded===false)return;
   clearTimeout(timer);ready=true;loadFailed=false;loading.hidden=true;error.hidden=true;
   viewer.dismissPoster?.();applyView('wide',true);controls();
+  showcase?.refresh();
   if(engaged&&document.activeElement===$('#lock-btn'))viewer.focus({preventScroll:true});
   $('#load-status').textContent=`Το ${MODELS[active].name} είναι έτοιμο. Σύρετε οριζόντια ή επιλέξτε αυτόματη περιστροφή.`;
 });
 viewer.addEventListener('error',event=>{if(event.target===viewer&&expected&&eventMatches(event,expected,location.href))failed('Το μοντέλο δεν φορτώθηκε. Δοκιμάστε ξανά ή επιλέξτε άλλο σχέδιο.');});
-$('#cafe-table').addEventListener('error',()=>{tableFailed=true;$('#table-status').hidden=false;});
-$('#cafe-table').addEventListener('load',()=>{tableFailed=false;$('#table-status').hidden=true;});
+$('#cafe-table').addEventListener('error',event=>{if(eventMatches(event,tableExpected,location.href)){tableFailed=true;$('#table-status').hidden=false;}});
+$('#cafe-table').addEventListener('load',event=>{if(eventMatches(event,tableExpected,location.href)){tableFailed=false;$('#table-status').hidden=true;}});
 reduced.addEventListener('change',()=>{if(reduced.matches)manual();});
 document.addEventListener('visibilitychange',rotate);
-if('IntersectionObserver'in window)new IntersectionObserver(([entry])=>{inView=entry.isIntersecting;rotate();}).observe(scene);
+if('IntersectionObserver'in window)new IntersectionObserver(([entry])=>{inView=entry.isIntersecting;rotate();showcase?.visibility(inView&&parentVisible);}).observe(scene);
 addEventListener('pagehide',()=>{parentVisible=false;rotate();clearTimeout(timer);});
 addEventListener('pageshow',event=>{
   parentVisible=true;
@@ -131,7 +147,7 @@ addEventListener('pageshow',event=>{
 });
 addEventListener('message',event=>{
   if(!embed||event.source!==parent||!PARENT_ORIGINS.includes(event.origin)||event.data?.type!=='mennoo-stand-studio:host')return;
-  parentOrigin=event.origin;parentVisible=event.data.visible===true;rotate();lastHeight=0;notifyHeight();
+  parentOrigin=event.origin;parentVisible=event.data.visible===true;rotate();showcase?.visibility(inView&&parentVisible);lastHeight=0;notifyHeight();
 });
 if('ResizeObserver'in window){
   new ResizeObserver(notifyHeight).observe($('.studio'));
@@ -148,3 +164,19 @@ qrButton.addEventListener('click',()=>{
 $('#qr-close').addEventListener('click',()=>dialog.close());
 dialog.addEventListener('close',()=>{if(embed){qrButton.setAttribute('aria-expanded','false');notifyHeight();}qrButton.focus({preventScroll:true});});
 select(active,false);
+showcase=createShowcase({
+  activate:engage,
+  getState:()=>({ready,failed:loadFailed}),
+  camera:(next,playing,index)=>{
+    viewer.setAttribute('interpolation-decay',reduced.matches?'0':'260');
+    applyView(next,reduced.matches);
+    if(index===0){
+      const c=cameraFor(MODELS[active].height,'wide',scene.clientWidth/Math.max(scene.clientHeight,1));
+      const radius=parseFloat(c.orbit.split(' ')[2])*1.18;
+      viewer.setAttribute('camera-orbit',`-12deg 67deg ${radius.toFixed(4)}m`);
+    }
+    wanted=playing&&index===1;rotate();
+  },
+  reset:()=>{wanted=false;rotate();viewer.setAttribute('interpolation-decay','90');if(ready)applyView('wide');},
+  notifyHeight
+});
