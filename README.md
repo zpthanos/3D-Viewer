@@ -67,6 +67,10 @@ SCSS editing is optional; deployment already includes compiled CSS. If you have 
 
 ## Viewer behavior
 
+Embedded presentations have a bounded, width-based height: 520–680 px on desktop and 560–640 px on narrower screens. They never derive their height from the iframe's own viewport. The existing parent height-message handler can shrink the iframe when a presentation starts and restore the controls when it closes. Standalone presentations use the browser window.
+
+Wide, detail and overhead cameras retain space around the real 65–70 mm stands. Every preset resets lens zoom as well as the orbit, so a previous pinch cannot carry into the final wide view. A separate QR panel supplies a readable scan target.
+
 The initial view is a lightweight poster. A deliberate tap on **Εξερευνήστε σε 3D** loads model-viewer 4.4.0 from Google's CDN and downloads the selected stand and table. No camera permission is requested. Locking the view restores normal touch scrolling.
 
 Automatic rotation starts and pauses with **Αυτόματα**. Manual interaction stops it; hidden tabs, offscreen viewers and reduced-motion preferences pause it. Camera controls include wide reset, close-up and top view. Loading errors preserve a poster and offer retry controls.

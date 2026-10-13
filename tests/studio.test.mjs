@@ -7,7 +7,7 @@ import {cameraFor,eventMatches,canRotate} from '../public/assets/studio-core.js'
 const script=readFileSync(new URL('../public/assets/studio.js',import.meta.url),'utf8').replace(/^import.*;\n/gm,'');
 const turn=()=>new Promise(r=>setImmediate(r));
 async function fixture({reduce=false,embed=false,passive=false,holdRenderer=false}={}){
-  const nodes=new Map(),globalEvents={},documentEvents={},timers=new Map(),raf=new Map(),observers=[],sent=[];let sequence=0,rendererCalls=0,resolveRenderer,rejectRenderer;
+  const nodes=new Map(),globalEvents={},documentEvents={},timers=new Map(),raf=new Map(),observers=[],sent=[];let sequence=0,rendererCalls=0,resolveRenderer,rejectRenderer,showcaseHooks;
   const rendererTask=holdRenderer?new Promise((resolve,reject)=>{resolveRenderer=resolve;rejectRenderer=reject;}):Promise.resolve();
   class Node{
     constructor(id=''){this.id=id;this.dataset={};this.attributes={};this.events={};this.hidden=false;this.src='';this.disabled=false;this.textContent='';this.width=600;this.height=610;const classes=new Set();this.classList={add:x=>classes.add(x),toggle:(x,on)=>on?classes.add(x):classes.delete(x)};this.loaded=false;this.history=[];}
@@ -39,11 +39,11 @@ async function fixture({reduce=false,embed=false,passive=false,holdRenderer=fals
   const location={pathname:'/',href:'https://stands.mennoo.sbs/'+(embed?'?embed=1':''),reload(){this.reloaded=true;}};
   const history={replaceState(a,b,url){location.href=String(url);}};
   const context={ensureRenderer:()=>{rendererCalls++;return rendererTask;},MODELS,TABLE_SRC,PARENT_ORIGINS,cameraFor,eventMatches,canRotate,document,location,history,parent,URL,console,matchMedia:()=>pref,customElements:{whenDefined:()=>Promise.resolve()},setTimeout:(f,ms)=>{const id=++sequence;timers.set(id,{f,ms});return id;},clearTimeout:id=>timers.delete(id),requestAnimationFrame:f=>{const id=++sequence;raf.set(id,f);return id;},addEventListener:(k,f)=>globalEvents[k]=f,open(){},ResizeObserver:class{constructor(f){this.f=f;}observe(){}},IntersectionObserver:class{constructor(f){this.f=f;observers.push(this);}observe(){}}};context.window=context;
-  Object.assign(context,{TABLES,previewFor,createShowcase:()=>({manual(){},refresh(){},visibility(){}})});
+  Object.assign(context,{TABLES,previewFor,createShowcase:hooks=>{showcaseHooks=hooks;return {manual(){},refresh(){},visibility(){}};}});
   vm.runInNewContext(script,context);await turn();if(!passive){get('explore-btn').fire('click');await turn();}
   function flush(){const batch=[...raf.values()];raf.clear();batch.forEach(f=>f());}
   flush();
-  return{get,location,resolveRenderer,rejectRenderer,get rendererCalls(){return rendererCalls;},globalEvents,documentEvents,document,pref,sent,raf,timers,observers,parent,flush,
+  return{get,location,resolveRenderer,rejectRenderer,showcaseHooks,get rendererCalls(){return rendererCalls;},globalEvents,documentEvents,document,pref,sent,raf,timers,observers,parent,flush,
     load(id='boho'){get('viewer').fire('load',{url:new URL(MODELS[id].src,location.href).href});},
     close(){globalEvents.pagehide();}};
 }
@@ -139,4 +139,25 @@ test('changing the 3D tabletop preserves the loaded stand and ignores stale tabl
  assert.equal(f.get('viewer').getAttribute('src'),stand);assert.equal(f.get('auto-btn').disabled,false);
  f.get('cafe-table').fire('error',{url:TABLE_SRC});assert.equal(f.get('table-status').hidden,true);
  f.get('cafe-table').fire('error',{url:TABLES.stone.src});assert.equal(f.get('table-status').hidden,false);f.close();
+});
+
+// Regression: zoom must not carry from the QR close-up into the wide finale.
+test('presentation final camera restores distance, angle and lens after a top view or pinch',async()=>{
+ const f=await fixture();f.load();const viewer=f.get('viewer');
+ f.showcaseHooks.camera('top',true,2);
+ assert.match(viewer.getAttribute('camera-orbit'),/^0deg 8deg 0\.3000m$/);
+ viewer.setAttribute('field-of-view','27deg');
+ f.showcaseHooks.camera('wide',false,3);
+ assert.equal(viewer.getAttribute('camera-orbit'),cameraFor(.065,'wide',600/610).orbit);
+ assert.equal(viewer.getAttribute('field-of-view'),'36deg');
+ assert.equal(viewer.hasAttribute('auto-rotate'),false);
+ f.close();
+});
+test('all presets leave horizontal clearance even in the formerly oversized portrait embed',()=>{
+ for(const h of [.025,.065])for(const aspect of [.3,.45,.6,1,1.8])for(const view of ['wide','close','top']){
+  const c=cameraFor(h,view,aspect),r=parseFloat(c.orbit.split(' ')[2]);
+  // Conservative 70 mm envelope, 50 mm foreground depth, at the minimum 36° FOV.
+  const occupancy=.07/(2*(r-.05)*Math.tan(Math.PI/10)*aspect);
+  assert.ok(occupancy<.58,`${view} / ${h} / ${aspect}: ${occupancy}`);
+ }
 });
