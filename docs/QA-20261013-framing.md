@@ -13,3 +13,7 @@ Camera presets use wider distances. The overhead preset moved from 0.15 m to 0.3
 - Final QR, caption and navigation rectangles do not overlap at mobile widths. Closing restores the model choices and normal intrinsic content height; reopening returns to 680 px on desktop.
 - The QA browser cannot provide WebGL. These browser checks cover the real responsive layout and image fallback. Camera changes are tested through the production controller and projection checks, not a claim of GPU-rendered playback or frame-rate validation.
 - Preview-only same-origin embedding and diagnostic public routes are excluded from the production tree. Production keeps the existing allowed parent origins and CSP.
+
+## Production verification — 17 October 2026
+
+Commit `ad6f0c391c9b469a86ef332aaa6a5214d925b3d9` deployed successfully through Cloudflare Pages. The real parent page, `https://mennoo.cfd/stands/#stand-viewer`, loads `framing-20261012c` from `stands.mennoo.cfd`. The presentation scene measured 680 px high (684 px for the enclosing iframe). Chapter 4 shows the QR and final menu link. The live browser screenshot is `framing-live-20261017.jpg`; it shows the image fallback because WebGL is unavailable in this QA browser.
