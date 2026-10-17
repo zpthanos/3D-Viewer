@@ -63,7 +63,7 @@ With Node.js 20 or later installed, run the tests without installing packages:
 node --test tests/*.test.mjs
 ```
 
-SCSS editing is optional; deployment already includes compiled CSS. If you have Sass locally, compile `src/studio.scss` into `public/assets/studio.css` after changing the source.
+SCSS editing is optional; deployment includes ready-to-serve CSS. The source currently uses CSS-compatible syntax. After editing it, run `node tools/sync-styles.mjs` locally to copy the stylesheet and update the HTML to its content-hashed filename. This avoids stale styles on custom domains whose caches ignore query-string versions. No build command or runtime dependency is added to Cloudflare. The original `studio.css` URL is retained for older cached HTML.
 
 ## Viewer behavior
 
