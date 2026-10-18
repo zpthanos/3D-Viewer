@@ -1,13 +1,14 @@
 <!doctype html>
 <html lang="el">
-<head><meta charset="utf-8">
+<head>
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Πληρωμές — MENNOO</title>
-<meta name="description" content="Πληρώστε τις υπηρεσίες MENNOO με κάρτα μέσω Viva ή με τραπεζική κατάθεση. Οδηγίες πληρωμής και στοιχεία τραπεζικών λογαριασμών.">
+<meta name="description" content="Πληρώστε τις υπηρεσίες MENNOO με κάρτα μέσω Viva ή με τραπεζική κατάθεση. Αντιγράψτε το IBAN και βρείτε τις απαραίτητες οδηγίες.">
 <meta name="robots" content="noindex,nofollow">
 <meta name="theme-color" content="#100b35">
 <link rel="canonical" href="https://mennoo.cfd/payments/"><meta property="og:title" content="Πληρωμές — MENNOO">
-<meta property="og:description" content="Πληρώστε τις υπηρεσίες MENNOO με κάρτα μέσω Viva ή με τραπεζική κατάθεση. Οδηγίες πληρωμής και στοιχεία τραπεζικών λογαριασμών.">
+<meta property="og:description" content="Πληρώστε τις υπηρεσίες MENNOO με κάρτα μέσω Viva ή με τραπεζική κατάθεση. Αντιγράψτε το IBAN και βρείτε τις απαραίτητες οδηγίες.">
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://mennoo.cfd/assets/images/restaurant.webp"><meta name="twitter:card" content="summary_large_image">
 <meta property="og:locale" content="el_GR">
@@ -15,7 +16,8 @@
 <link rel="preload" href="/site-preview/assets/fonts/roboto-400.woff" as="font" type="font/woff" crossorigin>
 <link rel="stylesheet" href="/site-preview/assets/css/site.css?v=1792316578">
 <link rel="stylesheet" href="/site-preview/assets/css/motion-ui.css?v=1792316578">
-<link rel="stylesheet" href="/site-preview/assets/css/site-pages.css?v=1792262453">
+<link rel="stylesheet" href="/site-preview/assets/css/site-pages.css?v=1792318143">
+<link rel="stylesheet" href="/site-preview/assets/css/payments.css?v=1792318142">
 </head>
 <body class="info-page payments-page">
 <a class="skip-link" href="#main">Μετάβαση στο περιεχόμενο</a>
@@ -29,63 +31,84 @@
     <a class="nav-demo" href="https://mennoo.app/b/167026e5" target="_blank" rel="noopener noreferrer"><svg width="17" height="17" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8V4h4M16 4h4v4M20 16v4h-4M8 20H4v-4M3 12h18"></path></svg> Live demo</a>    <a class="nav-book flex items-center" href="https://mennoo.cfd/forms/interest/">Ας μιλήσουμε <svg width="15" height="15" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6M10 14 21 3M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5"></path></svg></a>
     <button class="menu-toggle icon-button" type="button" data-open-nav aria-label="Άνοιγμα πλοήγησης" aria-controls="navigation-dialog" aria-expanded="false"><svg width="20" height="20" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"></path></svg></button>
 </header>
-<main id="main">
-    <section class="info-hero" aria-labelledby="page-title">
-        <div class="info-wrap">
-            <nav class="info-breadcrumb" aria-label="Διαδρομή σελίδας"><a href="/site-preview/">Αρχική</a><span aria-hidden="true">/</span><span aria-current="page">Πληρωμές</span></nav>
-            <div class="info-hero-grid">
-                <div><p class="info-kicker">MENNOO / ΠΛΗΡΩΜΕΣ</p><h1 id="page-title">Η πληρωμή σας.<br><em>Με τον τρόπο σας.</em></h1></div>
-                <p class="info-intro">Επιλέξτε πληρωμή με κάρτα ή τραπεζική κατάθεση. Έχετε μαζί σας το ποσό με ΦΠΑ και το ΑΦΜ της επιχείρησής σας.</p>
+<main id="main" class="payments-main">
+    <div class="payment-wrap">
+        <header class="payment-page-heading">
+            <h1 id="page-title">Πληρωμές<span aria-hidden="true">.</span></h1>
+            <p>Επιλέξτε πώς σας εξυπηρετεί να πληρώσετε.</p>
+        </header>
+        <div class="payment-layout">
+            <div class="payment-flow">
+                <nav class="payment-methods" aria-label="Τρόπος πληρωμής" data-payment-methods>
+                    <a id="method-card" href="#card-payment" data-payment-tab>
+                        <svg viewbox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="15" rx="2"></rect><path d="M3 9h18M6 15h4"></path></svg>
+                        <span><strong>Με κάρτα</strong><small>Apple Pay · Google Pay</small></span>
+                    </a>
+                    <a id="method-bank" href="#bank-payment" data-payment-tab>
+                        <svg viewbox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="m3 8 9-5 9 5v2H3ZM5 12v7m7-7v7m7-7v7M2 22h20M3 19h18"></path></svg>
+                        <span><strong>Με κατάθεση</strong><small>Εθνική · Πειραιώς</small></span>
+                    </a>
+                </nav>
+                <section id="card-payment" class="payment-panel" aria-labelledby="card-title" data-payment-panel>
+                    <h2 id="card-title">Πληρωμή μέσω Viva</h2>
+                    <p class="payment-panel-intro">Στη σελίδα της Viva συμπληρώνετε:</p>
+                    <dl class="payment-required">
+                        <div><dt>Ποσό</dt><dd>Το τελικό ποσό <strong>με ΦΠΑ</strong>.</dd></div>
+                        <div><dt>Σημειώσεις / Περιγραφή</dt><dd>Το <strong>ΑΦΜ της επιχείρησής σας</strong>.</dd></div>
+                    </dl>
+                    <a class="payment-primary" href="https://www.vivapayments.com/web2?ref=8699605866872604" target="_blank" rel="noopener noreferrer">Συνέχεια στη Viva <svg width="20" height="20" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6M10 14 21 3M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5"></path></svg></a>
+                    <p class="payment-external-note">Ανοίγει σε νέα καρτέλα. Επιλέξτε κάρτα, Apple Pay ή Google Pay, εφόσον είναι διαθέσιμα στη συσκευή σας.</p>
+                    <details class="payment-instructions">
+                        <summary>Πώς ολοκληρώνω την πληρωμή; <svg width="16" height="16" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg></summary>
+                        <p>Αφού συμπληρώσετε ποσό και ΑΦΜ, εισάγετε τα στοιχεία της κάρτας σας και πατήστε «ΠΛΗΡΩΜΗ», ή ακολουθήστε τα βήματα του Apple Pay / Google Pay. Η συναλλαγή ολοκληρώνεται στη Viva.</p>
+                    </details>
+                </section>
+                <section id="bank-payment" class="payment-panel" aria-labelledby="bank-title" data-payment-panel>
+                    <h2 id="bank-title">Στοιχεία τραπεζικής κατάθεσης</h2>
+                    <p class="payment-bank-note">Στην <strong>αιτιολογία</strong> βάλτε το <strong>ΑΦΜ της επιχείρησής σας</strong>, για να αναγνωρίσουμε την πληρωμή.</p>
+                    <p class="payment-beneficiary">Δικαιούχος και των δύο λογαριασμών: <strong>MENNOO ΙΚΕ</strong></p>
+                    <div class="bank-accounts">
+                                                <section class="bank-account" aria-labelledby="bank-national">
+                            <h3 id="bank-national">Εθνική Τράπεζα</h3>
+                            <label class="iban-label" for="iban-national">IBAN</label>
+                            <div class="iban-row">
+                                <input id="iban-national" class="iban-value" type="text" readonly value="GR9301102050000020501871196" spellcheck="false" dir="ltr" aria-label="IBAN Εθνική Τράπεζα">
+                                <button class="copy-iban" type="button" data-copy-iban="iban-national" aria-label="Αντιγραφή IBAN: Εθνική Τράπεζα" hidden>
+                                    <svg width="17" height="17" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="8" y="8" width="12" height="13" rx="1"></rect><path d="M16 8V3H3v13h5"></path></svg>
+                                    <span data-copy-label>Αντιγραφή IBAN</span>
+                                </button>
+                            </div>
+                            <p class="copy-status" role="status" aria-live="polite" aria-atomic="true" data-copy-status></p>
+                        </section>
+                                                <section class="bank-account" aria-labelledby="bank-piraeus">
+                            <h3 id="bank-piraeus">Τράπεζα Πειραιώς</h3>
+                            <label class="iban-label" for="iban-piraeus">IBAN</label>
+                            <div class="iban-row">
+                                <input id="iban-piraeus" class="iban-value" type="text" readonly value="GR8301727510005751111091971" spellcheck="false" dir="ltr" aria-label="IBAN Τράπεζα Πειραιώς">
+                                <button class="copy-iban" type="button" data-copy-iban="iban-piraeus" aria-label="Αντιγραφή IBAN: Τράπεζα Πειραιώς" hidden>
+                                    <svg width="17" height="17" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="8" y="8" width="12" height="13" rx="1"></rect><path d="M16 8V3H3v13h5"></path></svg>
+                                    <span data-copy-label>Αντιγραφή IBAN</span>
+                                </button>
+                            </div>
+                            <p class="copy-status" role="status" aria-live="polite" aria-atomic="true" data-copy-status></p>
+                        </section>
+                                            </div>
+                    <p class="payment-transfer-note">Μπορείτε να προσθέσετε στην αιτιολογία και άλλες πληροφορίες που βοηθούν στην αναγνώριση της πληρωμής σας.</p>
+                </section>
+                <p class="payment-legal">Πριν πληρώσετε, διαβάστε τους <a href="/site-preview/payment-terms/">Όρους Πληρωμής</a> και τους <a href="/site-preview/terms/">Όρους Χρήσης</a>.</p>
             </div>
-            <nav class="payment-jumps" aria-label="Τρόποι πληρωμής"><a href="#card-payment"><span>01</span> Με κάρτα <span aria-hidden="true">↓</span></a><a href="#bank-payment"><span>02</span> Με κατάθεση <span aria-hidden="true">↓</span></a></nav>
+            <aside class="payment-support" aria-label="Τιμολόγιο και βοήθεια">
+                <section class="payment-invoice" aria-labelledby="invoice-title">
+                    <svg width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="1"></rect><path d="m3 5 9 7 9-7"></path></svg>                    <div><h2 id="invoice-title">Το τιμολόγιο στο email σας</h2><p>Θα σας αποσταλεί ηλεκτρονικά μετά την πληρωμή.</p></div>
+                </section>
+                <section class="payment-contact" aria-labelledby="help-title">
+                    <h2 id="help-title">Χρειάζεστε βοήθεια;</h2>
+                    <p>Για το ποσό ή οποιαδήποτε απορία, μιλήστε απευθείας μαζί μας.</p>
+                    <a class="payment-phone" href="tel:+302108028080" aria-label="Καλέστε τη MENNOO στο 210 802 80 80"><svg width="20" height="20" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2A19.8 19.8 0 0 1 3 5.2 2 2 0 0 1 5 3h3l2 5-2 2a16 16 0 0 0 6 6l2-2 6 2.9Z"></path></svg>210 802 80 80</a>
+                    <a class="payment-email" href="mailto:info@mennoo.gr"><svg width="18" height="18" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="1"></rect><path d="m3 5 9 7 9-7"></path></svg>info@mennoo.gr</a>
+                </section>
+            </aside>
         </div>
-    </section>
-    <div class="info-wrap payment-content">
-        <section class="payment-method" id="card-payment" aria-labelledby="card-title">
-            <div class="payment-heading"><span class="section-index" aria-hidden="true">01</span><h2 id="card-title">Πληρωμή<br> με κάρτα</h2><p>Μέσω Viva</p></div>
-            <div class="payment-detail">
-                <p class="payment-lead">Ανοίξτε τη σελίδα πληρωμής και συμπληρώστε τα δύο πεδία.</p>
-                <ol class="payment-steps">
-                    <li><span class="step-index" aria-hidden="true">1</span><div><h3>Στο «Ποσό»</h3><p>Συμπληρώστε το ποσό πληρωμής <strong>με ΦΠΑ</strong>.</p></div></li>
-                    <li><span class="step-index" aria-hidden="true">2</span><div><h3>Στις «Σημειώσεις» / «Περιγραφή»</h3><p>Συμπληρώστε το <strong>ΑΦΜ της επιχείρησής σας</strong> στην περιγραφή της πληρωμής.</p></div></li>
-                    <li><span class="step-index" aria-hidden="true">3</span><div><h3>Ολοκληρώστε την πληρωμή</h3><p>Συμπληρώστε τα στοιχεία της κάρτας και πατήστε «ΠΛΗΡΩΜΗ», ή επιλέξτε Apple Pay ή Google Pay, εφόσον εμφανίζονται στη συσκευή σας.</p></div></li>
-                </ol>
-                <div class="payment-action">
-                    <a class="payment-button" href="https://www.vivapayments.com/web2?ref=8699605866872604" target="_blank" rel="noopener noreferrer">Πληρωμή μέσω Viva <svg width="20" height="20" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6M10 14 21 3M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5"></path></svg></a>
-                    <p>Ανοίγει η σελίδα της Viva σε νέα καρτέλα.</p>
-                </div>
-                <p class="payment-terms-note">Πριν συνεχίσετε, διαβάστε τους <a href="/site-preview/payment-terms/">Όρους Πληρωμής</a> και τους <a href="/site-preview/terms/">Όρους Χρήσης</a>.</p>
-            </div>
-        </section>
-        <section class="payment-method" id="bank-payment" aria-labelledby="bank-title">
-            <div class="payment-heading"><span class="section-index" aria-hidden="true">02</span><h2 id="bank-title">Κατάθεση σε<br> τραπεζικό λογαριασμό</h2></div>
-            <div class="payment-detail">
-                <p class="payment-lead">Στην αιτιολογία της κατάθεσης προσθέστε το <strong>ΑΦΜ της επιχείρησής σας</strong>, καθώς και σχετικές πληροφορίες που μπορεί να είναι χρήσιμες για την αναγνώριση της πληρωμής σας.</p>
-                <div class="bank-accounts">
-                                        <section class="bank-account" aria-labelledby="bank-national">
-                        <h3 id="bank-national">Εθνική Τράπεζα</h3>
-                        <dl><div><dt>Δικαιούχος</dt><dd>MENNOO ΙΚΕ</dd></div></dl>
-                        <label class="iban-label" for="iban-national">IBAN</label>
-                        <div class="iban-row">
-                            <input id="iban-national" class="iban-value" type="text" readonly value="GR9301102050000020501871196" spellcheck="false" dir="ltr" aria-label="IBAN Εθνική Τράπεζα">
-                            <button class="copy-iban" type="button" data-copy-iban="iban-national" aria-label="Αντιγραφή IBAN: Εθνική Τράπεζα" hidden><svg width="17" height="17" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="8" y="8" width="12" height="13" rx="1"></rect><path d="M16 8V3H3v13h5"></path></svg><span>Αντιγραφή</span></button>
-                        </div>
-                    </section>
-                                        <section class="bank-account" aria-labelledby="bank-piraeus">
-                        <h3 id="bank-piraeus">Τράπεζα Πειραιώς</h3>
-                        <dl><div><dt>Δικαιούχος</dt><dd>MENNOO ΙΚΕ</dd></div></dl>
-                        <label class="iban-label" for="iban-piraeus">IBAN</label>
-                        <div class="iban-row">
-                            <input id="iban-piraeus" class="iban-value" type="text" readonly value="GR8301727510005751111091971" spellcheck="false" dir="ltr" aria-label="IBAN Τράπεζα Πειραιώς">
-                            <button class="copy-iban" type="button" data-copy-iban="iban-piraeus" aria-label="Αντιγραφή IBAN: Τράπεζα Πειραιώς" hidden><svg width="17" height="17" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="8" y="8" width="12" height="13" rx="1"></rect><path d="M16 8V3H3v13h5"></path></svg><span>Αντιγραφή</span></button>
-                        </div>
-                    </section>
-                                    </div>
-                <p class="copy-status" role="status" aria-live="polite" aria-atomic="true" data-copy-status></p>
-                <p class="invoice-note"><svg width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="1"></rect><path d="m3 5 9 7 9-7"></path></svg><span>Το τιμολόγιο θα σας αποσταλεί ηλεκτρονικά στο email σας.</span></p>
-            </div>
-        </section>
-        <aside class="payment-help" aria-labelledby="help-title"><div><p class="info-kicker">ΕΙΜΑΣΤΕ ΕΔΩ</p><h2 id="help-title">Μια ερώτηση για την πληρωμή σας;</h2></div><a href="https://mennoo.cfd/forms/interest/">Μιλήστε με τη MENNOO <span aria-hidden="true">↗</span></a></aside>
     </div>
 </main>
 <footer class="site-footer"><div class="footer-main"><a href="/site-preview/#experience" aria-label="Επιστροφή στην εμπειρία MENNOO"><img src="/site-preview/assets/images/mennoo-logo.png" alt="MENNOO" width="160" height="75" loading="lazy"></a><p>Η φιλοξενία σας.<br>Μια εμπειρία που συνεχίζεται.</p><div class="footer-contact"><a href="tel:+302108028080"><svg width="16" height="16" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2A19.8 19.8 0 0 1 3 5.2 2 2 0 0 1 5 3h3l2 5-2 2a16 16 0 0 0 6 6l2-2 6 2.9Z"></path></svg>210 802 80 80</a><a href="mailto:info@mennoo.gr"><svg width="16" height="16" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="1"></rect><path d="m3 5 9 7 9-7"></path></svg>info@mennoo.gr</a><a href="https://wa.me/306985558080" target="_blank" rel="noopener noreferrer">WhatsApp · 698 555 80 80</a></div></div><div class="footer-bottom"><span>© 2026 MENNOO</span><nav aria-label="Πληροφορίες"><a href="/site-preview/payments/">Πληρωμές</a><a href="/site-preview/terms/">Όροι χρήσης</a><a href="/site-preview/payment-terms/">Όροι πληρωμής</a><a href="https://mennoo.cfd/privacy/">Απόρρητο πρωτοτύπου</a><a href="https://mennoo.cfd" target="_blank" rel="noopener noreferrer">mennoo.cfd</a></nav><span>ΜΕ ΦΡΟΝΤΙΔΑ, ΑΠΟ ΤΗΝ ΕΛΛΑΔΑ</span></div></footer>
@@ -104,6 +127,7 @@
         <nav class="navigation-legal" aria-label="Όροι και πληροφορίες"><a href="/site-preview/terms/">Όροι χρήσης</a><a href="/site-preview/payment-terms/">Όροι πληρωμής</a></nav>
     </div>
 </dialog>
-<script defer src="/site-preview/assets/js/site-pages.js?v=1792262453"></script>
+<script defer src="/site-preview/assets/js/site-pages.js?v=1792318143"></script>
+<script defer src="/site-preview/assets/js/payments.js?v=1792318078"></script>
 </body>
 </html>

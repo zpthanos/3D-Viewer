@@ -48,26 +48,6 @@
   const toc = document.querySelector('.legal-toc');
   if (toc && matchMedia('(max-width: 900px)').matches) toc.open = false;
 
-  const status = document.querySelector('[data-copy-status]');
-  document.querySelectorAll('[data-copy-iban]').forEach((button) => {
-    const input = document.getElementById(button.dataset.copyIban);
-    if (!input) return;
-    button.hidden = false;
-    button.addEventListener('click', async () => {
-      button.disabled = true;
-      try {
-        if (!window.isSecureContext || !navigator.clipboard?.writeText) throw new Error('Clipboard unavailable');
-        await navigator.clipboard.writeText(input.value);
-        if (status) status.textContent = `Αντιγράφηκε το ${input.getAttribute('aria-label')}.`;
-      } catch {
-        input.focus();
-        input.select();
-        if (status) status.textContent = 'Το IBAN επιλέχθηκε. Χρησιμοποιήστε «Αντιγραφή» από το μενού της συσκευής σας.';
-      } finally {
-        button.disabled = false;
-      }
-    });
-  });
   document.querySelectorAll('[data-print-page]').forEach((button) => {
     button.hidden = false;
     button.addEventListener('click', () => window.print());

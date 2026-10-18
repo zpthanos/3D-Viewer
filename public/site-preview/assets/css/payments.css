@@ -1,0 +1,69 @@
+/* Payment tasks only. Valid CSS/SCSS, no framework or runtime build. */
+.payments-main{padding:140px 0 70px}
+.payment-wrap{width:min(100% - 112px,1120px);margin-inline:auto}
+.payment-page-heading{margin-bottom:30px}
+.payment-page-heading h1{margin:0;font-size:44px;font-weight:400;line-height:1.2;letter-spacing:-.035em}
+.payment-page-heading h1 span{color:#ef2469}
+.payment-page-heading p{margin:10px 0 0;font-size:17px;line-height:1.6;color:#655d6e}
+.payment-layout{display:grid;grid-template-columns:minmax(0,1fr) 290px;gap:64px;align-items:start}
+.payment-flow{min-width:0}
+.payment-methods{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));border:1px solid #cfc6b7;background:#eeeadf}
+.payment-methods a{display:flex;align-items:center;gap:13px;position:relative;padding:19px 20px;min-height:88px;line-height:1.4;border-bottom:3px solid transparent}
+.payment-methods a+a{border-left:1px solid #cfc6b7}
+.payment-methods svg{flex:none;color:#887139}
+.payment-methods strong{display:block;font-size:17px;font-weight:600}
+.payment-methods small{display:block;font-size:12px;color:#655d6e;margin-top:4px}
+.payment-methods a:hover{background:#fdfbf7}
+.payment-methods a[aria-selected="true"]{background:#fff;border-bottom-color:#ef2469}
+.payment-methods a[aria-selected="true"] svg{color:#c31951}
+.payment-methods a:focus-visible{z-index:1;outline-offset:3px}
+.payment-panel{padding-top:30px;scroll-margin-top:115px}
+.payment-panel h2{font-size:24px;font-weight:500;line-height:1.4;letter-spacing:-.025em;margin:0 0 8px}
+.payment-panel-intro{color:#655d6e;font-size:15px;line-height:1.6;margin:0}
+.payment-required{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));margin:22px 0 24px;border-block:1px solid #d7d0c3}
+.payment-required>div{padding:17px 0;min-width:0}
+.payment-required>div+div{border-left:1px solid #d7d0c3;padding-left:24px;margin-left:8px}
+.payment-required dt{font-size:12px;color:#655d6e;margin-bottom:7px;line-height:1.5}
+.payment-required dd{font-size:16px;line-height:1.6;margin:0;padding-right:12px}
+.payment-required strong{font-weight:600}
+.payment-primary{display:flex;justify-content:space-between;align-items:center;gap:20px;width:100%;min-height:56px;padding:15px 22px;background:#ef2469;color:#fff;font-size:17px;font-weight:600;line-height:1.5;transition:background .15s}
+.payment-primary:hover{background:#c31951}
+.payment-primary svg{flex:none}
+.payment-external-note{margin:10px 0 16px;color:#655d6e;font-size:12px;line-height:1.65;max-width:62ch}
+.payment-instructions{border-bottom:1px solid #d7d0c3}
+.payment-instructions summary{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:48px;list-style:none;font-size:14px;line-height:1.5;padding:12px 0;cursor:pointer}
+.payment-instructions summary::-webkit-details-marker{display:none}
+.payment-instructions summary svg{flex:none}
+.payment-instructions[open] summary svg{transform:rotate(180deg)}
+.payment-instructions p{font-size:14px;line-height:1.8;color:#655d6e;margin:0 0 18px}
+.payment-bank-note{font-size:15px;line-height:1.7;margin:16px 0;padding:12px 16px;border-left:2px solid #b89942;background:#eeeadf}
+.payment-beneficiary{font-size:13px;color:#655d6e;line-height:1.7;margin:0 0 18px}
+.payment-beneficiary strong{color:#08022f;white-space:nowrap}
+.bank-accounts{display:grid;gap:14px}
+.bank-account{background:#fff;padding:20px 22px 8px;border:1px solid #d7d0c3;min-width:0}
+.bank-account h3{font-size:19px;line-height:1.5;font-weight:500;margin:0 0 12px}
+.iban-label{display:block;font-size:11px;letter-spacing:.04em;color:#655d6e;line-height:1.5;margin-bottom:3px}
+.iban-row{display:flex;flex-wrap:wrap;align-items:center;gap:10px 18px}
+.payments-page .iban-value{border:0;background:transparent;color:#08022f;padding:4px 0;min-width:0;max-width:100%;width:29ch;font-size:17px;font-weight:500;line-height:1.7;letter-spacing:0;border-radius:0;font-variant-numeric:tabular-nums}
+.iban-value::selection{background:#ef2469;color:#fff}
+.payments-page .copy-iban{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;border:1px solid #c7bda7;color:#08022f;background:#f6f3ec;padding:10px 13px;font-size:13px;line-height:1.5;font-weight:500;cursor:pointer}
+.copy-iban:hover{background:#eeeadf;border-color:#9e8b5b}
+.copy-iban:disabled{opacity:.65;cursor:wait}
+.copy-status{min-height:20px;margin:6px 0 0;font-size:12px;line-height:1.6;color:#3d653e}
+.payment-transfer-note,.payment-legal{font-size:12px;color:#655d6e;line-height:1.8;margin:18px 0 0}
+.payment-legal a{text-decoration:underline;text-underline-offset:3px;color:#44354e}
+.payment-support{border-left:1px solid #d7d0c3;padding-left:32px}
+.payment-support h2{font-size:17px;line-height:1.5;font-weight:500;margin:0 0 8px}
+.payment-support p{font-size:14px;line-height:1.75;color:#655d6e;margin:0}
+.payment-invoice{display:flex;gap:13px;padding:6px 0 26px;border-bottom:1px solid #d7d0c3}
+.payment-invoice>svg{flex:none;color:#887139;margin-top:2px}
+.payment-contact{padding-top:26px}
+.payment-contact a{display:flex;align-items:center;gap:12px;min-height:44px;line-height:1.5;width:fit-content;max-width:100%;overflow-wrap:anywhere}
+.payment-contact a svg{flex:none;color:#887139}
+.payment-phone{font-size:21px;font-weight:500;margin-top:12px}
+.payment-email{font-size:14px;text-decoration:underline;text-underline-offset:4px}
+@media(max-width:960px){.payment-wrap{width:calc(100% - 64px)}.payment-layout{grid-template-columns:minmax(0,1fr);gap:36px}.payment-support{display:grid;grid-template-columns:1fr 1fr;gap:30px;border-left:0;border-top:1px solid #d7d0c3;padding:28px 0 0}.payment-invoice{border-bottom:0;padding:0}.payment-contact{padding:0}}
+@media(max-width:540px){.payments-main{padding:108px 0 42px}.payment-wrap{width:calc(100% - 40px)}.payment-page-heading{margin-bottom:22px}.payment-page-heading h1{font-size:32px}.payment-page-heading p{font-size:15px;margin-top:8px}.payment-methods a{gap:8px;padding:14px 12px;min-height:86px;align-items:flex-start}.payment-methods svg{width:19px;height:19px;margin-top:2px}.payment-methods strong{font-size:15px}.payment-methods small{font-size:10px;line-height:1.5}.payment-panel{padding-top:24px;scroll-margin-top:95px}.payment-panel h2{font-size:21px}.payment-panel-intro{font-size:14px}.payment-required{margin:18px 0 20px}.payment-required>div{padding:14px 0}.payment-required>div+div{padding-left:14px;margin-left:0}.payment-required dt{font-size:11px;min-height:33px;margin-bottom:4px}.payment-required dd{font-size:14px;padding-right:8px}.payment-primary{font-size:16px;padding:14px 18px;min-height:54px}.payment-bank-note{font-size:14px;padding:10px 12px;margin:14px 0}.bank-account{padding:16px 14px 8px}.bank-account h3{font-size:18px;margin-bottom:8px}.payments-page .iban-value{font-size:14px;width:100%}.payments-page .copy-iban{width:100%;font-size:13px}.payment-support{grid-template-columns:1fr;gap:24px;padding-top:24px}.payment-invoice{padding-bottom:22px;border-bottom:1px solid #d7d0c3}.payment-support h2{font-size:16px}.payment-support p{font-size:13px}.payment-contact a{min-height:48px}.payment-instructions summary{font-size:13px}}
+@media(max-width:360px){.payment-methods a{display:block;padding:12px 10px}.payment-methods svg{display:none}.payment-methods small{font-size:10px}.payments-page .iban-value{font-size:13px}.payment-page-heading p{max-width:28ch}}
+@media(prefers-reduced-motion:reduce){.payment-primary{transition:none}}
+@media print{.payments-main{padding:0}.payment-wrap{width:100%}.payment-methods,.copy-iban,.payment-primary,.payment-support,.payment-instructions,.payment-legal{display:none!important}.payment-layout{display:block}.payments-page [data-payment-panel][hidden]{display:block!important}.payment-panel{break-inside:avoid}.payment-page-heading h1{font-size:26pt}.bank-account{break-inside:avoid}.iban-value{width:100%}.payment-required{display:block}.payment-required>div+div{margin:0;padding-left:0;border:0}.payment-required>div{padding:8px 0}}
