@@ -1,0 +1,1 @@
+const frame=document.querySelector('iframe');document.querySelector('#width').addEventListener('change',e=>frame.width=e.target.value);document.querySelector('#page').addEventListener('change',e=>frame.src='/site-preview/'+e.target.value);

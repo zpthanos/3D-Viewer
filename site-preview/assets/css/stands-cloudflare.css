@@ -1,0 +1,32 @@
+/* Cloudflare Pages 3D Studio embedded into the MENNOO Apache layout. */
+.cloudflare-stands-page .stand-lab { padding-bottom: clamp(62px, 8vw, 115px); }
+.cloudflare-stands-page .stand-outline { letter-spacing: -.12em; }
+.mennoo-cloudflare-host {
+  max-width:1510px; margin:0 auto; background:#fff; border:1px solid #e6e0eb;
+  border-radius:20px; overflow:hidden; box-shadow:0 25px 80px #27153818;
+}
+.mennoo-cloudflare-frame {
+  display:block; width:100%; height:765px; min-height:600px; border:0;
+  background:linear-gradient(140deg,#ead3c1,#f4eaf2 45%,#f7f5fb);
+}
+.mennoo-cloudflare-caption {
+  padding:18px clamp(18px,3vw,38px); display:flex; align-items:center;
+  justify-content:space-between; gap:14px; flex-wrap:wrap;
+  font-size:11px; color:#6a5d78; background:#fff;
+}
+.mennoo-cloudflare-caption a { color:#b51b61; font-weight:750; text-decoration:underline; text-underline-offset:4px; }
+.mennoo-cloudflare-caption a:hover { color:#d32877; }
+@media(max-width:850px) {
+  .mennoo-cloudflare-frame { height:1170px; min-height:900px; }
+  .mennoo-cloudflare-host { border-radius:14px; }
+}
+@media(max-width:530px) {
+  .mennoo-cloudflare-frame { height:1100px; }
+  .mennoo-cloudflare-caption { padding:16px; font-size:10px; }
+}
+
+.cloudflare-stands-page .stands-header { flex-wrap:wrap; column-gap:24px; row-gap:14px; }
+.cloudflare-stands-page .stands-header nav { flex-wrap:wrap; }
+.cloudflare-stands-page .stands-footer { flex-wrap:wrap; }
+.cloudflare-stands-page .stands-footer nav { display:flex; flex-wrap:wrap; gap:12px 24px; }
+.cloudflare-stands-page .stands-footer nav a { display:inline-flex; align-items:center; min-height:44px; }
