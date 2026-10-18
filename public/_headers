@@ -2,37 +2,4 @@
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
   X-Robots-Tag: noindex, nofollow
-  Permissions-Policy: camera=(), microphone=(), geolocation=()
-  Content-Security-Policy: default-src 'self'; script-src 'self' 'wasm-unsafe-eval' https://ajax.googleapis.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self' blob: https://ajax.googleapis.com; worker-src 'self' blob:; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors https://mennoo.cfd https://www.mennoo.cfd https://mennoo.sbs https://www.mennoo.sbs; upgrade-insecure-requests
-
-/models/*
-  Cache-Control: public, max-age=31536000, immutable
-  Content-Type: model/gltf-binary
-
-/media/*
-  Cache-Control: public, max-age=604800
-
-/assets/*
-  Cache-Control: public, max-age=3600
-
-/
-  Cache-Control: no-cache
-
-/index.html
-  Cache-Control: no-cache
-
-/boho
-  Cache-Control: no-cache
-
-/mini-polygon
-  Cache-Control: no-cache
-
-/mini-votsalo
-  Cache-Control: no-cache
-
-/chonaki
-  Cache-Control: no-cache
-
-/404.html
-  Cache-Control: no-cache
-
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; frame-src 'self' https://stands.mennoo.cfd https://mennoo.app; frame-ancestors 'self'; object-src 'none'; base-uri 'self'
