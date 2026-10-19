@@ -149,7 +149,9 @@ addEventListener('pageshow',event=>{
 });
 addEventListener('message',event=>{
   if(!embed||event.source!==parent||!PARENT_ORIGINS.includes(event.origin)||event.data?.type!=='mennoo-stand-studio:host')return;
+  const firstContact=parentOrigin!==event.origin;
   parentOrigin=event.origin;parentVisible=event.data.visible===true;rotate();showcase?.visibility(inView&&parentVisible);lastHeight=0;notifyHeight();
+  if(firstContact)post({type:'mennoo-stand-studio:design',design:active});
 });
 if('ResizeObserver'in window){
   new ResizeObserver(notifyHeight).observe($('.studio'));
@@ -182,3 +184,8 @@ showcase=createShowcase({
   reset:()=>{wanted=false;rotate();viewer.setAttribute('interpolation-decay','90');if(ready)applyView('wide');},
   notifyHeight
 });
+// A ready signal complements the parent's load event. No wildcard target origins.
+if(embed&&parent!==window){
+  const origins=parentOrigin?[parentOrigin]:PARENT_ORIGINS;
+  for(const origin of origins)parent.postMessage({type:'mennoo-stand-studio:ready'},origin);
+}
