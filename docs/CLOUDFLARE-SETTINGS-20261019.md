@@ -12,6 +12,10 @@
 
 Οι φόρμες διατηρούν τις διορθώσεις αποστολής και το PHP `mail()`. Προστέθηκε `Cloudflare-CDN-Cache-Control: no-store` στις σελίδες φορμών και στα API, μαζί με το υπάρχον `Cache-Control: no-store`. Τα scripts εξαιρούνται ρητά από το Rocket Loader.
 
+Διορθώθηκε επίσης η αναγνώριση επισκέπτη πίσω από το proxy: τα όρια αποστολής χρησιμοποιούν το `CF-Connecting-IP` μόνο όταν το `REMOTE_ADDR` ανήκει στα επίσημα εύρη Cloudflare. Έτσι δύο πελάτες πίσω από τον ίδιο κόμβο δεν μοιράζονται άδικα ένα όριο. Πλαστές κεφαλίδες σε απευθείας συνδέσεις αγνοούνται. Υποστηρίζονται IPv6 και Pseudo IPv4. Η IP χρησιμοποιείται μόνο για ανώνυμο όριο, όχι ως ταυτότητα ή εξουσιοδότηση.
+
+Αν το hosting παρεμβάλλει δικό του proxy και η PHP βλέπει `127.0.0.1` ή ιδιωτική IP, χρειάζεται σωστή ρύθμιση πραγματικής IP από τον πάροχο. Ο κώδικας δεν εμπιστεύεται αυθαίρετα αυτούς τους ενδιάμεσους. Μην ενεργοποιήσεις «Remove visitor IP headers» αν βασίζεσαι σε αυτήν τη μέθοδο. Τα επίσημα εύρη στο `app/client_ip.php` ελέγχθηκαν στις 19/10/2026 και χρειάζονται ενημέρωση αν αλλάξει η λίστα Cloudflare.
+
 ## Ρυθμίσεις στο Cloudflare dashboard
 
 Οι παρακάτω είναι προτεινόμενες ρυθμίσεις για αυτόν τον κώδικα. Δεν έχουν εφαρμοστεί αυτόματα στον λογαριασμό σου.
@@ -84,8 +88,8 @@ Repository: `zpthanos/3D-Viewer` · production branch: `main` · framework prese
 ## Εγκατάσταση στο PHP hosting
 
 1. Κράτησε backup των υφιστάμενων αρχείων, εκτός `public_html`.
-2. Το ZIP ενημέρωσης περιέχει `UPLOAD_CONTENTS` με μόνο τα αρχεία αυτού του patch. Αν δεν έχει εγκατασταθεί η προηγούμενη έκδοση Forms Reliability, εφάρμοσέ την πρώτα. Το πλήρες ZIP περιλαμβάνει και εκείνες τις αλλαγές.
-3. Ανέβασε πρώτα τα νέα αρχεία `app/stands.php`, `data/stand-catalog.json`, `assets/images/stands/` και τα CSS/JS. Έπειτα αντικατάστησε τα PHP templates και entry points. Διατήρησε τις δικές σου ρυθμίσεις στο `config/`, το root `.htaccess`, τα δεδομένα αιτήσεων και τα στοιχεία Viva.
+2. Το ZIP ενημέρωσης περιέχει `UPLOAD_CONTENTS` με συγκεντρωτικά τις αλλαγές από τον κώδικα server που δόθηκε στις 18/10, μαζί με τις διορθώσεις Forms Reliability και τη συμβατότητα Cloudflare. Δεν περιέχει `config/`, root `.htaccess`, `.user.ini`, στοιχεία Viva ή αρχεία αιτήσεων. Έλεγξε τη λίστα αλλαγών απέναντι σε τυχόν δικές σου νεότερες επεμβάσεις.
+3. Ανέβασε πρώτα τα αρχεία `app/`, `data/stand-catalog.json`, `assets/images/stands/` και τα CSS/JS. Έπειτα αντικατάστησε τα API, PHP templates και entry points από το πακέτο. Διατήρησε τις δικές σου ρυθμίσεις στο `config/`, το root `.htaccess`, τα δεδομένα αιτήσεων και τα στοιχεία Viva. Το πλήρες ZIP είναι για έλεγχο πηγαίου κώδικα ή καθαρή εγκατάσταση, όχι τυφλή αντικατάσταση production ρυθμίσεων.
 4. Εφάρμοσε τον κανόνα bypass και τις ρυθμίσεις παραπάνω. Κάνε μία εκκαθάριση cache μετά την εγκατάσταση, ιδιαίτερα αν υπήρχε γενικός κανόνας Cache Everything. Το Purge Everything αδειάζει μόνο την CDN cache, όχι τα αρχεία του hosting.
 5. Για μελλοντική αλλαγή μοντέλων, στον υπολογιστή ανάπτυξης εκτέλεσε `node tools/export-apache-catalog.mjs /path/to/php-site` μέσα στο repository του viewer και ανέβασε μαζί τον κατάλογο και τις νέες εικόνες.
 
@@ -108,3 +112,5 @@ Repository: `zpthanos/3D-Viewer` · production branch: `main` · framework prese
 - [HTTP/3](https://developers.cloudflare.com/speed/optimization/protocol/http3/)
 - [Full (strict)](https://developers.cloudflare.com/ssl/origin-configuration/ssl-modes/full-strict/)
 - [Παρωχημένο Auto Minify](https://developers.cloudflare.com/speed/optimization/content/troubleshooting/disable-auto-minify/)
+- [Visitor IP headers](https://developers.cloudflare.com/fundamentals/reference/http-headers/)
+- [Επίσημα IPv4 ranges](https://www.cloudflare.com/ips-v4/), [επίσημα IPv6 ranges](https://www.cloudflare.com/ips-v6/)
