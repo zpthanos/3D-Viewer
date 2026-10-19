@@ -1,0 +1,241 @@
+<!doctype html><html lang="el"><head><meta charset="utf-8"><meta name="robots" content="noindex,nofollow"><title>MENNOO gallery layout verification</title><style>body{font-family:system-ui;margin:20px;background:#ddd}iframe{display:block;border:1px solid #777;margin-bottom:50px}h2{margin:20px 0}</style></head><body><h1>MENNOO — πραγματικά μοντέλα / responsive έλεγχος</h1><h2>320px</h2><iframe title="Gallery 320px" width="320" height="1900" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;el&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1&quot;&gt;&lt;style&gt;@font-face{font-family:Roboto;src:url(/assets/fonts/roboto-400.woff) format(&quot;woff&quot;);font-weight:400 900;font-display:swap}*{box-sizing:border-box}html,body{margin:0;font-family:Roboto,sans-serif}a{color:inherit;text-decoration:none}/* Plain SCSS/CSS: copy to ../css/stand-gallery.css; no browser or server compiler. */
+.home-stand-collection{background:#08022f;color:#f7f4ed;padding:clamp(64px,8vw,118px) clamp(20px,5vw,88px) clamp(72px,7vw,108px)}
+.home-stand-header{display:flex;align-items:flex-end;justify-content:space-between;gap:40px;max-width:1600px;margin:0 auto 40px}
+.home-stand-overline{font-size:11px;letter-spacing:.2em;color:#d7c58c;font-weight:700}
+.home-stand-header h2{font-family:inherit;font-size:clamp(2.3rem,5.7vw,6.3rem);line-height:1.1;letter-spacing:-.055em;font-weight:500;margin:23px 0 0}
+.home-stand-header h2 em{color:#d7c58c;font-weight:400;font-style:normal}
+.home-stand-summary{max-width:320px;line-height:1.8;font-size:14px;color:#d6d0df}
+.home-stand-summary a{display:inline-flex;align-items:center;gap:20px;color:#fff;font-weight:700;margin-top:16px;padding:8px 0;border-bottom:1px solid #ef2469;min-height:44px}
+.home-stand-summary a span{font-size:22px;color:#ef2469;flex-shrink:0}
+.home-stand-cards{max-width:1600px;margin:auto;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.home-stand-card{background:#eee9df;color:#171326;border-radius:8px;padding:clamp(14px,1.5vw,22px);display:flex;flex-direction:column;min-width:0;position:relative;transition:transform .22s ease,background .22s ease}
+.home-stand-card:focus-visible,.home-stand-summary a:focus-visible{outline:3px solid #ef2469;outline-offset:5px}
+.home-stand-number{font-size:11px;letter-spacing:.13em;font-weight:700;color:#685f70}
+.home-stand-card img{display:block;width:100%;height:auto;aspect-ratio:1;object-fit:contain;margin:10px 0 14px;transition:transform .25s ease}
+.home-stand-name{font-size:clamp(1rem,1.65vw,1.6rem);font-weight:700;letter-spacing:-.03em;line-height:1.3;overflow-wrap:anywhere;margin-top:auto}
+.home-stand-foot{display:flex;justify-content:space-between;align-items:center;gap:8px;border-top:1px solid #c5bfae;padding-top:12px;margin-top:12px;font-size:12px;line-height:1.6;color:#625668}
+.home-stand-foot span:last-child{font-size:22px;color:#bc1652;flex-shrink:0}
+.home-stand-disclaimer{max-width:1600px;margin:24px auto 0;color:#c9c0cf;font-size:12px;line-height:1.8}
+@media(hover:hover){.home-stand-card:hover{transform:translateY(-4px);background:#f7f3eb}.home-stand-card:hover img{transform:scale(1.035)}}
+@media(max-width:1080px){.home-stand-cards{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:640px){.home-stand-header{flex-direction:column;align-items:flex-start;gap:18px}.home-stand-summary{max-width:none}.home-stand-cards{gap:12px}.home-stand-card{padding:14px}.home-stand-foot{align-items:flex-end}}
+@media(max-width:370px){.home-stand-cards{grid-template-columns:1fr}.home-stand-card img{max-height:260px}.home-stand-name{font-size:1.3rem}}
+@media(prefers-reduced-motion:reduce){.home-stand-card,.home-stand-card img{transition:none;transform:none!important}}
+&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;section id=&quot;stand-collection&quot; class=&quot;home-stand-collection&quot; aria-labelledby=&quot;stand-collection-title&quot; data-catalog=&quot;15e167f8042e&quot;&gt;
+    &lt;div class=&quot;home-stand-header&quot;&gt;
+        &lt;div&gt;&lt;span class=&quot;home-stand-overline&quot;&gt;MENNOO / THE STAND COLLECTION&lt;/span&gt;
+          &lt;h2 id=&quot;stand-collection-title&quot;&gt;Μικρές φόρμες.&lt;br&gt;&lt;em&gt;Μεγάλη προσωπικότητα.&lt;/em&gt;&lt;/h2&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;home-stand-summary&quot;&gt;&lt;p&gt;Τα δικά μας QR stands από κάθε γωνία. Τέσσερα διαφορετικά σχέδια, μία πιο προσεγμένη εμπειρία στο τραπέζι.&lt;/p&gt;
+          &lt;a href=&quot;/stands/&quot;&gt;Μπείτε στο πραγματικό 3D Studio &lt;span aria-hidden=&quot;true&quot;&gt;↗&lt;/span&gt;&lt;/a&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;home-stand-cards&quot;&gt;
+          &lt;a class=&quot;home-stand-card&quot; href=&quot;/stands/boho/#stand-viewer&quot; aria-label=&quot;Προβολή BOHO σε 360 μοίρες&quot;&gt;
+        &lt;span class=&quot;home-stand-number&quot;&gt;01 / 04&lt;/span&gt;
+        &lt;img src=&quot;/media/object-boho.1da4eeef2e3e.webp&quot; alt=&quot;BOHO σε μαύρο PLA, με το MENNOO QR μέσα στην τετράγωνη εσοχή&quot; loading=&quot;eager&quot; decoding=&quot;async&quot; width=&quot;600&quot; height=&quot;600&quot;&gt;
+        &lt;span class=&quot;home-stand-name&quot;&gt;BOHO&lt;/span&gt;
+        &lt;span class=&quot;home-stand-foot&quot;&gt;&lt;span&gt;Ύψος 65 mm · Δείτε το σε 360°&lt;/span&gt;&lt;span aria-hidden=&quot;true&quot;&gt;↗&lt;/span&gt;&lt;/span&gt;
+      &lt;/a&gt;
+          &lt;a class=&quot;home-stand-card&quot; href=&quot;/stands/mini-polygon/#stand-viewer&quot; aria-label=&quot;Προβολή MINI POLYGON σε 360 μοίρες&quot;&gt;
+        &lt;span class=&quot;home-stand-number&quot;&gt;02 / 04&lt;/span&gt;
+        &lt;img src=&quot;/media/object-mini-polygon.4778be5f069a.webp&quot; alt=&quot;MINI POLYGON σε μαύρο PLA, με το MENNOO QR μέσα στην τετράγωνη εσοχή&quot; loading=&quot;eager&quot; decoding=&quot;async&quot; width=&quot;600&quot; height=&quot;600&quot;&gt;
+        &lt;span class=&quot;home-stand-name&quot;&gt;MINI POLYGON&lt;/span&gt;
+        &lt;span class=&quot;home-stand-foot&quot;&gt;&lt;span&gt;Ύψος 25 mm · Δείτε το σε 360°&lt;/span&gt;&lt;span aria-hidden=&quot;true&quot;&gt;↗&lt;/span&gt;&lt;/span&gt;
+      &lt;/a&gt;
+          &lt;a class=&quot;home-stand-card&quot; href=&quot;/stands/mini-votsalo/#stand-viewer&quot; aria-label=&quot;Προβολή MINI ΒΟΤΣΑΛΟ σε 360 μοίρες&quot;&gt;
+        &lt;span class=&quot;home-stand-number&quot;&gt;03 / 04&lt;/span&gt;
+        &lt;img src=&quot;/media/object-mini-votsalo.25e216bc6f08.webp&quot; alt=&quot;MINI ΒΟΤΣΑΛΟ σε μαύρο PLA, με το MENNOO QR μέσα στην τετράγωνη εσοχή&quot; loading=&quot;eager&quot; decoding=&quot;async&quot; width=&quot;600&quot; height=&quot;600&quot;&gt;
+        &lt;span class=&quot;home-stand-name&quot;&gt;MINI ΒΟΤΣΑΛΟ&lt;/span&gt;
+        &lt;span class=&quot;home-stand-foot&quot;&gt;&lt;span&gt;Ύψος 25 mm · Δείτε το σε 360°&lt;/span&gt;&lt;span aria-hidden=&quot;true&quot;&gt;↗&lt;/span&gt;&lt;/span&gt;
+      &lt;/a&gt;
+          &lt;a class=&quot;home-stand-card&quot; href=&quot;/stands/chonaki/#stand-viewer&quot; aria-label=&quot;Προβολή ΧΩΝΑΚΙ σε 360 μοίρες&quot;&gt;
+        &lt;span class=&quot;home-stand-number&quot;&gt;04 / 04&lt;/span&gt;
+        &lt;img src=&quot;/media/object-chonaki.060c6d24baaf.webp&quot; alt=&quot;ΧΩΝΑΚΙ σε μαύρο PLA, με το MENNOO QR μέσα στην τετράγωνη εσοχή&quot; loading=&quot;eager&quot; decoding=&quot;async&quot; width=&quot;600&quot; height=&quot;600&quot;&gt;
+        &lt;span class=&quot;home-stand-name&quot;&gt;ΧΩΝΑΚΙ&lt;/span&gt;
+        &lt;span class=&quot;home-stand-foot&quot;&gt;&lt;span&gt;Ύψος 65 mm · Δείτε το σε 360°&lt;/span&gt;&lt;span aria-hidden=&quot;true&quot;&gt;↗&lt;/span&gt;&lt;/span&gt;
+      &lt;/a&gt;
+        &lt;/div&gt;
+    &lt;p class=&quot;home-stand-disclaimer&quot;&gt;Μαύρο PLA · Εσοχή QR 41 × 41 × 3 mm · Επιλέξτε ένα σχέδιο για να το δείτε στο τραπέζι.&lt;/p&gt;
+&lt;/section&gt;
+    &lt;/body&gt;&lt;/html&gt;"></iframe><h2>390px</h2><iframe title="Gallery 390px" width="390" height="1200" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;el&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1&quot;&gt;&lt;style&gt;@font-face{font-family:Roboto;src:url(/assets/fonts/roboto-400.woff) format(&quot;woff&quot;);font-weight:400 900;font-display:swap}*{box-sizing:border-box}html,body{margin:0;font-family:Roboto,sans-serif}a{color:inherit;text-decoration:none}/* Plain SCSS/CSS: copy to ../css/stand-gallery.css; no browser or server compiler. */
+.home-stand-collection{background:#08022f;color:#f7f4ed;padding:clamp(64px,8vw,118px) clamp(20px,5vw,88px) clamp(72px,7vw,108px)}
+.home-stand-header{display:flex;align-items:flex-end;justify-content:space-between;gap:40px;max-width:1600px;margin:0 auto 40px}
+.home-stand-overline{font-size:11px;letter-spacing:.2em;color:#d7c58c;font-weight:700}
+.home-stand-header h2{font-family:inherit;font-size:clamp(2.3rem,5.7vw,6.3rem);line-height:1.1;letter-spacing:-.055em;font-weight:500;margin:23px 0 0}
+.home-stand-header h2 em{color:#d7c58c;font-weight:400;font-style:normal}
+.home-stand-summary{max-width:320px;line-height:1.8;font-size:14px;color:#d6d0df}
+.home-stand-summary a{display:inline-flex;align-items:center;gap:20px;color:#fff;font-weight:700;margin-top:16px;padding:8px 0;border-bottom:1px solid #ef2469;min-height:44px}
+.home-stand-summary a span{font-size:22px;color:#ef2469;flex-shrink:0}
+.home-stand-cards{max-width:1600px;margin:auto;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.home-stand-card{background:#eee9df;color:#171326;border-radius:8px;padding:clamp(14px,1.5vw,22px);display:flex;flex-direction:column;min-width:0;position:relative;transition:transform .22s ease,background .22s ease}
+.home-stand-card:focus-visible,.home-stand-summary a:focus-visible{outline:3px solid #ef2469;outline-offset:5px}
+.home-stand-number{font-size:11px;letter-spacing:.13em;font-weight:700;color:#685f70}
+.home-stand-card img{display:block;width:100%;height:auto;aspect-ratio:1;object-fit:contain;margin:10px 0 14px;transition:transform .25s ease}
+.home-stand-name{font-size:clamp(1rem,1.65vw,1.6rem);font-weight:700;letter-spacing:-.03em;line-height:1.3;overflow-wrap:anywhere;margin-top:auto}
+.home-stand-foot{display:flex;justify-content:space-between;align-items:center;gap:8px;border-top:1px solid #c5bfae;padding-top:12px;margin-top:12px;font-size:12px;line-height:1.6;color:#625668}
+.home-stand-foot span:last-child{font-size:22px;color:#bc1652;flex-shrink:0}
+.home-stand-disclaimer{max-width:1600px;margin:24px auto 0;color:#c9c0cf;font-size:12px;line-height:1.8}
+@media(hover:hover){.home-stand-card:hover{transform:translateY(-4px);background:#f7f3eb}.home-stand-card:hover img{transform:scale(1.035)}}
+@media(max-width:1080px){.home-stand-cards{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:640px){.home-stand-header{flex-direction:column;align-items:flex-start;gap:18px}.home-stand-summary{max-width:none}.home-stand-cards{gap:12px}.home-stand-card{padding:14px}.home-stand-foot{align-items:flex-end}}
+@media(max-width:370px){.home-stand-cards{grid-template-columns:1fr}.home-stand-card img{max-height:260px}.home-stand-name{font-size:1.3rem}}
+@media(prefers-reduced-motion:reduce){.home-stand-card,.home-stand-card img{transition:none;transform:none!important}}
+&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;section id=&quot;stand-collection&quot; class=&quot;home-stand-collection&quot; aria-labelledby=&quot;stand-collection-title&quot; data-catalog=&quot;15e167f8042e&quot;&gt;
+    &lt;div class=&quot;home-stand-header&quot;&gt;
+        &lt;div&gt;&lt;span class=&quot;home-stand-overline&quot;&gt;MENNOO / THE STAND COLLECTION&lt;/span&gt;
+          &lt;h2 id=&quot;stand-collection-title&quot;&gt;Μικρές φόρμες.&lt;br&gt;&lt;em&gt;Μεγάλη προσωπικότητα.&lt;/em&gt;&lt;/h2&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;home-stand-summary&quot;&gt;&lt;p&gt;Τα δικά μας QR stands από κάθε γωνία. Τέσσερα διαφορετικά σχέδια, μία πιο προσεγμένη εμπειρία στο τραπέζι.&lt;/p&gt;
+          &lt;a href=&quot;/stands/&quot;&gt;Μπείτε στο πραγματικό 3D Studio &lt;span aria-hidden=&quot;true&quot;&gt;↗&lt;/span&gt;&lt;/a&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;home-stand-cards&quot;&gt;
+          &lt;a class=&quot;home-stand-card&quot; href=&quot;/stands/boho/#stand-viewer&quot; aria-label=&quot;Προβολή BOHO σε 360 μοίρες&quot;&gt;
+        &lt;span class=&quot;home-stand-number&quot;&gt;01 / 04&lt;/span&gt;
+        &lt;img src=&quot;/media/object-boho.1da4eeef2e3e.webp&quot; alt=&quot;BOHO σε μαύρο PLA, με το MENNOO QR μέσα στην τετράγωνη εσοχή&quot; loading=&quot;eager&quot; decoding=&quot;async&quot; width=&quot;600&quot; height=&quot;600&quot;&gt;
+        &lt;span class=&quot;home-stand-name&quot;&gt;BOHO&lt;/span&gt;
+        &lt;span class=&quot;home-stand-foot&quot;&gt;&lt;span&gt;Ύψος 65 mm · Δείτε το σε 360°&lt;/span&gt;&lt;span aria-hidden=&quot;true&quot;&gt;↗&lt;/span&gt;&lt;/span&gt;
+      &lt;/a&gt;
+          &lt;a class=&quot;home-stand-card&quot; href=&quot;/stands/mini-polygon/#stand-viewer&quot; aria-label=&quot;Προβολή MINI POLYGON σε 360 μοίρες&quot;&gt;
+        &lt;span class=&quot;home-stand-number&quot;&gt;02 / 04&lt;/span&gt;
+        &lt;img src=&quot;/media/object-mini-polygon.4778be5f069a.webp&quot; alt=&quot;MINI POLYGON σε μαύρο PLA, με το MENNOO QR μέσα στην τετράγωνη εσοχή&quot; loading=&quot;eager&quot; decoding=&quot;async&quot; width=&quot;600&quot; height=&quot;600&quot;&gt;
+        &lt;span class=&quot;home-stand-name&quot;&gt;MINI POLYGON&lt;/span&gt;
+        &lt;span class=&quot;home-stand-foot&quot;&gt;&lt;span&gt;Ύψος 25 mm · Δείτε το σε 360°&lt;/span&gt;&lt;span aria-hidden=&quot;true&quot;&gt;↗&lt;/span&gt;&lt;/span&gt;
+      &lt;/a&gt;
+          &lt;a class=&quot;home-stand-card&quot; href=&quot;/stands/mini-votsalo/#stand-viewer&quot; aria-label=&quot;Προβολή MINI ΒΟΤΣΑΛΟ σε 360 μοίρες&quot;&gt;
+        &lt;span class=&quot;home-stand-number&quot;&gt;03 / 04&lt;/span&gt;
+        &lt;img src=&quot;/media/object-mini-votsalo.25e216bc6f08.webp&quot; alt=&quot;MINI ΒΟΤΣΑΛΟ σε μαύρο PLA, με το MENNOO QR μέσα στην τετράγωνη εσοχή&quot; loading=&quot;eager&quot; decoding=&quot;async&quot; width=&quot;600&quot; height=&quot;600&quot;&gt;
+        &lt;span class=&quot;home-stand-name&quot;&gt;MINI ΒΟΤΣΑΛΟ&lt;/span&gt;
+        &lt;span class=&quot;home-stand-foot&quot;&gt;&lt;span&gt;Ύψος 25 mm · Δείτε το σε 360°&lt;/span&gt;&lt;span aria-hidden=&quot;true&quot;&gt;↗&lt;/span&gt;&lt;/span&gt;
+      &lt;/a&gt;
+          &lt;a class=&quot;home-stand-card&quot; href=&quot;/stands/chonaki/#stand-viewer&quot; aria-label=&quot;Προβολή ΧΩΝΑΚΙ σε 360 μοίρες&quot;&gt;
+        &lt;span class=&quot;home-stand-number&quot;&gt;04 / 04&lt;/span&gt;
+        &lt;img src=&quot;/media/object-chonaki.060c6d24baaf.webp&quot; alt=&quot;ΧΩΝΑΚΙ σε μαύρο PLA, με το MENNOO QR μέσα στην τετράγωνη εσοχή&quot; loading=&quot;eager&quot; decoding=&quot;async&quot; width=&quot;600&quot; height=&quot;600&quot;&gt;
+        &lt;span class=&quot;home-stand-name&quot;&gt;ΧΩΝΑΚΙ&lt;/span&gt;
+        &lt;span class=&quot;home-stand-foot&quot;&gt;&lt;span&gt;Ύψος 65 mm · Δείτε το σε 360°&lt;/span&gt;&lt;span aria-hidden=&quot;true&quot;&gt;↗&lt;/span&gt;&lt;/span&gt;
+      &lt;/a&gt;
+        &lt;/div&gt;
+    &lt;p class=&quot;home-stand-disclaimer&quot;&gt;Μαύρο PLA · Εσοχή QR 41 × 41 × 3 mm · Επιλέξτε ένα σχέδιο για να το δείτε στο τραπέζι.&lt;/p&gt;
+&lt;/section&gt;
+    &lt;/body&gt;&lt;/html&gt;"></iframe><h2>768px</h2><iframe title="Gallery 768px" width="768" height="1200" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;el&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1&quot;&gt;&lt;style&gt;@font-face{font-family:Roboto;src:url(/assets/fonts/roboto-400.woff) format(&quot;woff&quot;);font-weight:400 900;font-display:swap}*{box-sizing:border-box}html,body{margin:0;font-family:Roboto,sans-serif}a{color:inherit;text-decoration:none}/* Plain SCSS/CSS: copy to ../css/stand-gallery.css; no browser or server compiler. */
+.home-stand-collection{background:#08022f;color:#f7f4ed;padding:clamp(64px,8vw,118px) clamp(20px,5vw,88px) clamp(72px,7vw,108px)}
+.home-stand-header{display:flex;align-items:flex-end;justify-content:space-between;gap:40px;max-width:1600px;margin:0 auto 40px}
+.home-stand-overline{font-size:11px;letter-spacing:.2em;color:#d7c58c;font-weight:700}
+.home-stand-header h2{font-family:inherit;font-size:clamp(2.3rem,5.7vw,6.3rem);line-height:1.1;letter-spacing:-.055em;font-weight:500;margin:23px 0 0}
+.home-stand-header h2 em{color:#d7c58c;font-weight:400;font-style:normal}
+.home-stand-summary{max-width:320px;line-height:1.8;font-size:14px;color:#d6d0df}
+.home-stand-summary a{display:inline-flex;align-items:center;gap:20px;color:#fff;font-weight:700;margin-top:16px;padding:8px 0;border-bottom:1px solid #ef2469;min-height:44px}
+.home-stand-summary a span{font-size:22px;color:#ef2469;flex-shrink:0}
+.home-stand-cards{max-width:1600px;margin:auto;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.home-stand-card{background:#eee9df;color:#171326;border-radius:8px;padding:clamp(14px,1.5vw,22px);display:flex;flex-direction:column;min-width:0;position:relative;transition:transform .22s ease,background .22s ease}
+.home-stand-card:focus-visible,.home-stand-summary a:focus-visible{outline:3px solid #ef2469;outline-offset:5px}
+.home-stand-number{font-size:11px;letter-spacing:.13em;font-weight:700;color:#685f70}
+.home-stand-card img{display:block;width:100%;height:auto;aspect-ratio:1;object-fit:contain;margin:10px 0 14px;transition:transform .25s ease}
+.home-stand-name{font-size:clamp(1rem,1.65vw,1.6rem);font-weight:700;letter-spacing:-.03em;line-height:1.3;overflow-wrap:anywhere;margin-top:auto}
+.home-stand-foot{display:flex;justify-content:space-between;align-items:center;gap:8px;border-top:1px solid #c5bfae;padding-top:12px;margin-top:12px;font-size:12px;line-height:1.6;color:#625668}
+.home-stand-foot span:last-child{font-size:22px;color:#bc1652;flex-shrink:0}
+.home-stand-disclaimer{max-width:1600px;margin:24px auto 0;color:#c9c0cf;font-size:12px;line-height:1.8}
+@media(hover:hover){.home-stand-card:hover{transform:translateY(-4px);background:#f7f3eb}.home-stand-card:hover img{transform:scale(1.035)}}
+@media(max-width:1080px){.home-stand-cards{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:640px){.home-stand-header{flex-direction:column;align-items:flex-start;gap:18px}.home-stand-summary{max-width:none}.home-stand-cards{gap:12px}.home-stand-card{padding:14px}.home-stand-foot{align-items:flex-end}}
+@media(max-width:370px){.home-stand-cards{grid-template-columns:1fr}.home-stand-card img{max-height:260px}.home-stand-name{font-size:1.3rem}}
+@media(prefers-reduced-motion:reduce){.home-stand-card,.home-stand-card img{transition:none;transform:none!important}}
+&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;section id=&quot;stand-collection&quot; class=&quot;home-stand-collection&quot; aria-labelledby=&quot;stand-collection-title&quot; data-catalog=&quot;15e167f8042e&quot;&gt;
+    &lt;div class=&quot;home-stand-header&quot;&gt;
+        &lt;div&gt;&lt;span class=&quot;home-stand-overline&quot;&gt;MENNOO / THE STAND COLLECTION&lt;/span&gt;
+          &lt;h2 id=&quot;stand-collection-title&quot;&gt;Μικρές φόρμες.&lt;br&gt;&lt;em&gt;Μεγάλη προσωπικότητα.&lt;/em&gt;&lt;/h2&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;home-stand-summary&quot;&gt;&lt;p&gt;Τα δικά μας QR stands από κάθε γωνία. Τέσσερα διαφορετικά σχέδια, μία πιο προσεγμένη εμπειρία στο τραπέζι.&lt;/p&gt;
+          &lt;a href=&quot;/stands/&quot;&gt;Μπείτε στο πραγματικό 3D Studio &lt;span aria-hidden=&quot;true&quot;&gt;↗&lt;/span&gt;&lt;/a&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;home-stand-cards&quot;&gt;
+          &lt;a class=&quot;home-stand-card&quot; href=&quot;/stands/boho/#stand-viewer&quot; aria-label=&quot;Προβολή BOHO σε 360 μοίρες&quot;&gt;
+        &lt;span class=&quot;home-stand-number&quot;&gt;01 / 04&lt;/span&gt;
+        &lt;img src=&quot;/media/object-boho.1da4eeef2e3e.webp&quot; alt=&quot;BOHO σε μαύρο PLA, με το MENNOO QR μέσα στην τετράγωνη εσοχή&quot; loading=&quot;eager&quot; decoding=&quot;async&quot; width=&quot;600&quot; height=&quot;600&quot;&gt;
+        &lt;span class=&quot;home-stand-name&quot;&gt;BOHO&lt;/span&gt;
+        &lt;span class=&quot;home-stand-foot&quot;&gt;&lt;span&gt;Ύψος 65 mm · Δείτε το σε 360°&lt;/span&gt;&lt;span aria-hidden=&quot;true&quot;&gt;↗&lt;/span&gt;&lt;/span&gt;
+      &lt;/a&gt;
+          &lt;a class=&quot;home-stand-card&quot; href=&quot;/stands/mini-polygon/#stand-viewer&quot; aria-label=&quot;Προβολή MINI POLYGON σε 360 μοίρες&quot;&gt;
+        &lt;span class=&quot;home-stand-number&quot;&gt;02 / 04&lt;/span&gt;
+        &lt;img src=&quot;/media/object-mini-polygon.4778be5f069a.webp&quot; alt=&quot;MINI POLYGON σε μαύρο PLA, με το MENNOO QR μέσα στην τετράγωνη εσοχή&quot; loading=&quot;eager&quot; decoding=&quot;async&quot; width=&quot;600&quot; height=&quot;600&quot;&gt;
+        &lt;span class=&quot;home-stand-name&quot;&gt;MINI POLYGON&lt;/span&gt;
+        &lt;span class=&quot;home-stand-foot&quot;&gt;&lt;span&gt;Ύψος 25 mm · Δείτε το σε 360°&lt;/span&gt;&lt;span aria-hidden=&quot;true&quot;&gt;↗&lt;/span&gt;&lt;/span&gt;
+      &lt;/a&gt;
+          &lt;a class=&quot;home-stand-card&quot; href=&quot;/stands/mini-votsalo/#stand-viewer&quot; aria-label=&quot;Προβολή MINI ΒΟΤΣΑΛΟ σε 360 μοίρες&quot;&gt;
+        &lt;span class=&quot;home-stand-number&quot;&gt;03 / 04&lt;/span&gt;
+        &lt;img src=&quot;/media/object-mini-votsalo.25e216bc6f08.webp&quot; alt=&quot;MINI ΒΟΤΣΑΛΟ σε μαύρο PLA, με το MENNOO QR μέσα στην τετράγωνη εσοχή&quot; loading=&quot;eager&quot; decoding=&quot;async&quot; width=&quot;600&quot; height=&quot;600&quot;&gt;
+        &lt;span class=&quot;home-stand-name&quot;&gt;MINI ΒΟΤΣΑΛΟ&lt;/span&gt;
+        &lt;span class=&quot;home-stand-foot&quot;&gt;&lt;span&gt;Ύψος 25 mm · Δείτε το σε 360°&lt;/span&gt;&lt;span aria-hidden=&quot;true&quot;&gt;↗&lt;/span&gt;&lt;/span&gt;
+      &lt;/a&gt;
+          &lt;a class=&quot;home-stand-card&quot; href=&quot;/stands/chonaki/#stand-viewer&quot; aria-label=&quot;Προβολή ΧΩΝΑΚΙ σε 360 μοίρες&quot;&gt;
+        &lt;span class=&quot;home-stand-number&quot;&gt;04 / 04&lt;/span&gt;
+        &lt;img src=&quot;/media/object-chonaki.060c6d24baaf.webp&quot; alt=&quot;ΧΩΝΑΚΙ σε μαύρο PLA, με το MENNOO QR μέσα στην τετράγωνη εσοχή&quot; loading=&quot;eager&quot; decoding=&quot;async&quot; width=&quot;600&quot; height=&quot;600&quot;&gt;
+        &lt;span class=&quot;home-stand-name&quot;&gt;ΧΩΝΑΚΙ&lt;/span&gt;
+        &lt;span class=&quot;home-stand-foot&quot;&gt;&lt;span&gt;Ύψος 65 mm · Δείτε το σε 360°&lt;/span&gt;&lt;span aria-hidden=&quot;true&quot;&gt;↗&lt;/span&gt;&lt;/span&gt;
+      &lt;/a&gt;
+        &lt;/div&gt;
+    &lt;p class=&quot;home-stand-disclaimer&quot;&gt;Μαύρο PLA · Εσοχή QR 41 × 41 × 3 mm · Επιλέξτε ένα σχέδιο για να το δείτε στο τραπέζι.&lt;/p&gt;
+&lt;/section&gt;
+    &lt;/body&gt;&lt;/html&gt;"></iframe><h2>1280px</h2><iframe title="Gallery 1280px" width="1280" height="1200" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;el&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1&quot;&gt;&lt;style&gt;@font-face{font-family:Roboto;src:url(/assets/fonts/roboto-400.woff) format(&quot;woff&quot;);font-weight:400 900;font-display:swap}*{box-sizing:border-box}html,body{margin:0;font-family:Roboto,sans-serif}a{color:inherit;text-decoration:none}/* Plain SCSS/CSS: copy to ../css/stand-gallery.css; no browser or server compiler. */
+.home-stand-collection{background:#08022f;color:#f7f4ed;padding:clamp(64px,8vw,118px) clamp(20px,5vw,88px) clamp(72px,7vw,108px)}
+.home-stand-header{display:flex;align-items:flex-end;justify-content:space-between;gap:40px;max-width:1600px;margin:0 auto 40px}
+.home-stand-overline{font-size:11px;letter-spacing:.2em;color:#d7c58c;font-weight:700}
+.home-stand-header h2{font-family:inherit;font-size:clamp(2.3rem,5.7vw,6.3rem);line-height:1.1;letter-spacing:-.055em;font-weight:500;margin:23px 0 0}
+.home-stand-header h2 em{color:#d7c58c;font-weight:400;font-style:normal}
+.home-stand-summary{max-width:320px;line-height:1.8;font-size:14px;color:#d6d0df}
+.home-stand-summary a{display:inline-flex;align-items:center;gap:20px;color:#fff;font-weight:700;margin-top:16px;padding:8px 0;border-bottom:1px solid #ef2469;min-height:44px}
+.home-stand-summary a span{font-size:22px;color:#ef2469;flex-shrink:0}
+.home-stand-cards{max-width:1600px;margin:auto;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.home-stand-card{background:#eee9df;color:#171326;border-radius:8px;padding:clamp(14px,1.5vw,22px);display:flex;flex-direction:column;min-width:0;position:relative;transition:transform .22s ease,background .22s ease}
+.home-stand-card:focus-visible,.home-stand-summary a:focus-visible{outline:3px solid #ef2469;outline-offset:5px}
+.home-stand-number{font-size:11px;letter-spacing:.13em;font-weight:700;color:#685f70}
+.home-stand-card img{display:block;width:100%;height:auto;aspect-ratio:1;object-fit:contain;margin:10px 0 14px;transition:transform .25s ease}
+.home-stand-name{font-size:clamp(1rem,1.65vw,1.6rem);font-weight:700;letter-spacing:-.03em;line-height:1.3;overflow-wrap:anywhere;margin-top:auto}
+.home-stand-foot{display:flex;justify-content:space-between;align-items:center;gap:8px;border-top:1px solid #c5bfae;padding-top:12px;margin-top:12px;font-size:12px;line-height:1.6;color:#625668}
+.home-stand-foot span:last-child{font-size:22px;color:#bc1652;flex-shrink:0}
+.home-stand-disclaimer{max-width:1600px;margin:24px auto 0;color:#c9c0cf;font-size:12px;line-height:1.8}
+@media(hover:hover){.home-stand-card:hover{transform:translateY(-4px);background:#f7f3eb}.home-stand-card:hover img{transform:scale(1.035)}}
+@media(max-width:1080px){.home-stand-cards{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:640px){.home-stand-header{flex-direction:column;align-items:flex-start;gap:18px}.home-stand-summary{max-width:none}.home-stand-cards{gap:12px}.home-stand-card{padding:14px}.home-stand-foot{align-items:flex-end}}
+@media(max-width:370px){.home-stand-cards{grid-template-columns:1fr}.home-stand-card img{max-height:260px}.home-stand-name{font-size:1.3rem}}
+@media(prefers-reduced-motion:reduce){.home-stand-card,.home-stand-card img{transition:none;transform:none!important}}
+&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;section id=&quot;stand-collection&quot; class=&quot;home-stand-collection&quot; aria-labelledby=&quot;stand-collection-title&quot; data-catalog=&quot;15e167f8042e&quot;&gt;
+    &lt;div class=&quot;home-stand-header&quot;&gt;
+        &lt;div&gt;&lt;span class=&quot;home-stand-overline&quot;&gt;MENNOO / THE STAND COLLECTION&lt;/span&gt;
+          &lt;h2 id=&quot;stand-collection-title&quot;&gt;Μικρές φόρμες.&lt;br&gt;&lt;em&gt;Μεγάλη προσωπικότητα.&lt;/em&gt;&lt;/h2&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;home-stand-summary&quot;&gt;&lt;p&gt;Τα δικά μας QR stands από κάθε γωνία. Τέσσερα διαφορετικά σχέδια, μία πιο προσεγμένη εμπειρία στο τραπέζι.&lt;/p&gt;
+          &lt;a href=&quot;/stands/&quot;&gt;Μπείτε στο πραγματικό 3D Studio &lt;span aria-hidden=&quot;true&quot;&gt;↗&lt;/span&gt;&lt;/a&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;home-stand-cards&quot;&gt;
+          &lt;a class=&quot;home-stand-card&quot; href=&quot;/stands/boho/#stand-viewer&quot; aria-label=&quot;Προβολή BOHO σε 360 μοίρες&quot;&gt;
+        &lt;span class=&quot;home-stand-number&quot;&gt;01 / 04&lt;/span&gt;
+        &lt;img src=&quot;/media/object-boho.1da4eeef2e3e.webp&quot; alt=&quot;BOHO σε μαύρο PLA, με το MENNOO QR μέσα στην τετράγωνη εσοχή&quot; loading=&quot;eager&quot; decoding=&quot;async&quot; width=&quot;600&quot; height=&quot;600&quot;&gt;
+        &lt;span class=&quot;home-stand-name&quot;&gt;BOHO&lt;/span&gt;
+        &lt;span class=&quot;home-stand-foot&quot;&gt;&lt;span&gt;Ύψος 65 mm · Δείτε το σε 360°&lt;/span&gt;&lt;span aria-hidden=&quot;true&quot;&gt;↗&lt;/span&gt;&lt;/span&gt;
+      &lt;/a&gt;
+          &lt;a class=&quot;home-stand-card&quot; href=&quot;/stands/mini-polygon/#stand-viewer&quot; aria-label=&quot;Προβολή MINI POLYGON σε 360 μοίρες&quot;&gt;
+        &lt;span class=&quot;home-stand-number&quot;&gt;02 / 04&lt;/span&gt;
+        &lt;img src=&quot;/media/object-mini-polygon.4778be5f069a.webp&quot; alt=&quot;MINI POLYGON σε μαύρο PLA, με το MENNOO QR μέσα στην τετράγωνη εσοχή&quot; loading=&quot;eager&quot; decoding=&quot;async&quot; width=&quot;600&quot; height=&quot;600&quot;&gt;
+        &lt;span class=&quot;home-stand-name&quot;&gt;MINI POLYGON&lt;/span&gt;
+        &lt;span class=&quot;home-stand-foot&quot;&gt;&lt;span&gt;Ύψος 25 mm · Δείτε το σε 360°&lt;/span&gt;&lt;span aria-hidden=&quot;true&quot;&gt;↗&lt;/span&gt;&lt;/span&gt;
+      &lt;/a&gt;
+          &lt;a class=&quot;home-stand-card&quot; href=&quot;/stands/mini-votsalo/#stand-viewer&quot; aria-label=&quot;Προβολή MINI ΒΟΤΣΑΛΟ σε 360 μοίρες&quot;&gt;
+        &lt;span class=&quot;home-stand-number&quot;&gt;03 / 04&lt;/span&gt;
+        &lt;img src=&quot;/media/object-mini-votsalo.25e216bc6f08.webp&quot; alt=&quot;MINI ΒΟΤΣΑΛΟ σε μαύρο PLA, με το MENNOO QR μέσα στην τετράγωνη εσοχή&quot; loading=&quot;eager&quot; decoding=&quot;async&quot; width=&quot;600&quot; height=&quot;600&quot;&gt;
+        &lt;span class=&quot;home-stand-name&quot;&gt;MINI ΒΟΤΣΑΛΟ&lt;/span&gt;
+        &lt;span class=&quot;home-stand-foot&quot;&gt;&lt;span&gt;Ύψος 25 mm · Δείτε το σε 360°&lt;/span&gt;&lt;span aria-hidden=&quot;true&quot;&gt;↗&lt;/span&gt;&lt;/span&gt;
+      &lt;/a&gt;
+          &lt;a class=&quot;home-stand-card&quot; href=&quot;/stands/chonaki/#stand-viewer&quot; aria-label=&quot;Προβολή ΧΩΝΑΚΙ σε 360 μοίρες&quot;&gt;
+        &lt;span class=&quot;home-stand-number&quot;&gt;04 / 04&lt;/span&gt;
+        &lt;img src=&quot;/media/object-chonaki.060c6d24baaf.webp&quot; alt=&quot;ΧΩΝΑΚΙ σε μαύρο PLA, με το MENNOO QR μέσα στην τετράγωνη εσοχή&quot; loading=&quot;eager&quot; decoding=&quot;async&quot; width=&quot;600&quot; height=&quot;600&quot;&gt;
+        &lt;span class=&quot;home-stand-name&quot;&gt;ΧΩΝΑΚΙ&lt;/span&gt;
+        &lt;span class=&quot;home-stand-foot&quot;&gt;&lt;span&gt;Ύψος 65 mm · Δείτε το σε 360°&lt;/span&gt;&lt;span aria-hidden=&quot;true&quot;&gt;↗&lt;/span&gt;&lt;/span&gt;
+      &lt;/a&gt;
+        &lt;/div&gt;
+    &lt;p class=&quot;home-stand-disclaimer&quot;&gt;Μαύρο PLA · Εσοχή QR 41 × 41 × 3 mm · Επιλέξτε ένα σχέδιο για να το δείτε στο τραπέζι.&lt;/p&gt;
+&lt;/section&gt;
+    &lt;/body&gt;&lt;/html&gt;"></iframe></body></html>
