@@ -64,7 +64,7 @@ test('initial view does not download the SDK or models, and selecting a poster r
 });
 test('programmatic camera events do not cancel auto; a real touch does',async()=>{
  const f=await fixture();f.load();f.get('auto-btn').fire('click');f.get('viewer').fire('camera-change',{source:'none'});assert.equal(f.get('viewer').hasAttribute('auto-rotate'),true);assert.equal(f.get('auto-label').textContent,'Παύση');
- f.get('viewer').fire('pointerdown');assert.equal(f.get('viewer').hasAttribute('auto-rotate'),false);assert.equal(f.get('auto-label').textContent,'Αυτόματα');f.close();
+ f.get('viewer').fire('pointerdown');assert.equal(f.get('viewer').hasAttribute('auto-rotate'),false);assert.equal(f.get('auto-label').textContent,'Περιστροφή');f.close();
 });
 test('locking disables the canvas and stops rotation; re-entry reuses the loaded model',async()=>{
  const f=await fixture();f.load();f.get('auto-btn').fire('click');f.get('lock-btn').fire('click');assert.equal(f.get('viewer').hasAttribute('auto-rotate'),false);assert.equal(f.get('viewer').hasAttribute('camera-controls'),false);assert.equal(f.get('explore-btn').focused,true);

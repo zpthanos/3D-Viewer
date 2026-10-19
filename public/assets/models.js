@@ -1,7 +1,7 @@
 export const MODELS=Object.freeze({
   "boho": {
     "name": "BOHO",
-    "description": "Ανάγλυφες καμπύλες και ιδιαίτερη υφή. Ένα μικρό αντικείμενο με ξεχωριστή παρουσία.",
+    "description": "Stand ύψους 65 mm με ανάγλυφη, καμπύλη επιφάνεια και θέση για το QR στην επάνω πλευρά.",
     "height": 0.065,
     "src": "/models/boho.1a0729fb17f2.glb",
     "poster": "/media/poster-boho.6fd7d401f6e5.webp",
@@ -10,7 +10,7 @@ export const MODELS=Object.freeze({
   },
   "mini-polygon": {
     "name": "MINI POLYGON",
-    "description": "Καθαρές γεωμετρικές έδρες και χαμηλή σιλουέτα. Διακριτικό, με χαρακτήρα.",
+    "description": "Χαμηλό stand ύψους 25 mm με επίπεδες, πολυγωνικές πλευρές και θέση για το QR επάνω.",
     "height": 0.025,
     "src": "/models/mini-polygon.7998287b48ef.glb",
     "poster": "/media/poster-mini-polygon.74d262493edd.webp",
@@ -19,7 +19,7 @@ export const MODELS=Object.freeze({
   },
   "mini-votsalo": {
     "name": "MINI ΒΟΤΣΑΛΟ",
-    "description": "Ομαλή, οργανική φόρμα εμπνευσμένη από το βότσαλο. Φυσική παρουσία στο τραπέζι.",
+    "description": "Χαμηλό stand ύψους 25 mm με στρογγυλεμένο περίγραμμα, εμπνευσμένο από βότσαλο.",
     "height": 0.025,
     "src": "/models/mini-votsalo.2864e1350793.glb",
     "poster": "/media/poster-mini-votsalo.ec64c4b769a4.webp",
@@ -28,7 +28,7 @@ export const MODELS=Object.freeze({
   },
   "chonaki": {
     "name": "ΧΩΝΑΚΙ",
-    "description": "Κωνική γραμμή με ανάγλυφες λεπτομέρειες. Μια εκφραστική πινελιά στον χώρο σας.",
+    "description": "Stand ύψους 65 mm σε σχήμα κώνου, με ανάγλυφες πλευρές και θέση για το QR επάνω.",
     "height": 0.065,
     "src": "/models/chonaki.8cacad8153dd.glb",
     "poster": "/media/poster-chonaki.9b6f93a48524.webp",

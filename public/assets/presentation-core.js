@@ -1,8 +1,8 @@
 export const CHAPTERS = Object.freeze([
-  { label: 'Η πρώτη εντύπωση', title: 'Μια θέση στο δικό σας τραπέζι.', copy: 'Ένα μικρό αντικείμενο. Μέρος της φιλοξενίας σας.', view: 'wide', duration: 6500 },
-  { label: 'Η λεπτομέρεια', title: 'Ο χαρακτήρας κρύβεται στις λεπτομέρειες.', copy: 'Ματ μαύρο PLA. Πραγματικές φόρμες, από κάθε πλευρά.', view: 'close', duration: 7500 },
-  { label: 'Το σκανάρισμα', title: 'Μία κίνηση. Όλο το μενού.', copy: 'Το QR μέσα στη διακριτική εσοχή των 3 mm.', view: 'top', duration: 6500 },
-  { label: 'Η εμπειρία', title: 'Τώρα, δοκιμάστε το.', copy: 'Σκανάρετε από το κινητό σας ή ανοίξτε τον πραγματικό κατάλογο.', view: 'wide', duration: 0 }
+  { label: 'Το stand', title: 'Το QR πάνω στο τραπέζι.', copy: 'Ο πελάτης βρίσκει το QR και ανοίγει το μενού στο κινητό του.', view: 'wide', duration: 6500 },
+  { label: 'Το υλικό', title: 'Μαύρο PLA. Τέσσερα σχέδια.', copy: 'Δείτε από κοντά το σχήμα και την ανάγλυφη επιφάνεια του stand.', view: 'close', duration: 7500 },
+  { label: 'Το QR', title: 'Εδώ τοποθετείται το QR σας.', copy: 'Λευκό αυτοκόλλητο σε εσοχή 41 × 41 mm, βάθους 3 mm.', view: 'top', duration: 6500 },
+  { label: 'Το μενού', title: 'Ανοίξτε το μενού.', copy: 'Πατήστε τον σύνδεσμο ή σκανάρετε το QR με άλλο κινητό για να δοκιμάσετε τον κατάλογο.', view: 'wide', duration: 0 }
 ]);
 
 /** Elapsed time is advanced only while visible, ready and explicitly playing. */

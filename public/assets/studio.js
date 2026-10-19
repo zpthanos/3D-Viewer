@@ -23,7 +23,7 @@ function rotate(){
   const run=canRotate({wanted,ready,engaged,inView,hidden:document.hidden,parentVisible});
   viewer.toggleAttribute('auto-rotate',run);
   auto.setAttribute('aria-pressed',String(wanted));auto.classList.toggle('active',wanted);
-  $('#auto-label').textContent=wanted?'Παύση':'Αυτόματα';
+  $('#auto-label').textContent=wanted?'Παύση':'Περιστροφή';
   auto.setAttribute('aria-label',wanted?'Παύση αυτόματης περιστροφής':'Έναρξη αυτόματης περιστροφής');
 }
 function controls(){
@@ -95,7 +95,7 @@ async function engage(focus=true){
   if(focus)$('#lock-btn').focus({preventScroll:true});
   if(ready){loadTable(tableFailed);viewer.dismissPoster?.();if(focus)viewer.focus({preventScroll:true});return;}
   if(defined){loadTable(tableFailed);loadModel(retry);return;}
-  loading.hidden=false;$('#loading-message').textContent='Ετοιμάζουμε το τραπέζι σας…';
+  loading.hidden=false;$('#loading-message').textContent='Φορτώνεται η προβολή 3D…';
   clearTimeout(timer);timer=setTimeout(()=>{if(current===activation&&!defined&&engaged)failed('Η προβολή 3D δεν φορτώθηκε. Δοκιμάστε ξανά όταν έχετε σύνδεση.');},25000);
   try{
     await ensureRenderer();defined=true;
