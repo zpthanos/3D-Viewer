@@ -1,0 +1,12 @@
+/* Small standalone enhancement: no runtime framework or build step on the host. */
+.submission-status {margin-block:1.5rem;padding:clamp(1rem,3vw,1.5rem);border:1px solid #b89942;border-inline-start-width:4px;background:#fcf8ed;color:#08022f;overflow-wrap:anywhere;scroll-margin-block-start:7rem;}
+.submission-status h3 {margin:0 0 .65rem;font-size:1.1rem;line-height:1.45;}
+.submission-status p {font-size:.95rem;line-height:1.75;margin-block:.6rem;}
+.submission-reference {font-variant-numeric:tabular-nums;font-weight:600;}
+.submission-status-actions {display:flex;align-items:center;flex-wrap:wrap;gap:1rem;margin-block-start:1rem;}
+.submission-status-actions>a,.submission-status-actions>button {min-height:44px;max-width:100%;white-space:normal;text-align:center;overflow-wrap:anywhere;}
+.submission-status-actions>a:not(.form-next) {display:inline-flex;align-items:center;color:inherit;text-underline-offset:.25em;}
+.submission-status-actions :focus-visible {outline:3px solid #ef2469;outline-offset:4px;}
+.form-page [hidden] {display:none!important;}
+.form-page button:disabled {cursor:wait;}
+@media(max-width:480px){.submission-status-actions {align-items:stretch;flex-direction:column;}.submission-status-actions>a:not(.form-next){justify-content:center;}}

@@ -1,0 +1,129 @@
+/* MENNOO Mobile Clarity. Navigation is immediately visible on phones, no drawer required.
+ * Loaded last to replace accumulated page-specific mobile overrides. */
+.mn-mobile-shortcuts{display:none}
+.mn-book-mobile{display:none}
+@media(max-width:680px){
+  :root{--mn-header-height:64px;--mn-shortcuts-height:48px;--mn-top-total:112px}
+  html{scroll-padding-top:calc(var(--mn-top-total) + 14px)}
+  /* One header at one height on the homepage, forms, stands and legal pages. */
+  .site-header,.site-header.mn-unified-header{
+    position:fixed!important;top:0!important;left:0!important;right:0!important;
+    width:100%!important;height:var(--mn-header-height)!important;
+    display:flex!important;align-items:center!important;justify-content:space-between!important;
+    padding:0 18px!important;gap:16px!important;margin:0!important;
+    border-bottom:0!important;background:#0d082f!important;
+    z-index:90!important;box-shadow:none!important;box-sizing:border-box!important;
+  }
+  .site-header .brand,.site-header.mn-unified-header .brand{display:flex!important;align-items:center!important;flex:none!important;width:104px!important;max-width:104px!important;margin:0!important}
+  .site-header .brand img,.site-header.mn-unified-header .brand img{width:104px!important;max-width:100%!important;height:auto!important}
+  .site-header .desktop-nav,.site-header .nav-demo,.site-header .menu-toggle,
+  .site-header.mn-unified-header .menu-toggle{display:none!important}
+  .site-header .nav-book,.site-header.mn-unified-header .nav-book{
+    display:inline-flex!important;flex:none!important;grid-column:auto!important;
+    align-items:center!important;justify-content:center!important;
+    margin:0!important;padding:0 13px!important;height:39px!important;min-height:39px!important;
+    border-radius:9px!important;background:#ef2469!important;
+    color:#fff!important;font-size:12px!important;font-weight:650!important;
+    white-space:nowrap!important;letter-spacing:0!important;box-shadow:none!important;
+  }
+  .site-header .nav-book svg{display:none!important}
+  .site-header .mn-book-desktop{display:none!important}
+  .site-header .mn-book-mobile{display:inline!important}
+  .mn-mobile-shortcuts{
+    display:grid!important;position:fixed!important;top:var(--mn-header-height)!important;
+    inset-inline:0!important;grid-template-columns:repeat(5,minmax(0,1fr));
+    width:100%!important;height:var(--mn-shortcuts-height)!important;
+    z-index:89!important;padding-inline:10px!important;
+    background:#0d082f!important;border-bottom:1px solid rgba(255,255,255,.19)!important;
+    box-sizing:border-box!important;
+  }
+  .mn-mobile-shortcuts a{
+    min-width:0!important;display:flex!important;justify-content:center!important;align-items:center!important;
+    text-align:center!important;text-decoration:none!important;padding:0 1px!important;
+    color:#d9d3e5!important;font-size:clamp(10px,2.75vw,12px)!important;
+    font-weight:500!important;letter-spacing:-.015em!important;
+    border-bottom:2px solid transparent;white-space:nowrap!important;
+  }
+  .mn-mobile-shortcuts a[aria-current="page"]{color:#fff!important;font-weight:700!important;border-bottom-color:#ef4c88!important}
+  .mn-mobile-shortcuts a:focus-visible,.site-header .nav-book:focus-visible{outline:2px solid #fff!important;outline-offset:-4px!important}
+  /* Breathing room below visible navigation, not an oversized marketing hero. */
+  .info-page .info-hero{padding-top:calc(var(--mn-top-total) + 22px)!important}
+  .info-page .info-breadcrumb,.info-page .info-kicker{display:none!important}
+  .info-page .info-hero h1{font-size:clamp(27px,7.7vw,36px)!important;line-height:1.14!important;letter-spacing:-.025em!important;font-weight:550!important}
+  .info-page .policy-hero,.info-page .legal-hero{padding-bottom:22px!important}
+  .info-page .policy-subtitle{font-size:14px!important;line-height:1.55!important;margin-top:9px!important}
+  .info-page .legal-version{font-size:12px!important;margin:12px 0 0!important}
+  .info-page .legal-document-nav{margin-top:18px!important;gap:0 14px!important}
+  .info-page .legal-document-nav a{min-height:40px!important;padding:8px 0!important;font-size:12px!important}
+  .info-page .legal-layout{padding-top:18px!important;gap:18px!important;padding-bottom:45px!important}
+  .info-page .legal-sidebar{position:static!important;max-height:none!important;overflow:visible!important}
+  .info-page .legal-toc summary{padding:13px 0!important;font-size:13px!important;min-height:44px!important}
+  .info-page .legal-toc nav{padding-bottom:8px!important}
+  .info-page .legal-toc nav a{padding:5px 0!important}
+  .info-page .policy-related{
+    display:flex!important;align-items:center!important;overflow-x:auto!important;flex-wrap:nowrap!important;
+    gap:8px!important;padding:2px 0 8px!important;margin:8px 0 0!important;
+    border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;
+    scrollbar-width:thin;overscroll-behavior-x:contain;
+  }
+  .info-page .policy-related p{display:none!important}
+  .info-page .policy-related a{
+    flex:0 0 auto!important;display:flex!important;align-items:center!important;
+    min-height:36px!important;padding:6px 11px!important;border-radius:8px!important;
+    background:#fff!important;border:1px solid #dcd5ca!important;
+    color:#433b4f!important;font-size:12px!important;white-space:nowrap!important;
+  }
+  .info-page .policy-related a[aria-current="page"]{background:#f7e6ee!important;border-color:#e3bed0!important;color:#8d2154!important}
+  .info-page .legal-article{font-size:14px!important;line-height:1.75!important}
+  .info-page .legal-section{scroll-margin-top:calc(var(--mn-top-total) + 18px)!important}
+  .info-page .policy-article h2{scroll-margin-top:calc(var(--mn-top-total) + 18px)!important}
+  /* Payments focus on the action and recipient. Both methods remain accessible by tabs. */
+  .payments-compact .pay-workspace{
+    padding:calc(var(--mn-top-total) + 14px) 16px 17px!important;
+    min-height:0!important;background:linear-gradient(180deg,#0b0730 0,#120a3c 37%,#f7f4ee 37%,#f7f4ee 100%)!important;
+  }
+  .payments-compact .pay-intro{margin-bottom:12px!important}
+  .payments-compact .pay-eyebrow{display:none!important}
+  .payments-compact .pay-intro h1{font-size:26px!important;letter-spacing:-.03em!important}
+  .payments-compact .pay-intro h1 span{display:block!important;font-size:16px!important;margin-top:3px!important}
+  .payments-compact .pay-intro>p{font-size:12px!important;line-height:1.4!important;margin-top:7px!important}
+  .payments-compact .pay-switch{margin-bottom:9px!important}
+  .payments-compact .pay-switch button{min-height:44px!important;font-size:12px!important}
+  .payments-compact .pay-bottomline{font-size:11px!important}
+  /* Cut the ornamental form introduction. Put the actual form first. */
+  .form-page .forms-sidebar{
+    min-height:0!important;padding:24px 20px 22px!important;
+    background:#130d3b!important;
+  }
+  .form-page .forms-sidebar::before,.form-page .forms-kicker,.form-page .forms-benefits,.form-page .forms-help{display:none!important}
+  .form-page .forms-sidebar h1{font-size:26px!important;line-height:1.18!important;margin:0 0 8px!important;max-width:none!important}
+  .form-page .forms-sidebar>p{font-size:13px!important;line-height:1.5!important;margin:0!important;max-width:46ch!important}
+  .form-page .forms-main{padding:22px 20px 36px!important}
+  .form-page .forms-switch{gap:6px!important;margin-bottom:22px!important}
+  .form-page .forms-heading h2{font-size:27px!important;line-height:1.2!important}
+  .form-page .forms-heading>p{font-size:13px!important;line-height:1.6!important}
+  /* The 3D showroom should reach its actual product before a screen of advertising copy. */
+  .stands-page .stand-intro{min-height:0!important;padding:32px 20px 28px!important}
+  .stands-page .stand-kicker{display:none!important}
+  .stands-page .stand-intro h1{font-size:clamp(29px,8vw,34px)!important;line-height:1.16!important;letter-spacing:-.035em!important;margin:0!important}
+  .stands-page .stand-intro-copy>p:not(.stand-kicker){font-size:13px!important;line-height:1.57!important;margin:13px 0!important}
+  .stands-page .stands-intro-link{font-size:12px!important;margin-top:5px!important;padding-bottom:6px!important}
+  .stands-page .stand-lab{padding:27px 12px 46px!important}
+  .stands-page .lab-label{display:none!important}
+  .stands-page .lab-heading h2{font-size:27px!important;line-height:1.2!important}
+  /* Other standalone workspaces must start below BOTH strips. */
+  .form-page .forms-shell{margin-top:var(--mn-top-total)!important;min-height:calc(100svh - var(--mn-top-total))!important}
+  .stands-page main{padding-top:var(--mn-top-total)!important}
+  .missing-page .missing-shell{padding-top:var(--mn-top-total)!important}
+  /* Avoid blocking navigation with the legal cookie-preferences shortcut. */
+  .site-footer{scroll-margin-top:var(--mn-top-total)}
+}
+@media(max-width:350px){
+  .site-header,.site-header.mn-unified-header{padding-inline:13px!important}
+  .site-header .brand,.site-header.mn-unified-header .brand{width:93px!important}
+  .site-header .brand img,.site-header.mn-unified-header .brand img{width:93px!important}
+  .mn-mobile-shortcuts{padding-inline:4px!important}
+  .mn-mobile-shortcuts a{font-size:10px!important}
+  .payments-compact .pay-workspace{padding-inline:12px!important}
+}
+@media print{.mn-mobile-shortcuts{display:none!important}}

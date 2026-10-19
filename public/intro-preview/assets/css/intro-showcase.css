@@ -1,0 +1,63 @@
+/* Plain SCSS/CSS; ship the compiled CSS. No runtime compiler or 3D dependencies. */
+.mn-intro{background:#08022f;color:#fff;padding-top:var(--mn-top-total,var(--mn-header-height,90px));isolation:isolate;scroll-margin-top:0}
+.mn-intro *{box-sizing:border-box}
+.mn-intro-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.18fr);max-width:1600px;margin-inline:auto;min-height:640px}
+.mn-intro-copy{padding:clamp(42px,7vw,110px) clamp(28px,5vw,80px);align-self:center;min-width:0}
+.mn-intro-eyebrow{display:flex;align-items:center;gap:14px;margin:0 0 32px;color:#d9c895;font:500 11px/1.6 Roboto,Arial,sans-serif;letter-spacing:.16em}
+.mn-intro-eyebrow>span{width:26px;height:1px;background:#b89942;flex-shrink:0}
+.mn-intro h1{font-family:Roboto,Arial,sans-serif;font-size:clamp(48px,5.25vw,82px);font-weight:400;line-height:1.06;letter-spacing:-.055em;margin:0 0 27px;text-wrap:balance}
+.mn-intro h1 em{display:block;color:#d9c895;font-style:normal;font-weight:300}
+.mn-intro-description{max-width:385px;color:#d7d2e4;font-size:17px;line-height:1.75;margin:0}
+.mn-intro-actions{display:flex;align-items:center;flex-wrap:wrap;gap:12px 22px;margin-top:29px}
+.mn-intro-primary,.mn-intro-secondary{display:inline-flex;align-items:center;justify-content:center;gap:14px;min-height:50px;font-size:14px;font-weight:600;text-decoration:none;line-height:1.3}
+.mn-intro-primary{padding:15px 22px;color:#fff;background:#d91a59;border:1px solid #ef2469;border-radius:3px;transition:background .18s ease,transform .18s ease}
+.mn-intro-secondary{color:#fff;padding:12px 0;border-bottom:1px solid #6e647e}
+.mn-intro-primary svg,.mn-intro-secondary svg{flex-shrink:0}
+.mn-intro-note{display:flex;align-items:center;gap:7px;color:#bab3ca;font-size:12px;line-height:1.6;margin:18px 0 0}
+.mn-intro-note svg{color:#d9c895;flex-shrink:0}
+.mn-intro-visual{display:flex;flex-direction:column;min-width:0;margin:0;background:#241b19;border-left:1px solid #ffffff14}
+.mn-intro-media{position:relative;flex:1;min-height:580px;overflow:hidden;background:#553e2e;isolation:isolate}
+.mn-intro-poster,.mn-intro-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 51%;display:block}
+.mn-intro-poster{z-index:0}
+.mn-intro-video{z-index:1;opacity:0;pointer-events:none;transition:opacity .2s linear}
+.mn-intro[data-has-frame="true"] .mn-intro-video{opacity:1}
+.mn-intro-media-shade{position:absolute;inset:0;z-index:2;background:linear-gradient(180deg,rgba(22,14,14,.3),transparent 26%,transparent 66%,rgba(20,12,12,.82));pointer-events:none}
+.mn-intro-scene-label{position:absolute;top:28px;left:30px;right:30px;z-index:3;color:#fff;font-size:10px;font-weight:500;letter-spacing:.14em;line-height:1.6;text-shadow:0 1px 8px #27170a}
+.mn-intro-caption{position:absolute;z-index:3;left:30px;right:30px;bottom:29px;color:#fff;pointer-events:none}
+.mn-intro-caption>span{display:block;color:#ebdcb9;font-size:10px;letter-spacing:.16em;line-height:1.6;margin-bottom:9px}
+.mn-intro-caption strong{display:block;font-size:clamp(20px,2.2vw,30px);font-weight:400;line-height:1.25;letter-spacing:-.02em}
+.mn-intro-playback{position:absolute;z-index:4;bottom:102px;right:24px;min-height:44px;padding:10px 13px;display:inline-flex;align-items:center;gap:8px;background:#171014c9;border:1px solid #fff6;border-radius:3px;color:#fff;font:400 11px/1.4 Roboto,Arial,sans-serif;cursor:pointer}
+.mn-intro-playback[hidden]{display:none}
+.mn-intro-playback>span:first-child{width:13px;text-align:center}
+.mn-intro-collection-link{display:flex;align-items:center;gap:20px;min-height:61px;padding:16px 30px;color:#f5eee2;background:#1b151c;font-size:13px;line-height:1.5;border-top:1px solid #fff2}
+.mn-intro-collection-link>span:first-child{font-weight:500}
+.mn-intro-collection-detail{margin-left:auto;color:#bfb2b0;font-size:11px}
+.mn-intro-collection-link>svg{flex-shrink:0}
+.mn-intro a:focus-visible,.mn-intro button:focus-visible{outline:3px solid #ffcce0;outline-offset:5px}
+@media(hover:hover){.mn-intro-primary:hover{background:#bf164e;transform:translateY(-2px)}.mn-intro-secondary:hover{border-color:#ef2469}.mn-intro-collection-link:hover{background:#2a2027}}
+@media(min-width:1601px){.mn-intro-layout{border-inline:1px solid #ffffff14}}
+@media(min-width:761px) and (max-width:1100px){.mn-intro-layout{grid-template-columns:minmax(0,1fr) minmax(0,1fr);min-height:590px}.mn-intro-copy{padding:42px 30px}.mn-intro h1{font-size:54px}.mn-intro-description{font-size:16px}.mn-intro-media{min-height:540px}.mn-intro-scene-label{font-size:9px;left:24px;right:24px}.mn-intro-caption{left:24px;right:24px}}
+@media(max-width:760px){
+ .mn-intro-layout{display:flex;flex-direction:column;min-height:0}
+ .mn-intro-copy{align-self:stretch;padding:31px 24px 27px}
+ .mn-intro-eyebrow{margin-bottom:20px;font-size:10px;letter-spacing:.14em;gap:12px}
+ .mn-intro-eyebrow>span{width:22px}
+ .mn-intro h1{font-size:clamp(44px,11.8vw,64px);line-height:1.04;letter-spacing:-.05em;margin-bottom:19px}
+ .mn-intro-description{max-width:490px;font-size:15px;line-height:1.65}
+ .mn-intro-actions{margin-top:22px;gap:10px 20px}
+ .mn-intro-primary,.mn-intro-secondary{font-size:13px;min-height:48px}
+ .mn-intro-primary{padding:13px 17px;gap:12px}
+ .mn-intro-note{font-size:11px;margin-top:12px}
+ .mn-intro-visual{border-left:0}
+ .mn-intro-media{flex:none;min-height:0;aspect-ratio:1.16}
+ .mn-intro-scene-label{left:23px;right:23px;top:20px;font-size:9px}
+ .mn-intro-caption{left:23px;right:23px;bottom:22px}
+ .mn-intro-caption>span{font-size:9px;letter-spacing:.13em;margin-bottom:7px}
+ .mn-intro-caption strong{font-size:22px}
+ .mn-intro-playback{right:18px;bottom:87px;padding:10px 12px;font-size:10px}
+ .mn-intro-collection-link{padding:14px 23px;min-height:54px;gap:12px;font-size:12px}
+ .mn-intro-collection-detail{font-size:10px}
+}
+@media(max-width:359px){.mn-intro-copy{padding-inline:20px}.mn-intro-actions{gap:8px 14px}.mn-intro-primary{padding-inline:13px}.mn-intro-primary,.mn-intro-secondary{font-size:12px}.mn-intro-collection-detail{display:none}.mn-intro-collection-link svg{margin-left:auto}.mn-intro-caption strong{font-size:20px}}
+@media(prefers-reduced-motion:reduce){.mn-intro-video,.mn-intro-primary{transition:none}.mn-intro-primary:hover{transform:none}}
+@media print{.mn-intro{padding-top:0;background:#fff;color:#000}.mn-intro-video,.mn-intro-playback{display:none!important}.mn-intro-description{color:#333}}

@@ -1,0 +1,110 @@
+/* MENNOO — responsive repairs and restrained hospitality motion.
+   Valid SCSS and CSS: ship the matching assets/css/refinements.css, no runtime compiler. */
+.button-outline { color: var(--navy); border-color: #b8b0a0; background: transparent; }
+.button-outline:hover { background: #ded7ca; }
+.how-actions { display: flex; flex-wrap: wrap; align-items: stretch; gap: .875rem; }
+.how-actions > * { min-height: 3.25rem; }
+.how-visual { isolation: isolate; }
+.how-visual::after { content: ""; position: absolute; inset: 35% 0 0; background: linear-gradient(transparent,#100a23b3); pointer-events: none; }
+.stand-caption { z-index: 1; display: block; }
+.stand-caption strong { display: block; font-size: clamp(1.75rem,2.8vw,2.8rem); font-weight: 400; line-height: 1.2; letter-spacing: -.035em; }
+.stand-caption p { margin-top: .75rem; font-size: .875rem; }
+.photo-credit { z-index: 1; }
+.mobile-navigation { padding: 0; overflow-y: auto; scrollbar-gutter: stable; }
+.navigation-topbar { position: sticky; top: 0; z-index: 4; display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; padding: 1.5rem; background: var(--navy); }
+.navigation-topbar img { width: 6.875rem; height: auto; }
+.navigation-topbar .modal-close { position: static; flex-shrink: 0; }
+.navigation-content { padding: 0 1.5rem max(2rem,env(safe-area-inset-bottom)); }
+.mobile-navigation nav { margin: .5rem 0 1.5rem; gap: .125rem; }
+.mobile-navigation nav a { display: flex; align-items: center; min-height: 2.75rem; padding: .45rem 0; line-height: 1.4; font-size: clamp(1.125rem,4.5vw,1.35rem); }
+.mobile-form-links { grid-template-columns: repeat(2,minmax(0,1fr)); gap: .75rem; margin: 1.5rem 0; }
+.mobile-form-links a { display: flex !important; align-items: center; min-height: 2.75rem; line-height: 1.4; }
+.navigation-actions { display: grid; grid-template-columns: minmax(0,1fr); gap: 1rem; margin-top: 2rem; }
+.navigation-actions > * { width: 100%; min-height: 3.25rem; }
+.navigation-actions .text-link { justify-content: center; }
+.site-header .menu-toggle { flex-shrink: 0; }
+.site-header .nav-book, .scene-modes button { min-height: 2.75rem; }
+
+/* The photo and QR hotspot move as one layer; camera zoom stays independent. */
+.scene-camera { container-type: size; }
+.scene-parallax { position: absolute; inset: 0; transform: translate3d(0,var(--parallax-y,0px),0) scale(1.045); }
+.how-visual > img { transform: translate3d(0,var(--parallax-y,0px),0) scale(1.1); }
+.restaurant-scene { isolation: isolate; height: max(100svh,58rem); }
+.scene-topline { z-index: 2; align-items: center; gap: 1.25rem; }
+.scene-topline > span:nth-child(2) { margin-left: auto; }
+.scene-copy, .scene-bottom { z-index: 2; }
+.scene-hint { pointer-events: none; }
+.motion-toggle { display: inline-flex; align-items: center; justify-content: center; gap: .5rem; min-height: 2.75rem; padding: .35rem .65rem; flex: none; border: 1px solid #e1cc9355; color: #ead8b0; background: #08022f50; font-size: .6875rem; font-weight: 500; line-height: 1.4; letter-spacing: .025em; cursor: pointer; }
+.motion-toggle::before { content: ""; width: .5rem; height: .65rem; border-inline: 2px solid currentColor; }
+.motion-toggle[aria-pressed="true"]::before { border: 0; border-left: .5rem solid currentColor; border-block: .325rem solid transparent; width: 0; height: 0; }
+.motion-toggle:hover { color: #fff; border-color: #e1cc93; }
+.contact-section > .motion-toggle { margin-top: 1.5rem; }
+.stand-intro-copy .motion-toggle { margin: 1rem 0 0 1.25rem; vertical-align: middle; }
+[data-ambient] { position: relative; isolation: isolate; }
+.ambient-particles { position: absolute; z-index: 0; inset: 0; width: 100%; height: 100%; pointer-events: none; contain: strict; mask-image: linear-gradient(90deg,transparent,#000 45%,#000 90%,transparent); }
+.restaurant-scene > .ambient-particles { z-index: 1; }
+.contact-section > :not(.ambient-particles), .stand-intro > :not(.ambient-particles), .stand-ending > :not(.ambient-particles) { position: relative; z-index: 1; }
+.lab-stage { touch-action: pan-y; }
+.lab-image-area { pointer-events: auto; touch-action: none; }
+.lab-canvas, .lab-poster { pointer-events: none; }
+.lab-angle strong { min-width: 2.6em; font-variant-numeric: tabular-nums; }
+.lab-topline, .lab-stage-bottom { cursor: auto; }
+.home-stand-foot { gap: .5rem; }
+
+@media (max-width: 1120px) {
+  .desktop-nav { display: none; }
+  .site-header .menu-toggle { display: grid; margin-left: 0; }
+  .site-header .nav-demo { display: inline-flex; margin-left: auto; }
+  .site-header .nav-book { margin-left: 0; }
+}
+@media (max-width: 960px) {
+  .scene-topline > span:nth-child(2) { display: none; }
+  .scene-topline { justify-content: space-between; }
+  .how-actions { flex-direction: column; }
+}
+@media (max-width: 680px) {
+  .site-header { gap: .625rem; padding-inline: max(1.125rem,env(safe-area-inset-left)) max(1.125rem,env(safe-area-inset-right)); }
+  .site-header .nav-demo { display: none; }
+  .site-header .nav-book { margin-left: auto; }
+  .site-header .brand { width: 5.4rem; }
+  .site-header.is-scrolled { height: 4.75rem; }
+  .mobile-navigation { width: 100%; max-width: 100%; height: 100dvh; max-height: 100dvh; margin: 0; padding: 0; }
+  .navigation-topbar { padding-top: max(1.25rem,env(safe-area-inset-top)); }
+  .navigation-content { padding-inline: max(1.5rem,env(safe-area-inset-left)) max(1.5rem,env(safe-area-inset-right)); }
+  .how-actions > * { width: 100%; padding-inline: 1rem; }
+  .stand-caption { left: 1.5rem; right: 1.5rem; bottom: 1.5rem; }
+  /* Flow layout reserves room for copy, guidance and the footer at all text sizes. */
+  .restaurant-scene { container-type: normal; display: flex; flex-direction: column; height: auto; min-height: max(100svh,54rem); padding: 6.25rem 1.5rem 0; }
+  .scene-topline { position: relative; top: auto; left: auto; right: auto; flex-wrap: wrap; gap: .25rem .75rem; }
+  .scene-topline > span:first-child { max-width: 15rem; font-size: .5625rem; }
+  .scene-topline .motion-toggle { margin-left: auto; font-size: .625rem; padding: .3rem .5rem; }
+  .restaurant-scene .scene-copy { position: relative; top: auto; left: auto; width: 100%; margin-top: clamp(2rem,6svh,3.5rem); }
+  .scene-copy h1 { font-size: clamp(4rem,19vw,5.375rem); }
+  .scene-copy .eyebrow { max-width: 17rem; }
+  .scene-description { max-width: 57%; }
+  .scene-modes { max-width: 65%; gap: .4rem; }
+  .scene-modes button { padding-inline: .65rem; }
+  .scene-enter { margin-top: 1.25rem; }
+  .scene-hint { position: relative; right: auto; bottom: auto; align-self: flex-end; max-width: 13.25rem; margin: 1.5rem 0 1rem; }
+  .scene-bottom { position: relative; bottom: auto; left: auto; right: auto; height: auto; min-height: 7rem; margin-top: auto; padding-bottom: max(.625rem,env(safe-area-inset-bottom)); }
+  .restaurant-scene:not([data-stage=enter]) .scene-copy { top: auto; }
+  .restaurant-scene:not([data-stage=enter]) .scene-description { max-width: 57%; }
+  .experience-steps { flex-wrap: wrap; column-gap: .5rem; row-gap: 0; }
+  .experience-steps button { font-size: .6875rem; }
+  .stand-intro-copy .motion-toggle { margin-left: 0; display: flex; width: fit-content; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .scene-parallax { transform: scale(1.045); }
+  .how-visual > img { transform: scale(1.1); }
+  .ambient-particles { display: none; }
+}
+
+/* Let the explanatory Greek headlines wrap without crowding the QR scene. */
+.scene-copy h1 { font-size: clamp(3.25rem, 5.6vw, 6rem); line-height: 1.08; }
+.display, .home-stand-header h2 { overflow-wrap: break-word; }
+@media (max-width: 680px) {
+  .restaurant-scene { padding-top: calc(var(--mn-top-total, 112px) + 1.5rem); }
+  .scene-copy h1 { font-size: clamp(2.5rem, 10.2vw, 4.1rem); line-height: 1.12; }
+  .scene-copy .scene-description { font-size: .875rem; line-height: 1.7; }
+  .experience-steps button { min-width: 0; }
+}
