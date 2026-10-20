@@ -19,7 +19,8 @@ test('build resolves every local import to an existing, immutable, content-match
       assert.match(dependency,/^[a-z-]+\.[a-f0-9]{12}\.js$/);visit('/build/'+dependency);
     }
   }
-  visit(entry);assert.equal(visited.size,7);
+  visit(entry);assert.equal(visited.size,8);
+  assert.ok([...visited].some(path=>path.includes('viewer-contract.')));
   const before=html;
   execFileSync(process.execPath,['tools/build-modules.mjs'],{cwd:fileURLToPath(root)});
   assert.equal(readFileSync(new URL('public/index.html',root),'utf8'),before);

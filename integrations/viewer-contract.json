@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "viewerOrigin": "https://stands.mennoo.cfd",
+  "parentOrigins": [
+    "https://mennoo.cfd",
+    "https://www.mennoo.cfd",
+    "https://mennoo.sbs",
+    "https://www.mennoo.sbs"
+  ],
+  "designs": [
+    "boho",
+    "mini-polygon",
+    "mini-votsalo",
+    "chonaki"
+  ],
+  "height": {
+    "min": 240,
+    "max": 5000
+  }
+}

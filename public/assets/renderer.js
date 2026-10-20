@@ -14,6 +14,7 @@ export function ensureRenderer(){
   if(!pending&&!supportsWebGL())return Promise.reject(Object.assign(new Error('WebGL unavailable'),{code:'WEBGL_UNAVAILABLE'}));
   if(!pending)pending=import('https://ajax.googleapis.com/ajax/libs/model-viewer/4.4.0/model-viewer.min.js')
     .then(()=>customElements.whenDefined('model-viewer'))
+    .then(()=>{const element=customElements.get('model-viewer');element.modelCacheSize=2;})
     .catch(error=>{pending=null;throw error;});
   return pending;
 }

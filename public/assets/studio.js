@@ -1,3 +1,4 @@
+import {CONTRACT} from './viewer-contract.js';
 import {MODELS,TABLE_SRC,TABLES,previewFor,PARENT_ORIGINS} from './models.js?v=framing-20261012c';
 import {cameraFor,eventMatches,canRotate} from './studio-core.js?v=framing-20261012c';
 import {ensureRenderer} from './renderer.js?v=framing-20261012c';
@@ -10,11 +11,11 @@ const fromPath=location.pathname.split('/').filter(Boolean)[0];
 let active=Object.hasOwn(MODELS,query.get('design'))?query.get('design'):Object.hasOwn(MODELS,fromPath)?fromPath:'boho';
 const reduced=matchMedia('(prefers-reduced-motion: reduce)');
 let defined=false,ready=false,engaged=false,wanted=false,inView=true,parentVisible=true,view='wide',expected='',ticket=0,timer=0,activation=0,loadFailed=false,tableFailed=false,tableTicket=0;
-let parentOrigin='',heightRAF=0,lastHeight=0,lastSize='';
+let parentOrigin='',heightRAF=0,lastHeight=0,lastSize='',hostContact=false,contextLost=false;
 let tableStyle='walnut',tableExpected='',showcase=null;
 if(embed)document.documentElement.classList.add('embed');
-try{const origin=new URL(document.referrer).origin;if(PARENT_ORIGINS.includes(origin))parentOrigin=origin;}catch{}
-function post(data){if(embed&&parentOrigin&&parent!==window)parent.postMessage(data,parentOrigin);}
+try{const origin=new URL(document.referrer).origin;if(origin===location.origin||PARENT_ORIGINS.includes(origin))parentOrigin=origin;}catch{}
+function post(data){if(embed&&parentOrigin&&parent!==window)parent.postMessage({...data,version:CONTRACT.version},parentOrigin);}
 function notifyHeight(){
   if(!embed||heightRAF)return;
   heightRAF=requestAnimationFrame(()=>{heightRAF=0;const height=Math.ceil($('.studio').getBoundingClientRect().height);if(Math.abs(height-lastHeight)>1){lastHeight=height;post({type:'mennoo-stand-studio:height',height});}});
@@ -107,7 +108,7 @@ async function engage(focus=true){
 }
 function lock(){activation++;engaged=false;wanted=false;clearTimeout(timer);loading.hidden=true;error.hidden=true;controls();if(defined)applyView('wide');$('#explore-btn').focus({preventScroll:true});}
 $('#explore-btn').addEventListener('click',()=>engage());$('#lock-btn').addEventListener('click',lock);
-$('#retry-btn').addEventListener('click',()=>{if(defined)loadModel(true);else{engaged=false;engage();}});
+$('#retry-btn').addEventListener('click',()=>{if(contextLost){location.reload();return;}if(defined)loadModel(true);else{engaged=false;engage();}});
 $('#retry-table-btn').addEventListener('click',()=>{if(defined)loadTable(true);});
 scene.addEventListener('keydown',event=>{if(event.key==='Escape'&&engaged){event.preventDefault();lock();}});
 for(const node of document.querySelectorAll('[data-id]'))node.addEventListener('click',()=>select(node.dataset.id));
@@ -133,7 +134,13 @@ viewer.addEventListener('load',event=>{
   if(engaged&&document.activeElement===$('#lock-btn'))viewer.focus({preventScroll:true});
   $('#load-status').textContent=`Το ${MODELS[active].name} είναι έτοιμο. Σύρετε οριζόντια ή επιλέξτε αυτόματη περιστροφή.`;
 });
-viewer.addEventListener('error',event=>{if(event.target===viewer&&expected&&eventMatches(event,expected,location.href))failed('Το μοντέλο δεν φορτώθηκε. Δοκιμάστε ξανά ή επιλέξτε άλλο σχέδιο.');});
+viewer.addEventListener('error',event=>{
+  if(event.target!==viewer)return;
+  if(event.detail?.type==='webglcontextlost'){
+    contextLost=true;if(showcase?.active)showcase.stop();
+    failed('Η συσκευή διέκοψε την προβολή 3D. Η εικόνα παραμένει διαθέσιμη. Πατήστε «Δοκιμάστε ξανά» για επανεκκίνηση της προβολής.');
+  }else if(expected&&eventMatches(event,expected,location.href))failed('Το μοντέλο δεν φορτώθηκε. Δοκιμάστε ξανά ή επιλέξτε άλλο σχέδιο.');
+});
 $('#cafe-table').addEventListener('error',event=>{if(eventMatches(event,tableExpected,location.href)){tableFailed=true;$('#table-status').hidden=false;}});
 $('#cafe-table').addEventListener('load',event=>{if(eventMatches(event,tableExpected,location.href)){tableFailed=false;$('#table-status').hidden=true;}});
 reduced.addEventListener('change',()=>{if(reduced.matches)manual();});
@@ -148,10 +155,10 @@ addEventListener('pageshow',event=>{
   rotate();lastHeight=0;notifyHeight();
 });
 addEventListener('message',event=>{
-  if(!embed||event.source!==parent||!PARENT_ORIGINS.includes(event.origin)||event.data?.type!=='mennoo-stand-studio:host')return;
-  const firstContact=parentOrigin!==event.origin;
-  parentOrigin=event.origin;parentVisible=event.data.visible===true;rotate();showcase?.visibility(inView&&parentVisible);lastHeight=0;notifyHeight();
-  if(firstContact)post({type:'mennoo-stand-studio:design',design:active});
+  if(!embed||event.source!==parent||!(event.origin===location.origin||PARENT_ORIGINS.includes(event.origin))||event.data?.type!=='mennoo-stand-studio:host'||(event.data.version!==undefined&&event.data.version!==CONTRACT.version))return;
+  const firstContact=!hostContact||parentOrigin!==event.origin;hostContact=true;
+  parentOrigin=event.origin;parentVisible=event.data.visible===true;rotate();showcase?.visibility(inView&&parentVisible);if(firstContact)lastHeight=0;notifyHeight();
+  if(firstContact){post({type:'mennoo-stand-studio:ready'});post({type:'mennoo-stand-studio:design',design:active});}
 });
 if('ResizeObserver'in window){
   new ResizeObserver(notifyHeight).observe($('.studio'));
@@ -187,5 +194,5 @@ showcase=createShowcase({
 // A ready signal complements the parent's load event. No wildcard target origins.
 if(embed&&parent!==window){
   const origins=parentOrigin?[parentOrigin]:PARENT_ORIGINS;
-  for(const origin of origins)parent.postMessage({type:'mennoo-stand-studio:ready'},origin);
+  for(const origin of origins)parent.postMessage({type:'mennoo-stand-studio:ready',version:CONTRACT.version},origin);
 }

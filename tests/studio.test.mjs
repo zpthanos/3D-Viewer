@@ -1,4 +1,5 @@
 import test from 'node:test';
+import {CONTRACT} from '../public/assets/viewer-contract.js';
 import assert from 'node:assert/strict';
 import vm from 'node:vm';
 import {readFileSync} from 'node:fs';
@@ -38,7 +39,7 @@ async function fixture({reduce=false,embed=false,passive=false,holdRenderer=fals
   const parent={postMessage:(data,origin)=>sent.push({data,origin})};
   const location={pathname:'/',href:'https://stands.mennoo.sbs/'+(embed?'?embed=1':''),reload(){this.reloaded=true;}};
   const history={replaceState(a,b,url){location.href=String(url);}};
-  const context={ensureRenderer:()=>{rendererCalls++;return rendererTask;},MODELS,TABLE_SRC,PARENT_ORIGINS,cameraFor,eventMatches,canRotate,document,location,history,parent,URL,console,matchMedia:()=>pref,customElements:{whenDefined:()=>Promise.resolve()},setTimeout:(f,ms)=>{const id=++sequence;timers.set(id,{f,ms});return id;},clearTimeout:id=>timers.delete(id),requestAnimationFrame:f=>{const id=++sequence;raf.set(id,f);return id;},addEventListener:(k,f)=>globalEvents[k]=f,open(){},ResizeObserver:class{constructor(f){this.f=f;}observe(){}},IntersectionObserver:class{constructor(f){this.f=f;observers.push(this);}observe(){}}};context.window=context;
+  const context={CONTRACT,ensureRenderer:()=>{rendererCalls++;return rendererTask;},MODELS,TABLE_SRC,PARENT_ORIGINS,cameraFor,eventMatches,canRotate,document,location,history,parent,URL,console,matchMedia:()=>pref,customElements:{whenDefined:()=>Promise.resolve()},setTimeout:(f,ms)=>{const id=++sequence;timers.set(id,{f,ms});return id;},clearTimeout:id=>timers.delete(id),requestAnimationFrame:f=>{const id=++sequence;raf.set(id,f);return id;},addEventListener:(k,f)=>globalEvents[k]=f,open(){},ResizeObserver:class{constructor(f){this.f=f;}observe(){}},IntersectionObserver:class{constructor(f){this.f=f;observers.push(this);}observe(){}}};context.window=context;
   Object.assign(context,{TABLES,previewFor,createShowcase:hooks=>{showcaseHooks=hooks;return {manual(){},refresh(){},visibility(){}};}});
   vm.runInNewContext(script,context);await turn();if(!passive){get('explore-btn').fire('click');await turn();}
   function flush(){const batch=[...raf.values()];raf.clear();batch.forEach(f=>f());}
@@ -160,4 +161,19 @@ test('all presets leave horizontal clearance even in the formerly oversized port
   const occupancy=.07/(2*(r-.05)*Math.tan(Math.PI/10)*aspect);
   assert.ok(occupancy<.58,`${view} / ${h} / ${aspect}: ${occupancy}`);
  }
+});
+
+test('context loss pauses rotation and offers a full renderer restart',async()=>{
+ const f=await fixture();f.load();f.get('auto-btn').fire('click');
+ f.get('viewer').fire('error',{type:'webglcontextlost'});
+ assert.equal(f.get('viewer').hasAttribute('auto-rotate'),false);
+ assert.equal(f.get('auto-btn').disabled,true);assert.equal(f.get('model-error').hidden,false);
+ f.get('retry-btn').fire('click');assert.equal(f.location.reloaded,true);f.close();
+});
+test('unsupported protocol versions cannot change host visibility',async()=>{
+ const f=await fixture({embed:true});f.load();f.get('auto-btn').fire('click');
+ f.globalEvents.message({source:f.parent,origin:'https://mennoo.sbs',data:{type:'mennoo-stand-studio:host',version:99,visible:false}});
+ assert.equal(f.get('viewer').hasAttribute('auto-rotate'),true);
+ f.globalEvents.message({source:f.parent,origin:'https://mennoo.sbs',data:{type:'mennoo-stand-studio:host',version:1,visible:false}});
+ assert.equal(f.get('viewer').hasAttribute('auto-rotate'),false);f.close();
 });

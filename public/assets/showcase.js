@@ -123,7 +123,7 @@ export function createShowcase({ activate, camera, reset, getState, notifyHeight
     schedule();
   }
   document.addEventListener('visibilitychange', () => visibility(visible));
-  addEventListener('pagehide', () => { visibility(false); sound.setEnabled(false); });
+  addEventListener('pagehide', event => { visibility(false); sound.setEnabled(false); if(!event.persisted)sound.dispose(); });
   addEventListener('pageshow', () => visibility(true));
   reduced.addEventListener('change', () => { if (reduced.matches) manual(); visibility(visible); });
   visibility(true);

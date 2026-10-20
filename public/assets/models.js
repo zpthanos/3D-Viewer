@@ -1,3 +1,4 @@
+import {CONTRACT} from './viewer-contract.js';
 export const MODELS=Object.freeze({
   "boho": {
     "name": "BOHO",
@@ -37,7 +38,7 @@ export const MODELS=Object.freeze({
   }
 });
 export const TABLE_SRC="/models/cafe-table.2cbd4485102b.glb";
-export const PARENT_ORIGINS=['https://mennoo.cfd','https://www.mennoo.cfd','https://mennoo.sbs','https://www.mennoo.sbs'];
+export const PARENT_ORIGINS=CONTRACT.parentOrigins;
 
 export const TABLES=Object.freeze({
   "walnut": {

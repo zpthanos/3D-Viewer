@@ -3,7 +3,7 @@
   Referrer-Policy: strict-origin-when-cross-origin
   X-Robots-Tag: noindex, nofollow
   Permissions-Policy: camera=(), microphone=(), geolocation=()
-  Content-Security-Policy: default-src 'self'; script-src 'self' 'wasm-unsafe-eval' https://ajax.googleapis.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self' blob: https://ajax.googleapis.com; worker-src 'self' blob:; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors https://mennoo.cfd https://www.mennoo.cfd https://mennoo.sbs https://www.mennoo.sbs; upgrade-insecure-requests
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'wasm-unsafe-eval' https://ajax.googleapis.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self' blob: https://ajax.googleapis.com; worker-src 'self' blob:; frame-src 'self' https://mennoo.app https://www.mennoo.app; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'self' https://mennoo.cfd https://www.mennoo.cfd https://mennoo.sbs https://www.mennoo.sbs; upgrade-insecure-requests
 
 /models/*
   Cache-Control: public, max-age=31536000, immutable
@@ -39,3 +39,7 @@
 /404.html
   Cache-Control: no-cache
 
+
+# Static review copy of the PHP site
+/audit-preview/*
+  Cache-Control: no-cache
