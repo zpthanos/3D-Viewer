@@ -1,0 +1,30 @@
+name: MENNOO browser audit
+on:
+  workflow_dispatch:
+  push:
+    branches: [restore-hero-audit-20261020]
+permissions:
+  contents: read
+jobs:
+  browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - run: npm ci
+        working-directory: qa-browser
+      - run: npx playwright install --with-deps chromium firefox webkit
+        working-directory: qa-browser
+      - run: npm test
+        working-directory: qa-browser
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: browser-audit-results
+          path: |
+            qa-browser/results.json
+            qa-browser/test-results/
+          retention-days: 7
