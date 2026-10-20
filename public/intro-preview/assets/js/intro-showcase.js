@@ -80,7 +80,11 @@ if (root) {
   });
   video.addEventListener('pause', updateButton);
   video.addEventListener('ended', () => { clearTimeout(timeout); pending = false; finished = true; updateButton(); });
-  video.addEventListener('error', fallback);
+  video.addEventListener('error', () => {
+    fallback();
+    // Reset a failed resource so an explicit retry can recover after reconnection.
+    video.removeAttribute('src'); video.load();
+  });
 
   const observer = 'IntersectionObserver' in window ? new IntersectionObserver(([entry]) => {
     visible = entry.isIntersecting; sync();
