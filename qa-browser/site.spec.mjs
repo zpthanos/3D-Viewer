@@ -43,7 +43,7 @@ test('payments link has the real Viva reference and both supplied IBANs',async({
  const link=page.locator('a[href*="vivapayments.com/web2"]').first();
  await expect(link).toHaveAttribute('href',/ref=8699605866872604/);
  await expect(page.locator('body')).toContainText('MENNOO');
- const ibans=await page.locator('[id^="iban-"]').allTextContents();
+ const ibans=await page.locator('input[id^="iban-"]').evaluateAll(nodes=>nodes.map(n=>n.value));
  expect(ibans.map(x=>x.replace(/\s/g,''))).toEqual(expect.arrayContaining(['GR9301102050000020501871196','GR8301727510005751111091971']));
  // Do not open the payment provider or submit payment details.
 });
