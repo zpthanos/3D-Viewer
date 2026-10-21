@@ -43,13 +43,17 @@ test('payments link has the real Viva reference and both supplied IBANs',async({
  const link=page.locator('a[href*="vivapayments.com/web2"]').first();
  await expect(link).toHaveAttribute('href',/ref=8699605866872604/);
  await expect(page.locator('body')).toContainText('MENNOO');
+ const ibans=await page.locator('[id^="iban-"]').allTextContents();
+ expect(ibans.map(x=>x.replace(/\s/g,''))).toEqual(expect.arrayContaining(['GR9301102050000020501871196','GR8301727510005751111091971']));
  // Do not open the payment provider or submit payment details.
 });
 test('critical accessibility checks on home and payments',async({page})=>{
+ const failures=[];
  for(const path of ['/','/payments/']){
   await goto(page,path);const results=await new AxeBuilder({page}).withTags(['wcag2a','wcag2aa','wcag21aa','wcag22aa']).analyze();
-  expect(results.violations.filter(v=>['critical','serious'].includes(v.impact))).toEqual([]);
+  failures.push(...results.violations.filter(v=>['critical','serious'].includes(v.impact)).map(v=>({path,id:v.id,nodes:v.nodes.map(n=>({target:n.target,summary:n.failureSummary}))})));
  }
+ expect(failures).toEqual([]);
 });
 test('reduced motion keeps the old hero usable',async({page})=>{
  await page.emulateMedia({reducedMotion:'reduce'});await goto(page,'/');
