@@ -6,7 +6,7 @@ import {MODELS,TABLE_SRC,TABLES,previewFor,PARENT_ORIGINS} from '../public/asset
 import {cameraFor,eventMatches,canRotate} from '../public/assets/studio-core.js';
 const script=readFileSync(new URL('../public/assets/studio.js',import.meta.url),'utf8').replace(/^import.*;\n/gm,'');
 const turn=()=>new Promise(r=>setImmediate(r));
-async function fixture({reduce=false,embed=false,passive=false,holdRenderer=false}={}){
+async function fixture({reduce=false,embed=false,passive=false,holdRenderer=false,referrer='https://mennoo.gr/stands.php'}={}){
   const nodes=new Map(),globalEvents={},documentEvents={},timers=new Map(),raf=new Map(),observers=[],sent=[];let sequence=0,rendererCalls=0,resolveRenderer,rejectRenderer,showcaseHooks;
   const rendererTask=holdRenderer?new Promise((resolve,reject)=>{resolveRenderer=resolve;rejectRenderer=reject;}):Promise.resolve();
   class Node{
@@ -32,11 +32,11 @@ async function fixture({reduce=false,embed=false,passive=false,holdRenderer=fals
   const modelButtons=Object.keys(MODELS).map(id=>{const n=get('choice-'+id);n.dataset.id=id;return n;});
   const lights=['golden','evening'].map(id=>{const n=get('light-'+id);n.dataset.light=id;return n;});
   const finishes=['walnut','stone'].map(id=>{const n=get('table-'+id);n.dataset.table=id;return n;});
-  const document={hidden:false,referrer:embed?'https://mennoo.sbs/stands.php':'',documentElement:get('html'),body:{scrollHeight:9999},querySelector:s=>get(s==='.studio'?'studio':s.slice(1)),querySelectorAll:s=>s==='[data-table]'?finishes:s==='[data-id]'?modelButtons:s==='[data-camera-control]'?['auto-btn','reset-btn','view-btn','top-btn'].map(get):lights,addEventListener:(k,f)=>documentEvents[k]=f,fonts:{ready:Promise.resolve()}};
+  const document={hidden:false,referrer:embed?referrer:'',documentElement:get('html'),body:{scrollHeight:9999},querySelector:s=>get(s==='.studio'?'studio':s.slice(1)),querySelectorAll:s=>s==='[data-table]'?finishes:s==='[data-id]'?modelButtons:s==='[data-camera-control]'?['auto-btn','reset-btn','view-btn','top-btn'].map(get):lights,addEventListener:(k,f)=>documentEvents[k]=f,fonts:{ready:Promise.resolve()}};
   get('studio').height=1280;
   const pref={matches:reduce,addEventListener:(k,f)=>pref.listener=f};
   const parent={postMessage:(data,origin)=>sent.push({data,origin})};
-  const location={pathname:'/',href:'https://stands.mennoo.sbs/'+(embed?'?embed=1':''),reload(){this.reloaded=true;}};
+  const location={pathname:'/',href:'https://stands.mennoo.gr/'+(embed?'?embed=1':''),reload(){this.reloaded=true;}};
   const history={replaceState(a,b,url){location.href=String(url);}};
   const context={ensureRenderer:()=>{rendererCalls++;return rendererTask;},MODELS,TABLE_SRC,PARENT_ORIGINS,cameraFor,eventMatches,canRotate,document,location,history,parent,URL,console,matchMedia:()=>pref,customElements:{whenDefined:()=>Promise.resolve()},setTimeout:(f,ms)=>{const id=++sequence;timers.set(id,{f,ms});return id;},clearTimeout:id=>timers.delete(id),requestAnimationFrame:f=>{const id=++sequence;raf.set(id,f);return id;},addEventListener:(k,f)=>globalEvents[k]=f,open(){},ResizeObserver:class{constructor(f){this.f=f;}observe(){}},IntersectionObserver:class{constructor(f){this.f=f;observers.push(this);}observe(){}}};context.window=context;
   Object.assign(context,{TABLES,previewFor,createShowcase:hooks=>{showcaseHooks=hooks;return {manual(){},refresh(){},visibility(){}};}});
@@ -51,7 +51,28 @@ test('selecting an already loaded model does not restart its loader',async()=>{c
 test('late loads from an older model cannot dismiss the current loading state',async()=>{const f=await fixture();f.get('choice-mini-votsalo').fire('click');f.load('boho');assert.equal(f.get('model-loading').hidden,false);f.load('mini-votsalo');assert.equal(f.get('model-loading').hidden,true);assert.equal(f.get('model-name').textContent,'MINI ΒΟΤΣΑΛΟ');f.close();});
 test('a model error leaves a poster and offers a real retry with a new request URL',async()=>{const f=await fixture();const old=f.get('viewer').getAttribute('src');f.get('viewer').fire('error',{url:new URL(old,f.location.href).href});assert.equal(f.get('model-error').hidden,false);assert.equal(f.get('auto-btn').disabled,true);f.get('retry-btn').fire('click');assert.notEqual(f.get('viewer').getAttribute('src'),old);assert.equal(f.get('model-error').hidden,true);assert.equal(f.get('viewer').posterShown,true);f.close();});
 test('autoplay stops offscreen, in hidden tabs and under reduced motion',async()=>{const f=await fixture();f.load();f.get('auto-btn').fire('click');assert.equal(f.get('viewer').hasAttribute('auto-rotate'),true);f.observers[0].f([{isIntersecting:false}]);assert.equal(f.get('viewer').hasAttribute('auto-rotate'),false);f.observers[0].f([{isIntersecting:true}]);assert.equal(f.get('viewer').hasAttribute('auto-rotate'),true);f.document.hidden=true;f.documentEvents.visibilitychange();assert.equal(f.get('viewer').hasAttribute('auto-rotate'),false);f.document.hidden=false;f.pref.matches=true;f.pref.listener();assert.equal(f.get('auto-btn').disabled,false);assert.equal(f.get('viewer').hasAttribute('auto-rotate'),false);f.close();});
-test('iframe height uses intrinsic content, can shrink, and authenticates the parent',async()=>{const f=await fixture({embed:true});assert.equal(f.sent.at(-1).data.height,1280);f.get('studio').height=1050;f.globalEvents.message({origin:'https://evil.example',source:f.parent,data:{type:'mennoo-stand-studio:host',visible:false}});f.flush();assert.equal(f.sent.at(-1).data.height,1280);f.globalEvents.message({origin:'https://mennoo.sbs',source:f.parent,data:{type:'mennoo-stand-studio:host',visible:true}});f.flush();assert.equal(f.sent.at(-1).data.height,1050);assert.equal(f.sent.at(-1).origin,'https://mennoo.sbs');f.close();});
+test('iframe height uses intrinsic content, can shrink, and authenticates the parent',async()=>{const f=await fixture({embed:true});assert.equal(f.sent.at(-1).data.height,1280);f.get('studio').height=1050;f.globalEvents.message({origin:'https://evil.example',source:f.parent,data:{type:'mennoo-stand-studio:host',visible:false}});f.flush();assert.equal(f.sent.at(-1).data.height,1280);f.globalEvents.message({origin:'https://mennoo.gr',source:f.parent,data:{type:'mennoo-stand-studio:host',visible:true}});f.flush();assert.equal(f.sent.at(-1).data.height,1050);assert.equal(f.sent.at(-1).origin,'https://mennoo.gr');f.close();});
+test('each approved parent can establish contact without a referrer',async()=>{
+ for(const origin of PARENT_ORIGINS){
+  const f=await fixture({embed:true,passive:true,referrer:''});
+  assert.deepEqual(f.sent.filter(m=>m.data.type==='mennoo-stand-studio:ready').map(m=>m.origin),PARENT_ORIGINS);
+  f.sent.length=0;
+  f.globalEvents.message({origin,source:f.parent,data:{type:'mennoo-stand-studio:host',visible:true}});f.flush();
+  assert.ok(f.sent.some(m=>m.data.type==='mennoo-stand-studio:design'));
+  assert.ok(f.sent.some(m=>m.data.type==='mennoo-stand-studio:height'));
+  assert.ok(f.sent.every(m=>m.origin===origin));
+  assert.equal(f.rendererCalls,0);f.close();
+ }
+});
+test('untrusted origins, sibling windows and unrelated messages cannot establish contact',async()=>{
+ const f=await fixture({embed:true,passive:true,referrer:'https://evil.example/'});f.sent.length=0;
+ for(const origin of ['https://mennoo.cfd','https://mennoo.sbs','http://mennoo.gr','https://mennoo.gr.evil.example','https://other.chatgpt.site','null']){
+  f.globalEvents.message({origin,source:f.parent,data:{type:'mennoo-stand-studio:host',visible:true}});f.flush();
+ }
+ f.globalEvents.message({origin:PARENT_ORIGINS[0],source:{},data:{type:'mennoo-stand-studio:host',visible:true}});
+ f.globalEvents.message({origin:PARENT_ORIGINS[0],source:f.parent,data:{type:'unrelated',visible:true}});f.flush();
+ assert.equal(f.sent.length,0);assert.equal(f.rendererCalls,0);f.close();
+});
 test('top view and QR close-up pause rotation and closing restores focus',async()=>{const f=await fixture();f.load();f.get('auto-btn').fire('click');f.get('top-btn').fire('click');assert.match(f.get('viewer').getAttribute('camera-orbit'),/0deg 8deg/);assert.equal(f.get('viewer').hasAttribute('auto-rotate'),false);f.get('qr-open').fire('click');assert.equal(f.get('qr-dialog').open,true);f.get('qr-close').fire('click');assert.equal(f.get('qr-open').focused,true);f.close();});
 test('camera presets respect actual model height and give narrow screens more clearance',()=>{assert.notEqual(cameraFor(.065).target,cameraFor(.025).target);const radius=c=>Number(c.orbit.split(' ').at(-1).slice(0,-1));assert.ok(radius(cameraFor(.065,'wide',.6))>radius(cameraFor(.065,'wide',1.2)));for(const h of [.025,.065])assert.ok(radius(cameraFor(h,'close',.6))>.12);});
 test('embedded QR opens next to its trigger and resizing can follow its content',async()=>{const f=await fixture({embed:true});f.get('qr-open').fire('click');assert.equal(f.get('qr-dialog').nonModal,true);assert.equal(f.get('qr-open').adjacent.element,f.get('qr-dialog'));assert.equal(f.get('qr-open').getAttribute('aria-expanded'),'true');assert.equal(f.get('qr-dialog').scrolled,true);f.get('qr-close').fire('click');assert.equal(f.get('qr-open').getAttribute('aria-expanded'),'false');f.close();});

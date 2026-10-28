@@ -31,7 +31,7 @@ const models = Object.entries(MODELS).map(([id, model]) => {
   return { id, name: model.name, description: model.description, heightMm: Math.round(model.height * 1000),
     thumbnail: thumbnailPath, viewerThumbnail: model.thumbnail, model: model.src, thumbnailSha256, modelSha256 };
 });
-const data = { schema: 1, viewerOrigin: 'https://stands.mennoo.cfd', models };
+const data = { schema: 1, viewerOrigin: 'https://stands.mennoo.gr', models };
 const manifest = { ...data, revision: digest(JSON.stringify(data)).slice(0, 12) };
 writeFileSync(manifestPath, JSON.stringify(manifest, null, 2) + '\n');
 console.log(`Synced ${models.length} actual model thumbnails; catalog ${manifest.revision}. No remote runtime requests.`);

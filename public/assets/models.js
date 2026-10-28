@@ -37,7 +37,7 @@ export const MODELS=Object.freeze({
   }
 });
 export const TABLE_SRC="/models/cafe-table.2cbd4485102b.glb";
-export const PARENT_ORIGINS=['https://mennoo.cfd','https://www.mennoo.cfd','https://mennoo.sbs','https://www.mennoo.sbs'];
+export const PARENT_ORIGINS=['https://mennoo.gr','https://www.mennoo.gr','https://mennoo-private-preview.ohiosanta-og.chatgpt.site'];
 
 export const TABLES=Object.freeze({
   "walnut": {

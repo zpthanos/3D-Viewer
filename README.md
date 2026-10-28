@@ -28,14 +28,18 @@ Official references: [Static HTML deployment](https://developers.cloudflare.com/
 The main PHP website stays on its existing hosting. On that site, set `viewer_origin` in `config/production.local.php` to the exact HTTPS origin assigned by Pages, without a path or trailing slash:
 
 ```php
-'viewer_origin' => 'https://YOUR-PROJECT.pages.dev',
+'viewer_origin' => 'https://stands.mennoo.gr',
 ```
 
-Replace the example hostname with the actual deployment hostname. If you continue using `https://stands.mennoo.sbs` as a custom domain, the existing setting can stay unchanged once that domain points to this deployment.
+The production custom domain is `https://stands.mennoo.gr`. Keep it attached to this Pages project.
 
 The main site's iframe URL and Content-Security-Policy use this setting. Its `/stands/boho` route embeds this viewer's `/boho?embed=1` route.
 
-Embedding is allowed from `https://mennoo.cfd`, `https://www.mennoo.cfd`, `https://mennoo.sbs` and `https://www.mennoo.sbs`. If the parent domain changes, update both `PARENT_ORIGINS` in `public/assets/models.js` and `frame-ancestors` in `public/_headers`. Update the return/contact links in `public/index.html` and `public/404.html` too.
+Embedding is allowed from `https://mennoo.gr`, `https://www.mennoo.gr` and the exact private preview origin `https://mennoo-private-preview.ohiosanta-og.chatgpt.site`. If the parent domain changes, update both `PARENT_ORIGINS` in `public/assets/models.js` and `frame-ancestors` in `public/_headers`. Update the return/contact links in `public/index.html` and `public/404.html` too.
+
+The viewer uses CSP `frame-ancestors` to restrict embedding. `public/_headers` removes `X-Frame-Options`, which cannot represent this cross-origin allowlist. If a zone-level Transform Rule or Worker injects `SAMEORIGIN` or an old CSP after Pages, update that rule for `stands.mennoo.gr` as well. See [the migration checklist](docs/DOMAIN-MIGRATION-20261028.md).
+
+After editing JavaScript, run `npm run build` and commit the regenerated `public/build/` modules together with `public/index.html`. Existing hashed files stay available for cached HTML; do not edit their contents in place.
 
 ## Files
 
