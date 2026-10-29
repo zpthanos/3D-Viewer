@@ -30,6 +30,8 @@ function controls(){
   const enabled=engaged&&ready;
   viewer.setAttribute('aria-busy',String(engaged&&!ready&&!loadFailed));
   viewer.toggleAttribute('camera-controls',enabled);viewer.setAttribute('tabindex',enabled?'0':'-1');
+  // The SDK and the containing scene must agree: active gestures belong to 3D.
+  viewer.setAttribute('touch-action',enabled?'none':'pan-y');
   scene.dataset.interactive=String(enabled);
   gate.hidden=engaged;$('#lock-btn').hidden=!engaged;
   for(const button of document.querySelectorAll('[data-camera-control]'))button.disabled=!enabled;
@@ -109,7 +111,10 @@ function lock(){activation++;engaged=false;wanted=false;clearTimeout(timer);load
 $('#explore-btn').addEventListener('click',()=>engage());$('#lock-btn').addEventListener('click',lock);
 $('#retry-btn').addEventListener('click',()=>{if(defined)loadModel(true);else{engaged=false;engage();}});
 $('#retry-table-btn').addEventListener('click',()=>{if(defined)loadTable(true);});
-scene.addEventListener('keydown',event=>{if(event.key==='Escape'&&engaged){event.preventDefault();lock();}});
+scene.addEventListener('keydown',event=>{if(event.key==='Escape'){
+  if(expanded||document.fullscreenElement===scene){event.preventDefault();exitFullscreen();}
+  else if(engaged){event.preventDefault();lock();}
+}});
 for(const node of document.querySelectorAll('[data-id]'))node.addEventListener('click',()=>select(node.dataset.id));
 for(const node of document.querySelectorAll('.light-choice[data-light]'))node.addEventListener('click',()=>{
   scene.dataset.light=node.dataset.light;viewer.setAttribute('exposure',node.dataset.light==='evening'?'1.05':'1.35');
@@ -122,6 +127,58 @@ $('#reset-btn').addEventListener('click',()=>{if(ready&&engaged){wanted=false;ro
 // Only real interaction with the canvas stops the tour. SDK camera-change events
 // also fire during programmatic motion and must never immediately cancel autoplay.
 function manual(){if(wanted){wanted=false;rotate();}showcase?.manual();}
+// Read the actual orbit after dragging so a button continues from the current angle.
+for(const button of document.querySelectorAll('[data-orbit-step]'))button.addEventListener('click',()=>{
+  if(!ready||!engaged)return;
+  manual();
+  const orbit=viewer.getCameraOrbit();
+  const theta=orbit.theta+Number(button.dataset.orbitStep)*Math.PI/180;
+  viewer.setAttribute('camera-orbit',`${theta}rad ${orbit.phi}rad ${orbit.radius}m`);
+  if(reduced.matches)viewer.jumpCameraToGoal?.();
+});
+
+const fullscreenButton=$('#fullscreen-btn');
+let expanded=false,fullscreenBusy=false,mutedSiblings=[];
+function syncFullscreen(){
+  const on=expanded||document.fullscreenElement===scene;
+  fullscreenButton.setAttribute('aria-pressed',String(on));
+  fullscreenButton.setAttribute('aria-label',on?'Έξοδος από πλήρη οθόνη':'Πλήρης οθόνη');
+  $('#fullscreen-label').textContent=on?'Κλείσιμο':'Πλήρης οθόνη';
+}
+function setExpanded(on){
+  expanded=on;scene.classList.toggle('is-expanded',on);
+  document.documentElement.classList.toggle('viewer-expanded',on);
+  if(on){
+    scene.setAttribute('role','dialog');scene.setAttribute('aria-modal','true');
+    // Keep keyboard focus inside the enlarged scene without losing existing inert state.
+    for(let node=scene;node.parentElement;node=node.parentElement){
+      for(const sibling of node.parentElement.children)if(sibling!==node){
+        mutedSiblings.push([sibling,sibling.inert]);sibling.inert=true;
+      }
+    }
+  }else{
+    scene.removeAttribute('role');scene.removeAttribute('aria-modal');
+    for(const [node,inert]of mutedSiblings)node.inert=inert;
+    mutedSiblings=[];
+  }
+  post({type:'mennoo-stand-studio:fullscreen',version:1,expanded:on});
+  syncFullscreen();fullscreenButton.focus({preventScroll:true});notifyHeight();
+}
+async function exitFullscreen(){
+  if(expanded)setExpanded(false);
+  else if(document.fullscreenElement===scene){try{await document.exitFullscreen();}catch{}}
+}
+fullscreenButton.addEventListener('click',async()=>{
+  if(fullscreenBusy)return;
+  manual();
+  if(expanded||document.fullscreenElement===scene){await exitFullscreen();return;}
+  fullscreenBusy=true;
+  try{
+    if(!scene.requestFullscreen)throw new Error('Fullscreen unavailable');
+    await scene.requestFullscreen();
+  }catch{setExpanded(true);}finally{fullscreenBusy=false;syncFullscreen();}
+});
+document.addEventListener('fullscreenchange',()=>{syncFullscreen();fullscreenButton.focus({preventScroll:true});});
 viewer.addEventListener('pointerdown',manual,{passive:true});viewer.addEventListener('wheel',manual,{passive:true});
 viewer.addEventListener('keydown',event=>{if(['ArrowLeft','ArrowRight','ArrowUp','ArrowDown','PageUp','PageDown'].includes(event.key))manual();});
 viewer.addEventListener('progress',event=>{if(expected&&!ready&&eventMatches(event,expected,location.href)&&Number.isFinite(event.detail?.totalProgress))progress.textContent=`${Math.round(Math.max(0,Math.min(1,event.detail.totalProgress))*100)}%`;});
@@ -148,7 +205,16 @@ addEventListener('pageshow',event=>{
   rotate();lastHeight=0;notifyHeight();
 });
 addEventListener('message',event=>{
-  if(!embed||event.source!==parent||!PARENT_ORIGINS.includes(event.origin)||event.data?.type!=='mennoo-stand-studio:host')return;
+  if(!embed||event.source!==parent||!PARENT_ORIGINS.includes(event.origin))return;
+  if(event.data?.version!==undefined&&event.data.version!==1)return;
+  if(event.data?.type==='mennoo-stand-studio:select'){
+    if(Object.hasOwn(MODELS,event.data.design)){
+      parentOrigin=event.origin;select(event.data.design);
+      post({type:'mennoo-stand-studio:design',design:active});
+    }
+    return;
+  }
+  if(event.data?.type!=='mennoo-stand-studio:host')return;
   const firstContact=parentOrigin!==event.origin;
   parentOrigin=event.origin;parentVisible=event.data.visible===true;rotate();showcase?.visibility(inView&&parentVisible);lastHeight=0;notifyHeight();
   if(firstContact)post({type:'mennoo-stand-studio:design',design:active});

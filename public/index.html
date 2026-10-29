@@ -11,8 +11,8 @@
   <link rel="preload" as="font" href="/assets/fonts/roboto-400.woff" type="font/woff" crossorigin>
   <link rel="preload" as="image" href="/media/poster-boho.6fd7d401f6e5.webp" media="(min-width:601px)" fetchpriority="high">
   <link rel="preload" as="image" href="/media/poster-boho-mobile.fac93931e3db.webp" media="(max-width:600px)" fetchpriority="high">
-  <link rel="stylesheet" href="/assets/studio.152955c68f93.css">
-  <script data-cfasync="false" type="module" src="/build/studio.50092ad66277.js"></script>
+  <link rel="stylesheet" href="/assets/studio.8707ceb819ce.css">
+  <script data-cfasync="false" type="module" src="/build/studio.b1ab6677a3bd.js"></script>
 </head>
 <body>
   <a class="skip-link" href="#studio">Μετάβαση στην προβολή των stands</a>
@@ -54,7 +54,7 @@
         <p id="presentation-note" class="presentation-note">Η παρουσίαση δείχνει αυτόματα το stand, το QR και το μενού, με μουσική. Μπορείτε να κάνετε παύση ή σίγαση.</p>
         <p id="sound-status" class="sr-only" role="status"></p>
         <div class="studio-grid">
-          <div class="scene" id="scene" data-light="golden">
+          <div class="scene" id="scene" data-light="golden" aria-label="Προβολή stand σε 360 μοίρες">
             <div class="cafe-bg" aria-hidden="true"></div>
             <div class="scene-vignette" aria-hidden="true"></div>
             <div class="scene-glow" aria-hidden="true"></div>
@@ -93,15 +93,18 @@
             <div id="explore-gate" class="explore-gate">
               <div class="gate-copy"><span>ΔΕΙΤΕ ΤΟ STAND ΣΕ 360°</span><button type="button" id="explore-btn"><span aria-hidden="true">↗</span> Ενεργοποίηση 3D</button><p>Μετά την ενεργοποίηση, σύρετε για περιστροφή. Ως τότε, μπορείτε να κυλήσετε τη σελίδα κανονικά.</p></div>
             </div>
-            <button type="button" id="lock-btn" class="lock-btn" hidden>Κλείδωμα χειρισμού</button>
+            <div class="scene-actions"><button type="button" id="lock-btn" class="lock-btn" hidden>Κύλιση σελίδας</button><button type="button" id="fullscreen-btn" class="fullscreen-btn" aria-pressed="false" aria-label="Πλήρης οθόνη"><span aria-hidden="true">⛶</span><span id="fullscreen-label">Πλήρης οθόνη</span></button></div>
+            <span class="center-mark" aria-hidden="true"></span>
             <div class="scene-corner corner-tl" aria-hidden="true"></div><div class="scene-corner corner-tr" aria-hidden="true"></div>
             <div class="scene-corner corner-bl" aria-hidden="true"></div><div class="scene-corner corner-br" aria-hidden="true"></div>
-            <div class="scene-instruction" id="scene-help"><span class="drag-icon" aria-hidden="true">⤢</span><span>Σύρετε οριζόντια για περιστροφή. Με δύο δάχτυλα αλλάζετε τη μεγέθυνση.</span></div>
+            <div class="scene-instruction" id="scene-help"><span class="drag-icon" aria-hidden="true">⤢</span><span>Σύρετε με ένα δάχτυλο για περιστροφή. Με δύο δάχτυλα κάνετε zoom. Για κύλιση, πατήστε «Κύλιση σελίδας».</span></div>
             <div class="model-loading" id="model-loading" role="status" hidden><span id="loading-message">Προετοιμασία τρισδιάστατης προβολής…</span> <span id="progress"></span></div>
             <div class="model-error" id="model-error" role="alert" hidden><p id="error-message">Η τρισδιάστατη προβολή δεν φορτώθηκε.</p><button type="button" id="retry-btn">Δοκιμή ξανά</button></div>
             <p id="load-status" class="sr-only" role="status" aria-live="polite"></p>
             <div id="table-status" class="table-status" role="status" hidden><span>Το τραπέζι δεν φορτώθηκε. Το stand παραμένει διαθέσιμο.</span><button type="button" id="retry-table-btn">Δοκιμή ξανά</button></div>
-            <div class="floating-toolbox" aria-label="Εργαλεία προβολής">
+            <div class="floating-toolbox" role="group" aria-label="Εργαλεία προβολής">
+              <button type="button" data-orbit-step="-30" data-camera-control aria-label="Περιστροφή αριστερά κατά 30 μοίρες" disabled><span aria-hidden="true">↶</span><span>Αριστερά</span></button>
+              <button type="button" data-orbit-step="30" data-camera-control aria-label="Περιστροφή δεξιά κατά 30 μοίρες" disabled><span aria-hidden="true">↷</span><span>Δεξιά</span></button>
               <button type="button" id="auto-btn" data-camera-control aria-pressed="false" aria-label="Αυτόματη περιστροφή" disabled>↻ <span id="auto-label">Περιστροφή</span></button>
               <button type="button" id="reset-btn" data-camera-control aria-label="Επαναφορά κάμερας" disabled><span class="icon" aria-hidden="true">⌖</span> <span>Επαναφορά</span></button>
               <button type="button" id="view-btn" data-camera-control aria-pressed="false" aria-label="Κοντινή προβολή" disabled>⌕ <span>Κοντινό</span></button>

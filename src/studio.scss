@@ -117,3 +117,43 @@ html.embed.is-presenting .studio{position:relative;inset:auto;height:clamp(520px
   html:not(.embed).is-presenting .presentation-copy{width:45%;bottom:105px}
   html:not(.embed).is-presenting .presentation-finale{left:auto;right:7%;top:44%;width:130px;transform:translateY(-50%)}
 }
+
+/* Manual controls and touch gestures share the same active state. */
+.scene[data-interactive=true],
+.scene[data-interactive=true] #viewer { touch-action: none; }
+.scene-actions { position: absolute; z-index: 6; top: 78px; right: 16px; display: flex; gap: 6px; }
+.scene-actions .lock-btn, .fullscreen-btn { position: static; min-height: 44px; border: 1px solid #ffffff65; border-radius: 9px; padding: 10px 12px; background: #100b35e8; color: #fff; font-size: 11px; }
+.fullscreen-btn { display: flex; align-items: center; gap: 7px; }
+.fullscreen-btn > span:first-child { font-size: 21px; line-height: 1; }
+.center-mark { position: absolute; z-index: 3; top: 50%; left: 50%; width: 24px; height: 24px; transform: translate(-50%,-50%); pointer-events: none; opacity: .8; filter: drop-shadow(0 1px 2px #08022f); }
+.center-mark::before,.center-mark::after { content: ''; position: absolute; background: #fff6d5; border-radius: 2px; }
+.center-mark::before { width: 24px; height: 1px; left: 0; top: 11px; }
+.center-mark::after { width: 1px; height: 24px; left: 11px; top: 0; }
+.floating-toolbox { grid-template-columns: repeat(3,minmax(0,1fr)); padding: 7px; border: 1px solid #ffffff38; border-radius: 16px; background: #100b3570; }
+.floating-toolbox button { border-radius: 9px; min-height: 46px; }
+.scene-instruction { bottom: 150px; max-width: 420px; text-shadow: 0 1px 5px #08022f; }
+.explore-gate { padding-bottom: 160px; }
+.scene:fullscreen,.scene.is-expanded { width: 100%; height: 100dvh; min-height: 0; border: 0; }
+.scene.is-expanded { position: fixed; inset: 0; z-index: 1000; }
+html.viewer-expanded,html.viewer-expanded body { overflow: hidden; }
+.scene:fullscreen .floating-toolbox,.scene.is-expanded .floating-toolbox { max-width: 700px; margin-inline: auto; bottom: max(20px,env(safe-area-inset-bottom)); }
+.scene:fullscreen .scene-actions,.scene.is-expanded .scene-actions { top: max(78px,env(safe-area-inset-top)); }
+.is-presenting .scene-actions,.is-presenting .center-mark { display: none; }
+
+/* The design selector is a visual collection, with an explicit selected state. */
+.models { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 10px; margin-top: 16px; }
+.model-choice { position: relative; display: grid; grid-template-columns: 1fr auto; align-content: start; gap: 10px; padding: 12px; min-height: 0; border: 1px solid #d9d0bf; border-radius: 14px; background: #fffcf6; overflow: hidden; }
+.model-choice img { grid-column: 1 / -1; grid-row: 2; width: 100%; height: 110px; object-fit: contain; transition: transform .2s; }
+.model-choice .model-index { grid-column: 1; grid-row: 1; }
+.model-choice .arrow { display: block; grid-column: 2; grid-row: 1; font-size: 15px; }
+.model-choice .model-copy { grid-column: 1 / -1; grid-row: 3; width: auto; gap: 5px; }
+.model-copy strong { font-size: 12px; line-height: 1.4; overflow-wrap: anywhere; }
+.model-copy small { font-size: 11px; line-height: 1.5; }
+.model-choice.active,.model-choice.active:hover { background: #ece4d2; border-color: #968042; box-shadow: inset 0 0 0 1px #968042; }
+.model-choice.active .arrow { font-size: 0; }
+.model-choice.active .arrow::after { content: '✓'; font-size: 15px; color: #5b491c; }
+@media(hover:hover) { .model-choice:hover { background: #f3eddf; } .model-choice:hover img { transform: translateY(-3px); } }
+@media(min-width:1100px) { .floating-toolbox { grid-template-columns: repeat(6,minmax(0,1fr)); } .floating-toolbox button { flex-direction: column; gap: 5px; min-height: 58px; } .scene-instruction { bottom: 112px; } .explore-gate { padding-bottom: 130px; } }
+@media(max-width:530px) { .scene { height: 570px; } .floating-toolbox { left: 10px; right: 10px; bottom: 12px; } .floating-toolbox button { min-height: 47px; padding: 6px 2px; } .floating-toolbox button > span:not(.icon) { font-size: 11px; } .scene-instruction { left: 20px; right: 20px; bottom: 146px; font-size: 11px; } .explore-gate { padding-bottom: 160px; } .controls { padding: 24px 16px; } .model-choice img { height: 125px; } .scene-actions { right: 12px; } }
+@media(max-height:500px) and (orientation:landscape) { .scene:fullscreen .floating-toolbox,.scene.is-expanded .floating-toolbox { grid-template-columns: repeat(6,minmax(0,1fr)); bottom: 8px; } .scene:fullscreen .scene-instruction,.scene.is-expanded .scene-instruction { display: none; } .scene:fullscreen .scene-actions,.scene.is-expanded .scene-actions { top: 14px; } .scene:fullscreen .orbit-indicator,.scene.is-expanded .orbit-indicator { display: none; } }
+@media(prefers-reduced-motion:reduce) { .model-choice img { transition: none; } }

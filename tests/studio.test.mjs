@@ -18,6 +18,8 @@ async function fixture({reduce=false,embed=false,passive=false,holdRenderer=fals
     toggleAttribute(key,value){if(value)this.attributes[key]='';else delete this.attributes[key];}
     hasAttribute(key){return key in this.attributes;}
     getBoundingClientRect(){return{width:this.width,height:this.height};}
+    getCameraOrbit(){return this.orbit??{theta:1.2,phi:1.1,radius:.52};}
+    removeAttribute(key){delete this.attributes[key];}
     jumpCameraToGoal(){this.jumps=(this.jumps||0)+1;}
     showPoster(){this.posterShown=true;}
     dismissPoster(){this.posterShown=false;}
@@ -31,8 +33,9 @@ async function fixture({reduce=false,embed=false,passive=false,holdRenderer=fals
   const get=id=>{if(!nodes.has(id))nodes.set(id,new Node(id));return nodes.get(id);};
   const modelButtons=Object.keys(MODELS).map(id=>{const n=get('choice-'+id);n.dataset.id=id;return n;});
   const lights=['golden','evening'].map(id=>{const n=get('light-'+id);n.dataset.light=id;return n;});
+  const orbitButtons=[-30,30].map(step=>{const n=get('orbit-'+step);n.dataset.orbitStep=String(step);return n;});
   const finishes=['walnut','stone'].map(id=>{const n=get('table-'+id);n.dataset.table=id;return n;});
-  const document={hidden:false,referrer:embed?referrer:'',documentElement:get('html'),body:{scrollHeight:9999},querySelector:s=>get(s==='.studio'?'studio':s.slice(1)),querySelectorAll:s=>s==='[data-table]'?finishes:s==='[data-id]'?modelButtons:s==='[data-camera-control]'?['auto-btn','reset-btn','view-btn','top-btn'].map(get):lights,addEventListener:(k,f)=>documentEvents[k]=f,fonts:{ready:Promise.resolve()}};
+  const document={hidden:false,referrer:embed?referrer:'',documentElement:get('html'),body:{scrollHeight:9999},querySelector:s=>get(s==='.studio'?'studio':s.slice(1)),querySelectorAll:s=>s==='[data-orbit-step]'?orbitButtons:s==='[data-table]'?finishes:s==='[data-id]'?modelButtons:s==='[data-camera-control]'?[...['auto-btn','reset-btn','view-btn','top-btn'].map(get),...orbitButtons]:lights,addEventListener:(k,f)=>documentEvents[k]=f,fonts:{ready:Promise.resolve()}};
   get('studio').height=1280;
   const pref={matches:reduce,addEventListener:(k,f)=>pref.listener=f};
   const parent={postMessage:(data,origin)=>sent.push({data,origin})};
@@ -181,4 +184,64 @@ test('all presets leave horizontal clearance even in the formerly oversized port
   const occupancy=.07/(2*(r-.05)*Math.tan(Math.PI/10)*aspect);
   assert.ok(occupancy<.58,`${view} / ${h} / ${aspect}: ${occupancy}`);
  }
+});
+
+test('active touch captures gestures and locking restores page scrolling',async()=>{
+ const f=await fixture({passive:true});
+ assert.equal(f.get('viewer').getAttribute('touch-action'),'pan-y');
+ f.get('explore-btn').fire('click');await turn();f.load();
+ assert.equal(f.get('viewer').getAttribute('touch-action'),'none');
+ assert.equal(f.get('scene').dataset.interactive,'true');
+ f.get('lock-btn').fire('click');
+ assert.equal(f.get('viewer').getAttribute('touch-action'),'pan-y');
+ assert.equal(f.get('scene').dataset.interactive,'false');f.close();
+});
+test('rotation buttons continue from the dragged camera and pause automatic rotation',async()=>{
+ const f=await fixture();assert.equal(f.get('orbit-30').disabled,true);
+ f.load();assert.equal(f.get('orbit-30').disabled,false);
+ const viewer=f.get('viewer');viewer.orbit={theta:2.4,phi:.8,radius:.63};
+ f.get('auto-btn').fire('click');f.get('orbit-30').fire('click');
+ const [theta,phi,radius]=viewer.getAttribute('camera-orbit').split(' ').map(parseFloat);
+ assert.ok(Math.abs(theta-(2.4+Math.PI/6))<1e-10);
+ assert.equal(phi,.8);assert.equal(radius,.63);
+ assert.equal(viewer.hasAttribute('auto-rotate'),false);
+ f.get('orbit--30').fire('click');
+ assert.ok(Math.abs(parseFloat(viewer.getAttribute('camera-orbit'))-(2.4-Math.PI/6))<1e-10);
+ f.get('lock-btn').fire('click');const before=viewer.getAttribute('camera-orbit');
+ f.get('orbit-30').fire('click');assert.equal(viewer.getAttribute('camera-orbit'),before);f.close();
+});
+test('fullscreen uses the native API and its exit event restores button state',async()=>{
+ const f=await fixture();const scene=f.get('scene'),button=f.get('fullscreen-btn');
+ scene.requestFullscreen=async()=>{f.document.fullscreenElement=scene;f.documentEvents.fullscreenchange();};
+ f.document.exitFullscreen=async()=>{f.document.fullscreenElement=null;f.documentEvents.fullscreenchange();};
+ button.fire('click');await turn();assert.equal(f.document.fullscreenElement,scene);
+ assert.equal(button.getAttribute('aria-pressed'),'true');
+ button.fire('click');await turn();assert.equal(f.document.fullscreenElement,null);
+ assert.equal(button.getAttribute('aria-pressed'),'false');f.close();
+});
+test('rejected fullscreen expands the embed and Escape restores focus and interaction',async()=>{
+ const f=await fixture({embed:true});f.load();
+ const scene=f.get('scene'),button=f.get('fullscreen-btn');
+ scene.requestFullscreen=()=>Promise.reject(new Error('Not allowed'));
+ const sibling={inert:false};scene.parentElement={children:[scene,sibling]};
+ button.fire('click');await turn();
+ assert.equal(button.getAttribute('aria-pressed'),'true');assert.equal(sibling.inert,true);
+ assert.equal(scene.getAttribute('aria-modal'),'true');
+ assert.ok(f.sent.some(m=>m.data.type==='mennoo-stand-studio:fullscreen'&&m.data.expanded===true&&m.origin==='https://mennoo.gr'));
+ scene.fire('keydown',{}, {key:'Escape',preventDefault(){}});await turn();
+ assert.equal(sibling.inert,false);assert.equal(scene.getAttribute('aria-modal'),null);
+ assert.equal(button.getAttribute('aria-pressed'),'false');assert.equal(button.focused,true);
+ assert.equal(f.get('viewer').hasAttribute('camera-controls'),true);
+ assert.ok(f.sent.some(m=>m.data.type==='mennoo-stand-studio:fullscreen'&&m.data.expanded===false));f.close();
+});
+test('host design messages require the approved parent, version and a known design',async()=>{
+ const f=await fixture({embed:true,passive:true});
+ const message=(origin,design,version=1,source=f.parent)=>f.globalEvents.message({origin,source,data:{type:'mennoo-stand-studio:select',design,version}});
+ message('https://evil.example','chonaki');message('https://mennoo.gr','chonaki',2);
+ message('https://mennoo.gr','unknown');message('https://mennoo.gr','chonaki',1,{});
+ assert.equal(f.get('model-name').textContent,'BOHO');
+ message('https://mennoo.gr','chonaki');assert.equal(f.get('model-name').textContent,'ΧΩΝΑΚΙ');
+ assert.equal(f.rendererCalls,0);
+ const count=f.sent.length;message('https://mennoo.gr','chonaki');
+ assert.ok(f.sent.slice(count).some(m=>m.data.type==='mennoo-stand-studio:design'&&m.data.design==='chonaki'));f.close();
 });
